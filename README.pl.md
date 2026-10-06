@@ -1,4 +1,8 @@
-# E-Commerce Performance & Attribution Engine
+<div align="right">
+  <a href="./README.md">English</a> | <strong>Polski</strong>
+</div>
+
+# Wielokanałowa Analiza Efektywności Kampanii i Modeli Atrybucji w E-Commerce
 
 Moduł analityczny badający efektywność kampanii płatnych i bezpłatnych w sklepie internetowym w okresie **08.05–05.08.2026**. Projekt powstał, aby rozwiązać realny problem biznesowy: **jak nie przepalać budżetu reklamowego, opierając się na mylącym modelu Last-Click oraz gdzie w procesie zakupowym faktycznie uciekają klienci**.
 
