@@ -17,9 +17,8 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 
 
 
-<!-- 📸 MIEJSCE NA ZDJĘCIE 1: GŁÓWNY HERO DASHBOARD -->
-<!-- Zrób pełnoekranowy zrzut wygenerowanego pliku executive_summary_report.html otwartego w przeglądarce. Powinno być widać kafelki KPI na samej górze oraz początek tabeli podsumowującej. -->
-![Pulpit Zarządczy - Executive Summary](docs/img/dashboard_hero.png)
+<img width="1893" height="1086" alt="image" src="https://github.com/user-attachments/assets/b3b6837a-2de0-4268-b576-70a9f9585c50" />
+
 
 
 
@@ -83,7 +82,15 @@ Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklam
 * **Delta Atrybucji:** Różnica między przychodem zainicjowanym (First-Touch) a domkniętym (Last-Touch).
 * **Zgodność Modeli (Match %):** Pokazuje, na ile dany kanał domyka sprzedaż w tym samym źródle, w którym ją zaczął.
 * **ROAS & CPA:**
+
+  <br>
+
+  
   $$\text{ROAS} = \frac{\text{Przychód}}{\text{Koszt}}, \quad \text{CPA} = \frac{\text{Koszt}}{\text{Liczba Transakcji}}$$
+  
+  <br>
+
+  
 * **Wycinek kohortowy:** Przeliczenie skumulowanych transakcji w GA4 na faktyczny, inkrementalny przyrost sprzedaży w dniach: **Day 0** (ten sam dzień), **Days 1–3**, **Days 4–7** i **Powyżej 7 dni**.
 
 ### 3) Przestrzeń Zmiennych i Podział Źródeł
@@ -139,24 +146,48 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 ### 1) Rentowność Kampanii Płatnych: ROAS vs CPA
 Wykres bąbelkowy zestawiający koszt pozyskania klienta (CPA) z mnożnikiem zwrotu z reklamy (ROAS). Wielkość bąbla odzwierciedla wolumen przychodu.
 
-<!-- 📸 MIEJSCE NA ZDJĘCIE 2: WYKRES BĄBELKOWY ROAS VS CPA -->
-![Rentowność Kampanii Płatnych](docs/img/chart_roas_vs_cpa.png)
+
+<br>
+
+
+<img width="1532" height="738" alt="image" src="https://github.com/user-attachments/assets/48548fc6-9c57-489d-9091-be4882a18d75" />
+
+
+<br>
+
+
 
 * **Wniosek:** Kampanie w lewym górnym rogu (Ceneo) przynoszą wysoki zysk niskim kosztem. Kampanie w prawym dolnym rogu (`Milwaukee-Ogrod`, `cross-network`) drenują budżet.
 
 ### 2) Czas do Zakupu: Analiza Kohortowa Latencji
 Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do zakupu w poszczególnych źródłach.
 
-<!-- 📸 MIEJSCE NA ZDJĘCIE 3: WYKRES KOHORTOWY -->
-![Dystrybucja Czasu do Zakupu](docs/img/chart_cohort_latency.png)
+
+<br>
+
+
+<img width="1527" height="781" alt="image" src="https://github.com/user-attachments/assets/387172bc-ff4d-44b9-a37b-09c434c8bd83" />
+
+
+<br>
+
+
 
 * **Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1–7 dni (20–27% transakcji na Ceneo i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
 
 ### 3) 5-Etapowy Lejek Zakupowy (Gdzie Uciekają Klienci)
 Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
-<!-- 📸 MIEJSCE NA ZDJĘCIE 4: LEJEK ZAKUPOWY -->
-![Lejek Konwersji Zakupowej](docs/img/chart_purchase_funnel.png)
+
+<br>
+
+
+<img width="1512" height="710" alt="image" src="https://github.com/user-attachments/assets/cceb5903-4c72-47d7-9d0a-1a71c7eea78a" />
+
+
+<br>
+
+
 
 * **Główny problem e-commerce:** Na etapie przejścia z `begin_checkout` do `purchase` odpada aż **76,5% użytkowników** (tylko 23,5% finalizuje zamówienie). Klienci dodają produkty do koszyka i wchodzą w formularz, po czym rezygnują – wskazuje to na brak preferowanych metod płatności, wymóg rejestracji lub niespodziewane koszty dostawy.
 
@@ -181,12 +212,6 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
 ```text
 ecommerce-analytics/
-├── docs/
-│   └── img/
-│       ├── dashboard_hero.png        # Zrzut całego dashboardu zarządczego
-│       ├── chart_roas_vs_cpa.png     # Wykres ROAS vs CPA dla kampanii płatnych
-│       ├── chart_cohort_latency.png  # Wykres kohortowy czasu do zakupu
-│       └── chart_purchase_funnel.png # Wykres 5-etapowego lejka zakupowego
 ├── sales_performance.csv             # Transakcje Last-Touch
 ├── first_touch_users.csv             # Ruch First-Touch
 ├── traffic_and_revenue.csv           # Dane zbiorcze o ruchu
@@ -200,7 +225,8 @@ ecommerce-analytics/
 ├── 04_cohort_latency.py              # Skrypt 4: Analiza czasu konwersji
 ├── 05_executive_report.py            # Skrypt 5: Główny generator raportu HTML
 ├── requirements.txt                  # Wymagane biblioteki Pythona
-└── README.md                         # Dokumentacja projektu
+└── README.md
+└── README.pl.md                          
 ```
 
 
@@ -211,10 +237,6 @@ ecommerce-analytics/
 
 ## 8. Jak Uruchomić Projekt
 
-### Wymagania Wstępne
-* Zainstalowany Python 3.10 lub nowszy
-* Pliki z danymi (`.csv`) umieszczone w głównym katalogu projektu
-
 ### 1. Klonowanie repozytorium
 ```bash
 git clone https://github.com/laura-szczerbowska/ecommerce-analytics.git
@@ -222,6 +244,8 @@ cd ecommerce-analytics
 ```
 
 ### 2. Środowisko wirtualne i instalacja zależności
+
+
 # Utworzenie środowiska wirtualnego
 python -m venv .venv
 
@@ -234,15 +258,15 @@ source .venv/bin/activate
 # Instalacja wymaganych pakietów
 pip install -r requirements.txt
 
+### 3. Generowanie dashboardu zarządczego
+python 05_executive_report.py
+Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executive_summary_report.html i automatycznie otworzy go w domyślnej przeglądarce.
+
 
 
 <br>
 
 
-
-### 3. Generowanie dashboardu zarządczego
-python 05_executive_report.py
-Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executive_summary_report.html i automatycznie otworzy go w domyślnej przeglądarce.
 
 ## 9. Kierunki Dalszego Rozwoju
 * Algorytmiczny model atrybucji (Markov Chains / Shapley): Przejście z modeli heurystycznych na probabilistyczny model łańcuchów Markowa dla wielokanałowych ścieżek zakupowych.
