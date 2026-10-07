@@ -4,7 +4,7 @@
 
 # Wielokanałowa Analiza Efektywności Kampanii i Modeli Atrybucji w E-Commerce
 
-Moduł analityczny badający efektywność kampanii płatnych i bezpłatnych w sklepie internetowym w okresie **08.05–05.08.2026**. Projekt powstał, aby rozwiązać realny problem biznesowy: **jak nie przepalać budżetu reklamowego, opierając się na mylącym modelu Last-Click oraz gdzie w procesie zakupowym faktycznie uciekają klienci**.
+Moduł analityczny badający efektywność kampanii płatnych i bezpłatnych w sklepie internetowym w okresie **08.05-05.08.2026**. Projekt powstał, aby rozwiązać realny problem biznesowy: **jak nie przepalać budżetu reklamowego, opierając się na mylącym modelu Last-Click oraz gdzie w procesie zakupowym faktycznie uciekają klienci**.
 
 Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentowności (ROAS, CPA, AOV), analizę kohortową opóźnienia decyzji zakupowej oraz gotowy skrypt generujący interaktywny dashboard zarządczy w HTML.
 
@@ -66,17 +66,21 @@ Generowanie samodzielnego raportu HTML z wykresami Plotly
 ## 3. Dane i Przygotowanie Zbioru
 
 Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklamowych (Ceneo, Google Ads):
-* `sales_performance.csv` – transakcje i przychody w modelu Last-Touch.
-* `first_touch_users.csv` – pierwsze źródła wizyt nowych użytkowników.
-* `traffic_and_revenue.csv` – wolumeny użytkowników, transakcji i przychodu.
-* `campaign_costs.csv` – realne wydatki reklamowe na kampanie.
-* `funnel_events.csv` – zdarzenia lejka: `session_start`, `view_item`, `add_to_cart`, `begin_checkout`, `purchase`.
-* `cohort_analysis_campaigns.csv` & `cohort_analysis_sources.csv` – dzienne interwały powrotów i zakupów.
+* `sales_performance.csv` - transakcje i przychody w modelu Last-Touch.
+* `first_touch_users.csv` - pierwsze źródła wizyt nowych użytkowników.
+* `traffic_and_revenue.csv` - wolumeny użytkowników, transakcji i przychodu.
+* `campaign_costs.csv` - realne wydatki reklamowe na kampanie.
+* `funnel_events.csv` - zdarzenia lejka: `session_start`, `view_item`, `add_to_cart`, `begin_checkout`, `purchase`.
+* `cohort_analysis_campaigns.csv` & `cohort_analysis_sources.csv` - dzienne interwały powrotów i zakupów.
+
+
 
 ### 1) Czyszczenie Danych
 * **Wydzielenie Ceneo z ruchu referral:** Ceneo w GA4 wpada domyślnie jako zwykły odsyłacz (`referral`). Ponieważ to kanał płatny za klik (CPC), został odseparowany od darmowych poleceń, aby nie fałszować rentowności.
 * **Standaryzacja braków i `(not set)`:** Puste wartości i ucięte parametry UTM zunifikowano do postaci `Not set (not set)`.
 * **Usuwanie duplikatów systemowych GA4:** Oczyszczono zbiory kohortowe z wierszy sumarycznych `RESERVED` oraz zdublowanych rekordów z drugiego zakresu dat.
+
+
 
 ### 2) Inżynieria Wskaźników
 * **Delta Atrybucji:** Różnica między przychodem zainicjowanym (First-Touch) a domkniętym (Last-Touch).
@@ -89,11 +93,12 @@ Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklam
 $$
 \text{ROAS} = \frac{\text{Przychód}}{\text{Koszt}}, \quad \text{CPA} = \frac{\text{Koszt}}{\text{Liczba Transakcji}}
 $$
+
   
   <br>
 
   
-* **Wycinek kohortowy:** Przeliczenie skumulowanych transakcji w GA4 na faktyczny, inkrementalny przyrost sprzedaży w dniach: **Day 0** (ten sam dzień), **Days 1–3**, **Days 4–7** i **Powyżej 7 dni**.
+* **Wycinek kohortowy:** Przeliczenie skumulowanych transakcji w GA4 na faktyczny, inkrementalny przyrost sprzedaży w dniach: **Day 0** (ten sam dzień), **Days 1-3**, **Days 4-7** i **Powyżej 7 dni**.
 
 ### 3) Przestrzeń Zmiennych i Podział Źródeł
 * **Ruch bezpłatny:** `(direct)`, `(organic)`, `(referral)`, `Shopping Free Listings`, `(ai-assistant)`, `Not set (not set)`.
@@ -116,24 +121,33 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 | Źródło / Kampania | Użytkownicy | Transakcje | Przychód (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | Transakcje Day 0 | Zgodność FT/LT | Status / Rekomendacja |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | **comparison_engine / referral** | 3 831 | 87 | 105 711,99 | **12,31** | **98,72** | 1 215,08 | 2,27% | 72,7% | 100,0% | **Top Performer (Skalować)** |
-| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398,90 | **3,63** | **265,86** | 964,42 | 1,04% | 73,5% | 90.7% | **Utrzymać + Optymalizować CRO** |
+| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398,90 | **3,63** | **265,86** | 964,42 | 1,04% | 73,5% | 90.7% | **Utrzymać + Optymalizować ** |
 | **(direct)** | 1 234 | 39 | 38 064,50 | — | — | 976,01 | 3,16% | 84,6% | 96,2% | **Utrzymać (Baza powracająca)** |
 | **(organic)** | 2 630 | 26 | 23 214,10 | — | — | 892,85 | 0,99% | 76,9% | 80,6% | **Utrzymać (Domyka paid ads)** |
-| **PowerBrand-Shopping** | 13 783 | 62 | 12 921,38 | **1,08** | **208,41** | 208,41 | 0,45% | 80,0% | 98,0% | **Przepalanie (Uciąć budżet o 50%)** |
+| **PowerBrand-Shopping** | 13 783 | 62 | 12 921,38 | **1,08** | **208,41** | 208,41 | 0,45% | 80,0% | 98,0% | **Przepalanie (Ograniczyć budżet)** |
 | **PMax \| DiamondTools** | 470 | 14 | 5 152,00 | **3,65** | **100,51** | 368,00 | 2,98% | 85,7% | 97,5% | **Skalować (Wdrożyć cross-sell)** |
 | **Not set (not set)** | 135 | 11 | 9 845,20 | — | — | 895,02 | 8,15% | 81,8% | 92,1% | **Audyt techniczny tagów UTM** |
 | **(ai-assistant)** | 37 | 2 | 2 031,80 | — | — | 1 015,90 | 5,41% | 50,0% | 100,0% | **Nowy trend (Monitorować)** |
 | **Shopping Free Listings** | 22 | 2 | 484,00 | — | — | 242,00 | 8,89% | 50,0% | 100,0% | **Optymalizować feed produktowy** |
 | **(cross-network)** | 312 | 1 | 296,00 | **0,52** | **296,00** | 296,00 | 0,32% | 100,0% | 100,0% | **Wstrzymać / Zmienić strukturę** |
-| **adbox_comparison** | 14 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Wyłączyć natychmiast** |
-| **DiamondTools discount** | 3 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Wyłączyć natychmiast** |
-| **aku** | 3 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Wyłączyć natychmiast** |
+| **adbox_comparison** | 14 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Zidentyfikować/Wyłączyć** |
+| **DiamondTools discount** | 3 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Zidentyfikować/Wyłączyć** |
+| **aku** | 3 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Zidentyfikować/Wyłączyć** |
+
+
+<br>
+
+
 
 ### Kluczowe Wnioski Biznesowe
 1. **Comparison Engine to filar rentowności sklepu:** 105,7k PLN przychodu, wysoki koszyk (1 215 PLN) i znakomity ROAS 12,31. Ruch z porównywarki wie, po co przychodzi – 72,7% kupuje od razu, a reszta traktuje sklep jako bazę odniesienia i wraca w ciągu tygodnia.
 ​2. **Dramatyczna nieefektywność `PowerBrand-Shopping`:** Kampania ściągnęła ponad połowę całego ruchu sklepu (13,7k wizyt) i zjadła rekordowy budżet (12,9k PLN), dając ledwo próg rentowności (ROAS 1,08). CPA na poziomie 208 PLN przy koszyku 208 PLN oznacza realną stratę po odliczeniu kosztu towaru i logistyki.
 3. **Synergia Paid Search z SEO:** Płatna kampania `PowerBrand – ElectroStore – Search Website` inicjuje duży ruch u nowych klientów (o 4,4k PLN więcej w First-Touch niż w Last-Touch). Z kolei Organic Search domyka o 4,5k PLN więcej w Last-Touch. Wniosek: użytkownicy widzą reklamę płatną, szukają opinii, a potem wpisują nazwę sklepu w Google i kupują organicznie.
 4. **Wysoki potencjał ruchu z asystentów AI:** Źródło `(ai-assistant)` miało tylko 37 wizyt, ale wygenerowało 2 zakupy na łączną kwotę ponad 2 000 PLN (CR = 5,41%, AOV > 1 000 PLN). To bardzo obiecujący kanał wczesnego etapu.
+
+
+<br>
+
 
 ### Symulacja Reallokacji Budżetu
 - Obcięcie budżetu `PowerBrand-Shopping` o 50% uwalnia ok. **6 460 PLN**.
@@ -179,7 +193,7 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 
 
 
-- **Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1–7 dni (20–27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
+- **Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
 
 
 <br>
@@ -199,7 +213,7 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
 
 
-- **Główny problem e-commerce:** Na etapie przejścia z `begin_checkout` do `purchase` odpada aż **76,5% użytkowników** (tylko 23,5% finalizuje zamówienie). Klienci dodają produkty do koszyka i wchodzą w formularz, po czym rezygnują – wskazuje to na brak preferowanych metod płatności, wymóg rejestracji lub niespodziewane koszty dostawy.
+- **Główny problem e-commerce:** Na etapie przejścia z `begin_checkout` do `purchase` odpada aż **76,5% użytkowników** (tylko 23,5% finalizuje zamówienie). Klienci dodają produkty do koszyka i wchodzą w formularz, po czym rezygnują - wskazuje to na brak preferowanych metod płatności, wymóg rejestracji lub niespodziewane koszty dostawy.
 
 
 
@@ -211,7 +225,7 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
 - **Język i biblioteki bazowe:** Python 3.10+, Pandas, NumPy
 - **Wizualizacja danych:** Plotly Express, Plotly Graph Objects
-- **Frontend raportu:** Samodzielny szablon HTML5/CSS3 (Dark Mode, Flexbox, CSS Grid) zintegrowany z silnikiem Plotly.js – otwiera się lokalnie w przeglądarce bez konieczności stawiania serwera.
+- **Frontend raportu:** Samodzielny szablon HTML5/CSS3 (Dark Mode, Flexbox, CSS Grid) zintegrowany z silnikiem Plotly.js - otwiera się lokalnie w przeglądarce bez konieczności stawiania serwera.
 
 
 <br>
@@ -222,21 +236,22 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
 ```text
 ecommerce-analytics/
-├── sales_performance.csv             # Transakcje Last-Touch
-├── first_touch_users.csv             # Ruch First-Touch
-├── traffic_and_revenue.csv           # Dane zbiorcze o ruchu
-├── campaign_costs.csv                # Koszty reklamowe
-├── funnel_events.csv                 # Zdarzenia na ścieżce zakupu
-├── cohort_analysis_campaigns.csv     # Kohorty per kampania
-├── cohort_analysis_sources.csv       # Kohorty per źródło
-├── 01_attribution_model.py           # Skrypt 1: Porównanie First vs Last Touch
-├── 02_campaign_matrix.py             # Skrypt 2: Macierz efektywności (CR vs AOV)
-├── 03_funnel_and_roas.py             # Skrypt 3: Analiza lejka i ROAS
-├── 04_cohort_latency.py              # Skrypt 4: Analiza czasu konwersji
-├── 05_executive_report.py            # Skrypt 5: Główny generator raportu HTML
-├── requirements.txt                  # Wymagane biblioteki Pythona
-└── README.md
-└── README.pl.md
+├── data/
+│   ├── sales_performance.csv             # Transakcje Last-Touch
+│   ├── first_touch_users.csv             # Ruch First-Touch
+│   ├── traffic_and_revenue.csv           # Dane zbiorcze o ruchu
+│   ├── campaign_costs.csv                # Koszty reklamowe
+│   ├── funnel_events.csv                 # Zdarzenia na ścieżce zakupu
+│   ├── cohort_analysis_campaigns.csv     # Kohorty per kampania
+│   └── cohort_analysis_sources.csv       # Kohorty per źródło
+├── 01_attribution_model.py               # Skrypt 1: Porównanie First vs Last Touch
+├── 02_campaign_matrix.py                 # Skrypt 2: Macierz efektywności (CR vs AOV)
+├── 03_funnel_and_roas.py                 # Skrypt 3: Analiza lejka i ROAS
+├── 04_cohort_latency.py                  # Skrypt 4: Analiza czasu konwersji
+├── 05_executive_report.py                # Skrypt 5: Główny generator raportu HTML
+├── requirements.txt                      # Wymagane biblioteki Pythona
+├── README.md                             # Dokumentacja w języku angielskim
+└── README.pl.md                          # Dokumentacja w języku polskim
 
 ```
 
@@ -253,6 +268,8 @@ cd ecommerce-analytics
 ```
 
 
+<br>
+
 
 ### 2. Środowisko wirtualne i instalacja zależności
 
@@ -266,8 +283,11 @@ source .venv/bin/activate
 * Aktywacja środowiska (Windows PowerShell):
 .\.venv\Scripts\Activate.ps1
 
-# Instalacja wymaganych pakietów
+* Instalacja wymaganych pakietów
 pip install -r requirements.txt
+
+
+<br>
 
 
 
@@ -282,17 +302,19 @@ Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executiv
 
 
 ## 9. Kierunki Dalszego Rozwoju
-* Algorytmiczny model atrybucji: Przejście z modeli heurystycznych na probabilistyczny model łańcuchów Markowa dla wielokanałowych ścieżek zakupowych.
-* Integracja z Google BigQuery: Bezpośrednie pobieranie danych ze strumienia zdarzeń GA4 bez konieczności ręcznego eksportu plików CSV.
-* Automatyczny alert wahań CPA: Skrypt powiadamiający zespół (np. na Slacku), gdy koszt pozyskania transakcji (CPA) wzrośnie o ponad 30% tydzień do tygodnia.
+* **Algorytmiczny model atrybucji**: Przejście z modeli heurystycznych na probabilistyczny model łańcuchów Markowa dla wielokanałowych ścieżek zakupowych.
+* **Integracja z Google BigQuery**: Bezpośrednie pobieranie danych ze strumienia zdarzeń GA4 bez konieczności ręcznego eksportu plików CSV.
+* **Automatyczny alert wahań CPA**: Skrypt powiadamiający zespół (np. na Slacku), gdy koszt pozyskania transakcji (CPA) wzrośnie o ponad 30% tydzień do tygodnia.
 
 
 <br>
 
 
 ## 10. Podsumowanie i Rekomendacje dla Zarządu
-* Wdrożenie wniosków z analizy pozwala na natychmiastowe oszczędności i wzrost rentowności:
-* Natychmiastowe cięcie kosztów: Obcięcie budżetu nierentownej kampanii PowerBrand-Shopping o 50% oraz wyłączenie zerowych kampanii (adbox_comparison, aku, DiamondTools discount) zatrzymuje marnowanie ponad 7 000 PLN kwartalnie.
-* Doinwestowanie Ceneo: Ruch z porównywarki generuje 12-krotny zwrot (ROAS 12,31). Należy zabezpieczyć budżet i podnieść stawki na najlepiej konwertujące produkty, aby nie tracić wyświetleń przez wyczerpane saldo.
-* Naprawa checkoutu priorytetem przed zwiększaniem ruchu: Sprowadzanie nowego ruchu przy porzucalności kasy na poziomie 76,5% to marnowanie budżetu. Wdrożenie płatności BLIK jednym kliknięciem oraz zakupów bez rejestracji podniesie zyski szybciej niż jakakolwiek nowa kampania reklamowa.
-* Skrócenie okna remarketingu: Kampanie remarketingowe powinny skupić się na pierwszych 7 dniach od wizyty - po tym czasie szansa na domknięcie zakupu drastycznie spada.
+
+
+ Wdrożenie wniosków z analizy pozwala na natychmiastowe oszczędności i wzrost rentowności:
+* **Natychmiastowe cięcie kosztów**: Obcięcie budżetu nierentownej kampanii PowerBrand-Shopping o 50% oraz wyłączenie zerowych kampanii (adbox_comparison, aku, DiamondTools discount) zatrzymuje marnowanie ponad 7 000 PLN kwartalnie.
+* **Doinwestowanie Ceneo**: Ruch z porównywarki generuje 12-krotny zwrot (ROAS 12,31). Należy zabezpieczyć budżet i podnieść stawki na najlepiej konwertujące produkty, aby nie tracić wyświetleń przez wyczerpane saldo.
+* **Naprawa checkoutu priorytetem przed zwiększaniem ruchu**: Sprowadzanie nowego ruchu przy porzucalności kasy na poziomie 76,5% to marnowanie budżetu. Wdrożenie płatności BLIK jednym kliknięciem oraz zakupów bez rejestracji podniesie zyski szybciej niż jakakolwiek nowa kampania reklamowa.
+* **Skrócenie okna remarketingu**: Kampanie remarketingowe powinny skupić się na pierwszych 7 dniach od wizyty - po tym czasie szansa na domknięcie zakupu drastycznie spada.
