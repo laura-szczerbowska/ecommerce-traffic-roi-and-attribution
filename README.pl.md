@@ -324,9 +324,8 @@ pip install -r requirements.txt
 
 ### 3. Generowanie dashboardu zarządczego
 
-```bash
-python 05_executive_report.py
-```
+`python 05_executive_report.py`
+
 Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executive_summary_report.html i automatycznie otworzy go w domyślnej przeglądarce.
 
 
