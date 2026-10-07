@@ -168,16 +168,16 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 | Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | comparison_engine / referral | 3,831 | 87 | 105,711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
-| PowerBrand – ElectroStore – Search Website | 4,338 | 45 | 43,398.90 | **3.63** | **265.86** | 1.04% | **Maintain + On-Site** |
-| (direct) | 1,234 | 39 | 38,064.50 | - | - | 3.16% | **Maintain (Loyal Core)** |
-| (organic) | 2,630 | 26 | 23,214.10 | - | - | 0.99% | **Maintain (Paid Closer)** |
-| PowerBrand-Shopping | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 0.45% | **Cut Budget by 50%** |
-| PMax \| DiamondTools | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | **Scale + Cross-Selling** |
-| Not set (not set) | 135 | 11 | 9,845.20 | - | - | 8.15% | **UTM Tagging Audit** |
-| (ai-assistant) | 37 | 2 | 2,031.80 | - | - | 5.41% | **Emerging Channel (Track)** |
-| Shopping Free Listings | 22 | 2 | 484.00 | - | - | 8.89% | **Feed Optimization** |
-| (cross-network)| 312 | 1 | 296.00 | **0.52** | **296.00** | 0.32% | **Pause / Restructure** |
-| Zero-conversion paid (3 campaigns)| 20 | 0 | 0.00 | **0.00** | - | 0.00% | **Decommission Spend** |
+| PowerBrand – ElectroStore – Search Website | 4,338 | 45 | 43,398.90 | **3.63** | **265.86** | 1.04% | Maintain + On-Site |
+| (direct) | 1,234 | 39 | 38,064.50 | - | - | 3.16% | Maintain (Loyal Core) |
+| (organic) | 2,630 | 26 | 23,214.10 | - | - | 0.99% | Maintain (Paid Closer) |
+| PowerBrand-Shopping | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 0.45% | Cut Budget by 50% |
+| PMax \| DiamondTools | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
+| Not set (not set) | 135 | 11 | 9,845.20 | - | - | 8.15% | UTM Tagging Audit |
+| (ai-assistant) | 37 | 2 | 2,031.80 | - | - | 5.41% | Emerging Channel (Track) |
+| Shopping Free Listings | 22 | 2 | 484.00 | - | - | 8.89% | Feed Optimization |
+| (cross-network)| 312 | 1 | 296.00 | **0.52** | **296.00** | 0.32% | Pause / Restructure|
+| Zero-conversion paid (3 campaigns)| 20 | 0 | 0.00 | **0.00** | - | 0.00% | Decommission Spend |
 
 *\*Includes: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
@@ -215,6 +215,9 @@ Bubble chart mapping Cost Per Acquisition against Return on Ad Spend. Bubble siz
 <img width="1542" height="727" alt="image" src="https://github.com/user-attachments/assets/0bb39ad2-22eb-48e5-822c-86696cdb2425" />
 
 
+<br>
+
+
 - **Takeaway:** Top-left campaigns (Comparison Engine) deliver high returns at minimal acquisition costs. Bottom-right campaigns (`PowerBrand-Shopping`, `cross-network`) generate capital drag and require immediate budget caps.
 
 
@@ -231,6 +234,10 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 <img width="1531" height="792" alt="image" src="https://github.com/user-attachments/assets/84d2b75f-4b39-425a-8246-35d977caf723" />
 
 
+<br>
+
+
+
 - **Takeaway:** **88.5% of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Comparison Engine and Search). Retargeting campaigns running past 7 days produce diminishing returns.
 
 
@@ -245,6 +252,9 @@ E-commerce conversion funnel with campaign-level dropdown filtering.
 
 
 <img width="1540" height="745" alt="image" src="https://github.com/user-attachments/assets/6083bebf-1c5d-4f20-843a-42107be8b797" />
+
+
+<br>
 
 
 - **Core Conversion Bottleneck:** A steep drop-off occurs between `begin_checkout` and `purchase`: **76.5% of users abandon checkout** (only 23.5% complete payment). High intent is lost at the final step, indicating friction around payment gateways, forced account registration, or shipping clarity.
@@ -298,7 +308,7 @@ ecommerce-analytics/
 
 1. Clone the repository
 ```bash
-git clone [https://github.com/laura-szczerbowska/ecommerce-analytics.git](https://github.com/laura-szczerbowska/ecommerce-analytics.git)
+git clone [https://github.com/laura-szczerbowska/ecommerce-analytics.git]
 cd ecommerce-analytics
 ```
 
@@ -339,9 +349,9 @@ The script parses all CSV records, calculates attribution and cohort matrices, o
 
 
 ## 9. Future Roadmap
-* **Algorithmic Multi-Touch Attribution**: Upgrade heuristic models to probabilistic Markov Chains or cooperative Shapley value attribution.
-* **Direct Cloud Integration**: Automate data ingestion via Google BigQuery and the GA4 event stream, deprecating manual CSV exports.
-* **Real-Time CPA Anomaly Alerts**: Implement automated Slack/email notifications triggered when channel acquisition costs spike by >30% week-over-week.
+- **Algorithmic Multi-Touch Attribution**: Upgrade heuristic models to probabilistic Markov Chains or cooperative Shapley value attribution.
+- **Direct Cloud Integration**: Automate data ingestion via Google BigQuery and the GA4 event stream, deprecating manual CSV exports.
+- **Real-Time CPA Anomaly Alerts**: Implement automated Slack/email notifications triggered when channel acquisition costs spike by >30% week-over-week.
 
 
 <br>
@@ -349,9 +359,8 @@ The script parses all CSV records, calculates attribution and cohort matrices, o
 
 ## 10. Summary & Executive Recommendations
 
-    
 Executing these data-driven initiatives delivers immediate cost containment and bottom-line impact:
-* **Instant Cost Reduction**: Slashing spend on Milwaukee-Ogrod by 50% and freezing zero-conversion micro-campaigns (adbox_ceneo, aku, Distar rabat) preserves over 7,000 PLN in quarterly ad spend.
-* **Maximize Ceneo Liquidity**: Ceneo operates as a 12x ROAS engine. Ensure zero budget downtime and lift CPC bids on top-margin catalog items.
-* **Checkout Friction Removal Over Traffic Acquisition**: Pouring traffic into a funnel with 76.5% checkout abandonment is economically inefficient. Introducing express 1-click wallets (BLIK, Apple Pay, Google Pay) and guest checkout will lift revenue faster than scaling media spend.
-* **Cap Retargeting Windows to 7 Days**: Restrict dynamic remarketing to a tight 7-day window—prospects not converting within a week exhibit near-zero conversion probability.
+- **Instant Cost Reduction**: Slashing spend on PowerBrand-Shopping by 50% and freezing zero-conversion micro-campaigns (adbox_comparison, aku, DiamondTools discount) preserves over 7,000 PLN in quarterly ad spend.
+- **Maximize Comparison Engine Liquidity**: Comparison Engine operates as a 12x ROAS engine. Ensure zero budget downtime and lift CPC bids on top-margin catalog items.
+- **Checkout Friction Removal Over Traffic Acquisition**: Pouring traffic into a funnel with 76.5% checkout abandonment is economically inefficient. Introducing express 1-click wallets (BLIK, Apple Pay, Google Pay) and guest checkout will lift revenue faster than scaling media spend.
+- **Cap Retargeting Windows to 7 Days**: Restrict dynamic remarketing to a tight 7-day window—prospects not converting within a week exhibit near-zero conversion probability.
