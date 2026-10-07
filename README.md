@@ -111,7 +111,7 @@ $$
 
 
 
-  $$\text{Match}_{\%} = \frac{\min(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})}{\max(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})} \times 100$$
+$$\text{Match}_{\%} = \frac{\min(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})}{\max(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})} \times 100$$
   
   
 <br>
@@ -125,7 +125,7 @@ $$
 
 
 
-  $$\text{ROAS} = \frac{\text{Revenue}}{\text{Cost}}, \quad \text{CPA} = \frac{\text{Cost}}{\text{Transactions}}$$
+$$\text{ROAS} = \frac{\text{Revenue}}{\text{Cost}}, \quad \text{CPA} = \frac{\text{Cost}}{\text{Transactions}}$$
   
   
 <br>
