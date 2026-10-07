@@ -116,7 +116,9 @@ $$
 
 
 
-$$\text{Match}_{\%} = \frac{\min(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})}{\max(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})} \times 100$$
+$$
+\text{Match Rate} = \frac{\min(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})}{\max(\text{Revenue}_{\text{FT}}, \text{Revenue}_{\text{LT}})} \times 100\%
+$$
   
   
 <br>
@@ -213,6 +215,9 @@ Bubble chart mapping Cost Per Acquisition against Return on Ad Spend. Bubble siz
 
 
 <img width="1542" height="727" alt="image" src="https://github.com/user-attachments/assets/0bb39ad2-22eb-48e5-822c-86696cdb2425" />
+
+
+<br>
 
 
 <br>
