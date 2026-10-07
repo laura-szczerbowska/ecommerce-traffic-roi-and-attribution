@@ -169,14 +169,14 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 
 | Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| Comparison Engine / referral | 3831 | 87 | 105711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
-| PowerBrand – ElectroStore – Search Website | 4338 | 45 | 43398.90 | **3.63** | **265.86** | 1.04% | Maintain + On-Site |
-| (direct) | 1234 | 39 | 38064.50 | - | - | 3.16% | Maintain (Loyal Core) |
-| (organic) | 2630 | 26 | 23214.10 | - | - | 0.99% | Maintain (Paid Closer) |
-| PowerBrand-Shopping | 13783 | 62 | 12921.38 | **1.08** | **208.41** | 0.45% | Cut Budget by 50% |
-| PMax DiamondTools | 470 | 14 | 5152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
-| Not set (not set) | 135 | 11 | 9845.20 | - | - | 8.15% | UTM Tagging Audit |
-| (ai-assistant) | 37 | 2 | 2031.80 | - | - | 5.41% | Emerging Channel (Track) |
+| Comparison Engine / referral | 3831 | 87 | 105 711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
+| PowerBrand – ElectroStore – Search Website | 4 338 | 45 | 43 398.90 | **3.63** | **265.86** | 1.04% | Maintain + On-Site |
+| (direct) | 1234 | 39 | 38 064.50 | - | - | 3.16% | Maintain (Loyal Core) |
+| (organic) | 2630 | 26 | 23 214.10 | - | - | 0.99% | Maintain (Paid Closer) |
+| PowerBrand-Shopping | 13 783 | 62 | 12 921.38 | **1.08** | **208.41** | 0.45% | Cut Budget by 50% |
+| PMax DiamondTools | 470 | 14 | 5 152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
+| Not set (not set) | 135 | 11 | 9 845.20 | - | - | 8.15% | UTM Tagging Audit |
+| (ai-assistant) | 37 | 2 | 2 031.80 | - | - | 5.41% | Emerging Channel (Track) |
 | Shopping Free Listings | 22 | 2 | 484.00 | - | - | 8.89% | Feed Optimization |
 | (cross-network)| 312 | 1 | 296.00 | **0.52** | **296.00** | 0.32% | Pause / Restructure|
 | Zero-conversion paid (3 campaigns)| 20 | 0 | 0.00 | **0.00** | - | 0.00% | Decommission Spend |
