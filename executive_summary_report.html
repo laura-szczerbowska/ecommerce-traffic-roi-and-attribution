@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Executive Summary - Campaign Performance & Attribution Analysis</title>
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <style>
+        body {
+            background-color: #0f172a;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #f8fafc;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+        }
+        .card {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 28px;
+        }
+        .tabela-executive {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            text-align: left;
+        }
+        .tabela-executive th {
+            background-color: #0b1120;
+            color: #94a3b8;
+            padding: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #334155;
+            font-size: 11px;
+        }
+        .tabela-executive td {
+            padding: 12px 14px;
+            border-bottom: 1px solid #334155;
+            color: #e2e8f0;
+            white-space: nowrap;
+        }
+        .tabela-executive tr:hover {
+            background-color: #334155;
+        }
+        .tabela-executive tr:first-child {
+            background-color: rgba(52, 211, 153, 0.08);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- REPORT HEADER -->
+    <div style="margin-bottom: 28px;">
+        <h1 style="font-size: 26px; font-weight: 700; color: #f8fafc; margin: 0 0 8px 0; letter-spacing: -0.02em;">
+            E-Commerce Campaign Performance & Conversion Models Report (08.05-05.08.2026)
+        </h1>
+        <p style="font-size: 15px; color: #94a3b8; margin: 0; line-height: 1.5;">
+            First vs Last Touch attribution modeling, time-to-conversion cohort analysis, and profitability evaluation across 14 traffic sources
+        </p>
+    </div>
+
+    <!-- 1. KPI SUMMARY CARDS -->
+    <div style="margin-bottom: 16px;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin: 0;">
+           Top Performing Channel: COMPARISON ENGINE
+        </h3>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 32px;">
+
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Revenue</div>
+        <div style="font-size: 24px; font-weight: 700; color: #f8fafc; margin-top: 6px;">105 711.99 PLN</div>
+        <div style="font-size: 12px; color: #34d399; margin-top: 6px; font-weight: 500;">31.5% store share • 87 transactions</div>
+      </div>
+
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">ROAS</div>
+        <div style="font-size: 24px; font-weight: 700; color: #34d399; margin-top: 6px;">ROAS 12.31</div>
+        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">Profit leader • Lowest CPA (98.72 PLN)</div>
+      </div>
+
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Average Order Value (AOV)</div>
+        <div style="font-size: 24px; font-weight: 700; color: #34d399; margin-top: 6px;">1 215.08 PLN</div>
+        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">33.10 PLN ARPU • CR 2.27%</div>
+      </div>
+
+      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Purchase Latency & Path</div>
+        <div style="font-size: 24px; font-weight: 700; color: #f8fafc; margin-top: 6px;">100% First=Last</div>
+        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">72.7% Day 0 • 27.3% Days 1-7</div>
+      </div>
+
+    </div>
+
+    <!-- 2. EXECUTIVE SUMMARY TABLE -->
+    <div class="card" style="overflow-x: auto;">
+        <h3 style="margin: 0 0 16px 0; color: #f8fafc; font-size: 1.2rem;">Campaign Performance & Attribution Overview</h3>
+        <table border="1" class="dataframe tabela-executive">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Source / Campaign</th>
+      <th>Users</th>
+      <th>Transactions</th>
+      <th>Revenue</th>
+      <th>ROAS</th>
+      <th>CPA</th>
+      <th>AOV</th>
+      <th>CR%</th>
+      <th>% Immediate Transactions</th>
+      <th>First/Last Match</th>
+      <th>Recommendation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>comparison_engine / referral</td>
+      <td>3 841</td>
+      <td>87</td>
+      <td>105 711.99 PLN</td>
+      <td>12.31</td>
+      <td>98.72 PLN</td>
+      <td>1 215.08 PLN</td>
+      <td>2.27%</td>
+      <td>2.1%</td>
+      <td>100.0%</td>
+      <td><span style="background: rgba(52, 211, 153, 0.2); color: #34d399; padding: 4px 8px; border-radius: 4px; font-weight: 700;">Top Performer</span></td>
+    </tr>
+    <tr>
+      <td>PowerBrand – ElectroStore – Search Website</td>
+      <td>4 343</td>
+      <td>45</td>
+      <td>43 398.90 PLN</td>
+      <td>3.63</td>
+      <td>265.86 PLN</td>
+      <td>964.42 PLN</td>
+      <td>1.04%</td>
+      <td>73.5%</td>
+      <td>90.7%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>(direct)</td>
+      <td>824</td>
+      <td>26</td>
+      <td>15 644.72 PLN</td>
+      <td>-</td>
+      <td>-</td>
+      <td>601.72 PLN</td>
+      <td>3.16%</td>
+      <td>84.6%</td>
+      <td>98.1%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>(organic)</td>
+      <td>1 619</td>
+      <td>16</td>
+      <td>13 940.86 PLN</td>
+      <td>-</td>
+      <td>-</td>
+      <td>871.30 PLN</td>
+      <td>0.99%</td>
+      <td>76.9%</td>
+      <td>67.7%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>PowerBrand-Shopping</td>
+      <td>13 783</td>
+      <td>62</td>
+      <td>13 928.87 PLN</td>
+      <td>1.08</td>
+      <td>208.41 PLN</td>
+      <td>224.66 PLN</td>
+      <td>0.45%</td>
+      <td>80.0%</td>
+      <td>89.5%</td>
+      <td><span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px;">Audit / Optimize</span></td>
+    </tr>
+    <tr>
+      <td>PMax | DiamondTools</td>
+      <td>638</td>
+      <td>19</td>
+      <td>6 963.90 PLN</td>
+      <td>3.65</td>
+      <td>100.51 PLN</td>
+      <td>366.52 PLN</td>
+      <td>2.98%</td>
+      <td>81.0%</td>
+      <td>94.5%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>(referral)</td>
+      <td>510</td>
+      <td>5</td>
+      <td>4 137.48 PLN</td>
+      <td>-</td>
+      <td>-</td>
+      <td>827.50 PLN</td>
+      <td>0.98%</td>
+      <td>0.0%</td>
+      <td>87.3%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>(ai-assistant)</td>
+      <td>39</td>
+      <td>2</td>
+      <td>2 031.56 PLN</td>
+      <td>-</td>
+      <td>-</td>
+      <td>1 015.78 PLN</td>
+      <td>5.13%</td>
+      <td>50.0%</td>
+      <td>100.0%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>Not set (not set)</td>
+      <td>123</td>
+      <td>6</td>
+      <td>1 607.22 PLN</td>
+      <td>-</td>
+      <td>-</td>
+      <td>267.87 PLN</td>
+      <td>4.88%</td>
+      <td>81.8%</td>
+      <td>52.6%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>Shopping Free Listings</td>
+      <td>59</td>
+      <td>2</td>
+      <td>767.13 PLN</td>
+      <td>-</td>
+      <td>-</td>
+      <td>383.56 PLN</td>
+      <td>3.39%</td>
+      <td>50.0%</td>
+      <td>79.0%</td>
+      <td><span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">Maintain</span></td>
+    </tr>
+    <tr>
+      <td>(cross-network)</td>
+      <td>204</td>
+      <td>2</td>
+      <td>671.80 PLN</td>
+      <td>1.13</td>
+      <td>296.25 PLN</td>
+      <td>335.90 PLN</td>
+      <td>0.98%</td>
+      <td>100.0%</td>
+      <td>47.5%</td>
+      <td><span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px;">Audit / Optimize</span></td>
+    </tr>
+    <tr>
+      <td>DiamondTools discount</td>
+      <td>17</td>
+      <td>0</td>
+      <td>0.00 PLN</td>
+      <td>0.00</td>
+      <td>-</td>
+      <td>0.00 PLN</td>
+      <td>0.00%</td>
+      <td>0.0%</td>
+      <td>0.0%</td>
+      <td><span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px;">Audit / Optimize</span></td>
+    </tr>
+    <tr>
+      <td>adbox_comparison</td>
+      <td>3</td>
+      <td>0</td>
+      <td>0.00 PLN</td>
+      <td>0.00</td>
+      <td>-</td>
+      <td>0.00 PLN</td>
+      <td>0.00%</td>
+      <td>100.0%</td>
+      <td>0.0%</td>
+      <td><span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px;">Audit / Optimize</span></td>
+    </tr>
+    <tr>
+      <td>aku</td>
+      <td>16</td>
+      <td>0</td>
+      <td>0.00 PLN</td>
+      <td>0.00</td>
+      <td>-</td>
+      <td>0.00 PLN</td>
+      <td>0.00%</td>
+      <td>0.0%</td>
+      <td>0.0%</td>
+      <td><span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px;">Audit / Optimize</span></td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+    <!-- 3. CHART 1: ROAS VS CPA -->
+    <div class="card">
+        <div style="height:550px; width:100%;">                            <div id="ada9d5c2-f8b3-42a8-a271-dfe58991fa51" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("ada9d5c2-f8b3-42a8-a271-dfe58991fa51")) {                    Plotly.newPlot(                        "ada9d5c2-f8b3-42a8-a271-dfe58991fa51",                        [{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"(cross-network)","marker":{"color":"#636efa","size":{"dtype":"f8","bdata":"Z2ZmZmb+hEA="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"(cross-network)","orientation":"v","showlegend":true,"text":["(cross-network)"],"x":{"dtype":"f8","bdata":"AAAAAACEckA="},"xaxis":"x","y":{"dtype":"f8","bdata":"FK5H4XoU8j8="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"DiamondTools discount","marker":{"color":"#EF553B","size":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"DiamondTools discount","orientation":"v","showlegend":true,"text":["DiamondTools discount"],"x":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"xaxis":"x","y":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"PMax | DiamondTools","marker":{"color":"#00cc96","size":{"dtype":"f8","bdata":"Z2ZmZuYzu0A="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"PMax | DiamondTools","orientation":"v","showlegend":true,"text":["PMax | DiamondTools"],"x":{"dtype":"f8","bdata":"cT0K16MgWUA="},"xaxis":"x","y":{"dtype":"f8","bdata":"MzMzMzMzDUA="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"PowerBrand \u2013 ElectroStore \u2013 Search Website","marker":{"color":"#ab63fa","size":{"dtype":"f8","bdata":"zczMzNww5UA="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"PowerBrand \u2013 ElectroStore \u2013 Search Website","orientation":"v","showlegend":true,"text":["PowerBrand \u2013 ElectroStore \u2013 Search Website"],"x":{"dtype":"f8","bdata":"9ihcj8KdcEA="},"xaxis":"x","y":{"dtype":"f8","bdata":"CtejcD0KDUA="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"PowerBrand-Shopping","marker":{"color":"#FFA15A","size":{"dtype":"f8","bdata":"w\u002fUoXG80y0A="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"PowerBrand-Shopping","orientation":"v","showlegend":true,"text":["PowerBrand-Shopping"],"x":{"dtype":"f8","bdata":"hetRuB4NakA="},"xaxis":"x","y":{"dtype":"f8","bdata":"SOF6FK5H8T8="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"adbox_comparison","marker":{"color":"#19d3f3","size":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"adbox_comparison","orientation":"v","showlegend":true,"text":["adbox_comparison"],"x":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"xaxis":"x","y":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"aku","marker":{"color":"#FF6692","size":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"aku","orientation":"v","showlegend":true,"text":["aku"],"x":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"xaxis":"x","y":{"dtype":"f8","bdata":"AAAAAAAAAAA="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]},{"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e\u003cbr\u003eCPA: %{customdata[1]}\u003cbr\u003eROAS: %{y:.2f}\u003cbr\u003eRevenue: %{customdata[2]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"comparison_engine \u002f referral","marker":{"color":"#B6E880","size":{"dtype":"f8","bdata":"cT0K1\u002f\u002fO+UA="},"sizemode":"area","sizeref":52.20345185185185,"symbol":"circle"},"mode":"markers+text","name":"comparison_engine \u002f referral","orientation":"v","showlegend":true,"text":["comparison_engine \u002f referral"],"x":{"dtype":"f8","bdata":"rkfhehSuWEA="},"xaxis":"x","y":{"dtype":"f8","bdata":"H4XrUbieKEA="},"yaxis":"y","type":"scatter","textfont":{"color":"#CCCCCC","family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","size":11},"hoverlabel":{"font":{"color":"white"},"bgcolor":"#222222","bordercolor":"#444444"},"customdata":[["(cross-network)","296.25 PLN","671.80 PLN"],["DiamondTools discount","0.00 PLN","0.00 PLN"],["PMax | DiamondTools","100.51 PLN","6 963.90 PLN"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","265.86 PLN","43 398.90 PLN"],["PowerBrand-Shopping","208.41 PLN","13 928.87 PLN"],["adbox_comparison","0.00 PLN","0.00 PLN"],["aku","0.00 PLN","0.00 PLN"],["comparison_engine \u002f referral","98.72 PLN","105 711.99 PLN"]],"textposition":["top right","top left","top left","top right","top right","top left","top left","bottom center"]}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"rgb(17,17,17)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#f2f5fa"},"error_y":{"color":"#f2f5fa"},"marker":{"line":{"color":"rgb(17,17,17)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#A2B1C6","gridcolor":"#506784","linecolor":"#506784","minorgridcolor":"#506784","startlinecolor":"#A2B1C6"},"baxis":{"endlinecolor":"#A2B1C6","gridcolor":"#506784","linecolor":"#506784","minorgridcolor":"#506784","startlinecolor":"#A2B1C6"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"line":{"color":"#283442"}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"marker":{"line":{"color":"#283442"}},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#506784"},"line":{"color":"rgb(17,17,17)"}},"header":{"fill":{"color":"#2a3f5f"},"line":{"color":"rgb(17,17,17)"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#f2f5fa","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#f2f5fa"},"geo":{"bgcolor":"rgb(17,17,17)","lakecolor":"rgb(17,17,17)","landcolor":"rgb(17,17,17)","showlakes":true,"showland":true,"subunitcolor":"#506784"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"dark"},"paper_bgcolor":"rgb(17,17,17)","plot_bgcolor":"rgb(17,17,17)","polar":{"angularaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"bgcolor":"rgb(17,17,17)","radialaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"},"yaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"},"zaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"}},"shapedefaults":{"line":{"color":"#f2f5fa"}},"sliderdefaults":{"bgcolor":"#C8D4E3","bordercolor":"rgb(17,17,17)","borderwidth":1,"tickwidth":0},"ternary":{"aaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"baxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"bgcolor":"rgb(17,17,17)","caxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""}},"title":{"x":0.05},"updatemenudefaults":{"bgcolor":"#506784","borderwidth":0},"xaxis":{"automargin":true,"gridcolor":"#283442","linecolor":"#506784","ticks":"","title":{"standoff":15},"zerolinecolor":"#283442","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#283442","linecolor":"#506784","ticks":"","title":{"standoff":15},"zerolinecolor":"#283442","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"CPA - Cost per Acquisition (PLN)"},"showgrid":true,"gridcolor":"#334155","zeroline":false,"tickformat":"d"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":"ROAS - Return on Ad Spend"},"showgrid":true,"gridcolor":"#334155","zeroline":false},"legend":{"title":{"text":"Campaign"},"tracegroupgap":0,"itemsizing":"constant"},"title":{"text":"\u003cb\u003ePaid Campaign Performance: ROAS vs CPA\u003c\u002fb\u003e"},"font":{"family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","color":"#f8fafc"},"margin":{"l":50,"r":80,"t":60,"b":50},"height":550,"plot_bgcolor":"#1e293b","paper_bgcolor":"#1e293b","showlegend":false},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+
+    <!-- 4. CHART 2: TIME-TO-CONVERSION COHORTS -->
+    <div class="card">
+        <div style="height:600px; width:100%;">                            <div id="fe397edd-ef72-43ae-b378-66910e15bc04" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("fe397edd-ef72-43ae-b378-66910e15bc04")) {                    Plotly.newPlot(                        "fe397edd-ef72-43ae-b378-66910e15bc04",                        [{"customdata":[["adbox_comparison","paid campaign","1","1"],["(ai-assistant)","organic \u002f free","1","2"],["(cross-network)","paid campaign","2","2"],["Shopping Free Listings","organic \u002f free","2","4"],["Not set (not set)","organic \u002f free","9","11"],["(organic)","organic \u002f free","10","13"],["PMax | DiamondTools","paid campaign","17","21"],["(direct)","organic \u002f free","22","26"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","paid campaign","36","49"],["PowerBrand-Shopping","paid campaign","48","60"],["comparison_engine \u002f referral","paid campaign","64","3 113"]],"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e (%{customdata[1]})\u003cbr\u003eInterval: \u003cb\u003e%{fullData.name}\u003c\u002fb\u003e\u003cbr\u003eShare: \u003cb\u003e%{x:.1f}%\u003c\u002fb\u003e\u003cbr\u003eTransactions in interval: \u003cb\u003e%{customdata[2]}\u003c\u002fb\u003e of %{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Day 0 (Immediate)","marker":{"color":"#38bdf8","pattern":{"shape":""}},"name":"Day 0 (Immediate)","orientation":"h","showlegend":true,"textposition":"auto","x":{"dtype":"f8","bdata":"AAAAAAAAWUAAAAAAAABJQAAAAAAAAFlAAAAAAAAASUB10UUXXXRUQLITO7ETO1NAz\u002fM8z\u002fM8VEB2Yid2YidVQJhT8HIKXlJAAAAAAAAAVEA9hPjieHIAQA=="},"xaxis":"x","y":["adbox_comparison (N=1)          ","(ai-assistant) (N=2)          ","(cross-network) (N=2)          ","Shopping Free Listings (N=4)          ","Not set (not set) (N=11)          ","(organic) (N=13)          ","PMax | DiamondTools (N=21)          ","(direct) (N=26)          ","PowerBrand \u2013 ElectroStore \u2013 Search Website (N=49)          ","PowerBrand-Shopping (N=60)          ","comparison_engine \u002f referral (N=3 113)          "],"yaxis":"y","type":"bar","hoverlabel":{"font":{"color":"#ffffff"},"bgcolor":"#1e293b","bordercolor":"#475569"}},{"customdata":[["adbox_comparison","paid campaign","0","1"],["(ai-assistant)","organic \u002f free","1","2"],["(cross-network)","paid campaign","0","2"],["Shopping Free Listings","organic \u002f free","2","4"],["Not set (not set)","organic \u002f free","0","11"],["(organic)","organic \u002f free","2","13"],["PMax | DiamondTools","paid campaign","2","21"],["(direct)","organic \u002f free","2","26"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","paid campaign","6","49"],["PowerBrand-Shopping","paid campaign","7","60"],["comparison_engine \u002f referral","paid campaign","203","3 113"]],"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e (%{customdata[1]})\u003cbr\u003eInterval: \u003cb\u003e%{fullData.name}\u003c\u002fb\u003e\u003cbr\u003eShare: \u003cb\u003e%{x:.1f}%\u003c\u002fb\u003e\u003cbr\u003eTransactions in interval: \u003cb\u003e%{customdata[2]}\u003c\u002fb\u003e of %{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Days 1-3 (Short Consideration)","marker":{"color":"#fbbf24","pattern":{"shape":""}},"name":"Days 1-3 (Short Consideration)","orientation":"h","showlegend":true,"textposition":"auto","x":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAABJQAAAAAAAAAAAAAAAAAAASUAAAAAAAAAAAE\u002fsxE7sxC5AwzAMwzAMI0BP7MRO7MQeQB8a60NjfShAVVVVVVVVJ0C3Ifa3ixUaQA=="},"xaxis":"x","y":["adbox_comparison (N=1)          ","(ai-assistant) (N=2)          ","(cross-network) (N=2)          ","Shopping Free Listings (N=4)          ","Not set (not set) (N=11)          ","(organic) (N=13)          ","PMax | DiamondTools (N=21)          ","(direct) (N=26)          ","PowerBrand \u2013 ElectroStore \u2013 Search Website (N=49)          ","PowerBrand-Shopping (N=60)          ","comparison_engine \u002f referral (N=3 113)          "],"yaxis":"y","type":"bar","hoverlabel":{"font":{"color":"#ffffff"},"bgcolor":"#1e293b","bordercolor":"#475569"}},{"customdata":[["adbox_comparison","paid campaign","0","1"],["(ai-assistant)","organic \u002f free","0","2"],["(cross-network)","paid campaign","0","2"],["Shopping Free Listings","organic \u002f free","0","4"],["Not set (not set)","organic \u002f free","1","11"],["(organic)","organic \u002f free","0","13"],["PMax | DiamondTools","paid campaign","2","21"],["(direct)","organic \u002f free","0","26"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","paid campaign","2","49"],["PowerBrand-Shopping","paid campaign","1","60"],["comparison_engine \u002f referral","paid campaign","279","3 113"]],"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e (%{customdata[1]})\u003cbr\u003eInterval: \u003cb\u003e%{fullData.name}\u003c\u002fb\u003e\u003cbr\u003eShare: \u003cb\u003e%{x:.1f}%\u003c\u002fb\u003e\u003cbr\u003eTransactions in interval: \u003cb\u003e%{customdata[2]}\u003c\u002fb\u003e of %{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Days 4-7 (One Week)","marker":{"color":"#34d399","pattern":{"shape":""}},"name":"Days 4-7 (One Week)","orientation":"h","showlegend":true,"textposition":"auto","x":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvuuiiiy4iQAAAAAAAAAAAwzAMwzAMI0AAAAAAAAAAABW8nIKXUxBAq6qqqqqq+j8d2Fy\u002fwewhQA=="},"xaxis":"x","y":["adbox_comparison (N=1)          ","(ai-assistant) (N=2)          ","(cross-network) (N=2)          ","Shopping Free Listings (N=4)          ","Not set (not set) (N=11)          ","(organic) (N=13)          ","PMax | DiamondTools (N=21)          ","(direct) (N=26)          ","PowerBrand \u2013 ElectroStore \u2013 Search Website (N=49)          ","PowerBrand-Shopping (N=60)          ","comparison_engine \u002f referral (N=3 113)          "],"yaxis":"y","type":"bar","hoverlabel":{"font":{"color":"#ffffff"},"bgcolor":"#1e293b","bordercolor":"#475569"}},{"customdata":[["adbox_comparison","paid campaign","0","1"],["(ai-assistant)","organic \u002f free","0","2"],["(cross-network)","paid campaign","0","2"],["Shopping Free Listings","organic \u002f free","0","4"],["Not set (not set)","organic \u002f free","1","11"],["(organic)","organic \u002f free","1","13"],["PMax | DiamondTools","paid campaign","0","21"],["(direct)","organic \u002f free","2","26"],["PowerBrand \u2013 ElectroStore \u2013 Search Website","paid campaign","5","49"],["PowerBrand-Shopping","paid campaign","4","60"],["comparison_engine \u002f referral","paid campaign","2 567","3 113"]],"hovertemplate":"\u003cb\u003e%{customdata[0]}\u003c\u002fb\u003e (%{customdata[1]})\u003cbr\u003eInterval: \u003cb\u003e%{fullData.name}\u003c\u002fb\u003e\u003cbr\u003eShare: \u003cb\u003e%{x:.1f}%\u003c\u002fb\u003e\u003cbr\u003eTransactions in interval: \u003cb\u003e%{customdata[2]}\u003c\u002fb\u003e of %{customdata[3]}\u003cextra\u003e\u003c\u002fextra\u003e","legendgroup":"Over 7 Days","marker":{"color":"#f87171","pattern":{"shape":""}},"name":"Over 7 Days","orientation":"h","showlegend":true,"textposition":"auto","x":{"dtype":"f8","bdata":"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAvuuiiiy4iQE\u002fsxE7sxB5AAAAAAAAAAABP7MRO7MQeQBrrQ2N9aCRAq6qqqqqqGkC\u002fPn1Fe51UQA=="},"xaxis":"x","y":["adbox_comparison (N=1)          ","(ai-assistant) (N=2)          ","(cross-network) (N=2)          ","Shopping Free Listings (N=4)          ","Not set (not set) (N=11)          ","(organic) (N=13)          ","PMax | DiamondTools (N=21)          ","(direct) (N=26)          ","PowerBrand \u2013 ElectroStore \u2013 Search Website (N=49)          ","PowerBrand-Shopping (N=60)          ","comparison_engine \u002f referral (N=3 113)          "],"yaxis":"y","type":"bar","hoverlabel":{"font":{"color":"#ffffff"},"bgcolor":"#1e293b","bordercolor":"#475569"}}],                        {"template":{"data":{"barpolar":[{"marker":{"line":{"color":"rgb(17,17,17)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"bar":[{"error_x":{"color":"#f2f5fa"},"error_y":{"color":"#f2f5fa"},"marker":{"line":{"color":"rgb(17,17,17)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"carpet":[{"aaxis":{"endlinecolor":"#A2B1C6","gridcolor":"#506784","linecolor":"#506784","minorgridcolor":"#506784","startlinecolor":"#A2B1C6"},"baxis":{"endlinecolor":"#A2B1C6","gridcolor":"#506784","linecolor":"#506784","minorgridcolor":"#506784","startlinecolor":"#A2B1C6"},"type":"carpet"}],"choropleth":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"choropleth"}],"contourcarpet":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"contourcarpet"}],"contour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"contour"}],"heatmap":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"heatmap"}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2dcontour"}],"histogram2d":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"histogram2d"}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"mesh3d":[{"colorbar":{"outlinewidth":0,"ticks":""},"type":"mesh3d"}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"parcoords"}],"pie":[{"automargin":true,"type":"pie"}],"scatter3d":[{"line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatter3d"}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattercarpet"}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattergeo"}],"scattergl":[{"marker":{"line":{"color":"#283442"}},"type":"scattergl"}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermapbox"}],"scattermap":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scattermap"}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolargl"}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterpolar"}],"scatter":[{"marker":{"line":{"color":"#283442"}},"type":"scatter"}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0,"ticks":""}},"type":"scatterternary"}],"surface":[{"colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"type":"surface"}],"table":[{"cells":{"fill":{"color":"#506784"},"line":{"color":"rgb(17,17,17)"}},"header":{"fill":{"color":"#2a3f5f"},"line":{"color":"rgb(17,17,17)"}},"type":"table"}]},"layout":{"annotationdefaults":{"arrowcolor":"#f2f5fa","arrowhead":0,"arrowwidth":1},"autotypenumbers":"strict","coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#f2f5fa"},"geo":{"bgcolor":"rgb(17,17,17)","lakecolor":"rgb(17,17,17)","landcolor":"rgb(17,17,17)","showlakes":true,"showland":true,"subunitcolor":"#506784"},"hoverlabel":{"align":"left"},"hovermode":"closest","mapbox":{"style":"dark"},"paper_bgcolor":"rgb(17,17,17)","plot_bgcolor":"rgb(17,17,17)","polar":{"angularaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"bgcolor":"rgb(17,17,17)","radialaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""}},"scene":{"xaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"},"yaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"},"zaxis":{"backgroundcolor":"rgb(17,17,17)","gridcolor":"#506784","gridwidth":2,"linecolor":"#506784","showbackground":true,"ticks":"","zerolinecolor":"#C8D4E3"}},"shapedefaults":{"line":{"color":"#f2f5fa"}},"sliderdefaults":{"bgcolor":"#C8D4E3","bordercolor":"rgb(17,17,17)","borderwidth":1,"tickwidth":0},"ternary":{"aaxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"baxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""},"bgcolor":"rgb(17,17,17)","caxis":{"gridcolor":"#506784","linecolor":"#506784","ticks":""}},"title":{"x":0.05},"updatemenudefaults":{"bgcolor":"#506784","borderwidth":0},"xaxis":{"automargin":true,"gridcolor":"#283442","linecolor":"#506784","ticks":"","title":{"standoff":15},"zerolinecolor":"#283442","zerolinewidth":2},"yaxis":{"automargin":true,"gridcolor":"#283442","linecolor":"#506784","ticks":"","title":{"standoff":15},"zerolinecolor":"#283442","zerolinewidth":2}}},"xaxis":{"anchor":"y","domain":[0.0,1.0],"title":{"text":"Share of Transactions (%)"},"range":[0,100],"ticksuffix":"%","showgrid":true,"gridcolor":"#334155"},"yaxis":{"anchor":"x","domain":[0.0,1.0],"title":{"text":""}},"legend":{"title":{"text":""},"tracegroupgap":0,"orientation":"h","yanchor":"bottom","y":-0.22,"xanchor":"center","x":0.5},"title":{"text":"\u003cb\u003eTime-to-Conversion Distribution per Source \u002f Campaign\u003c\u002fb\u003e"},"barmode":"stack","font":{"family":"Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif","color":"#f8fafc"},"hoverlabel":{"font":{"size":12},"bgcolor":"#222222","bordercolor":"#444444"},"margin":{"l":20,"r":40,"t":60,"b":80},"plot_bgcolor":"#1e293b","paper_bgcolor":"#1e293b","height":600},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+
+    <!-- 5. CHART 3: PURCHASE FUNNEL -->
+    <div class="card">
+        <div style="height:560px; width:100%;">                            <div id="3f2568d1-0559-4d9f-8863-48f2690dc6eb" class="plotly-graph-div" style="height:100%; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("3f2568d1-0559-4d9f-8863-48f2690dc6eb")) {                    Plotly.newPlot(                        "3f2568d1-0559-4d9f-8863-48f2690dc6eb",                        [{"connector":{"visible":false},"customdata":["5 134","3 594","485","250","45"],"hoverlabel":{"bgcolor":"#1e293b","bordercolor":"#475569","font":{"color":"white","family":"Arial"}},"hovertemplate":"\u003cb\u003e%{y}\u003c\u002fb\u003e\u003cbr\u003eEvent Count: %{customdata}\u003cbr\u003eConversion from Initial: %{percentInitial:.1%}\u003cbr\u003eStep-to-Step Conversion: %{percentPrevious:.1%}\u003cextra\u003e\u003c\u002fextra\u003e","insidetextfont":{"color":"white","family":"Arial Black","size":13},"marker":{"color":["#38bdf8","#818cf8","#fbbf24","#f87171","#34d399"],"line":{"width":0}},"name":"PowerBrand \u2013 ElectroStore \u2013 Search Website","outsidetextfont":{"color":"white","family":"Arial Black","size":13},"text":["5 134","3 594","485","250","45"],"textinfo":"text","textposition":"auto","visible":true,"x":[5134,3594,485,250,45],"y":["1. Session Start (Home\u002fLanding)","2. Product View","3. Add to Cart","4. Begin Checkout","5. Purchase Completed"],"type":"funnel"},{"connector":{"visible":false},"customdata":["4 321","2 810","250","370","87"],"hoverlabel":{"bgcolor":"#1e293b","bordercolor":"#475569","font":{"color":"white","family":"Arial"}},"hovertemplate":"\u003cb\u003e%{y}\u003c\u002fb\u003e\u003cbr\u003eEvent Count: %{customdata}\u003cbr\u003eConversion from Initial: %{percentInitial:.1%}\u003cbr\u003eStep-to-Step Conversion: %{percentPrevious:.1%}\u003cextra\u003e\u003c\u002fextra\u003e","insidetextfont":{"color":"white","family":"Arial Black","size":13},"marker":{"color":["#38bdf8","#818cf8","#fbbf24","#f87171","#34d399"],"line":{"width":0}},"name":"comparison_engine \u002f referral","outsidetextfont":{"color":"white","family":"Arial Black","size":13},"text":["4 321","2 810","250","370","87"],"textinfo":"text","textposition":"auto","visible":false,"x":[4321,2810,250,370,87],"y":["1. Session Start (Home\u002fLanding)","2. Product View","3. Add to Cart","4. Begin Checkout","5. Purchase Completed"],"type":"funnel"},{"connector":{"visible":false},"customdata":["14 719","5 622","185","228","62"],"hoverlabel":{"bgcolor":"#1e293b","bordercolor":"#475569","font":{"color":"white","family":"Arial"}},"hovertemplate":"\u003cb\u003e%{y}\u003c\u002fb\u003e\u003cbr\u003eEvent Count: %{customdata}\u003cbr\u003eConversion from Initial: %{percentInitial:.1%}\u003cbr\u003eStep-to-Step Conversion: %{percentPrevious:.1%}\u003cextra\u003e\u003c\u002fextra\u003e","insidetextfont":{"color":"white","family":"Arial Black","size":13},"marker":{"color":["#38bdf8","#818cf8","#fbbf24","#f87171","#34d399"],"line":{"width":0}},"name":"PowerBrand-Shopping","outsidetextfont":{"color":"white","family":"Arial Black","size":13},"text":["14 719","5 622","185","228","62"],"textinfo":"text","textposition":"auto","visible":false,"x":[14719,5622,185,228,62],"y":["1. Session Start (Home\u002fLanding)","2. Product View","3. Add to Cart","4. Begin Checkout","5. Purchase Completed"],"type":"funnel"},{"connector":{"visible":false},"customdata":["737","369","82","72","19"],"hoverlabel":{"bgcolor":"#1e293b","bordercolor":"#475569","font":{"color":"white","family":"Arial"}},"hovertemplate":"\u003cb\u003e%{y}\u003c\u002fb\u003e\u003cbr\u003eEvent Count: %{customdata}\u003cbr\u003eConversion from Initial: %{percentInitial:.1%}\u003cbr\u003eStep-to-Step Conversion: %{percentPrevious:.1%}\u003cextra\u003e\u003c\u002fextra\u003e","insidetextfont":{"color":"white","family":"Arial Black","size":13},"marker":{"color":["#38bdf8","#818cf8","#fbbf24","#f87171","#34d399"],"line":{"width":0}},"name":"PMax | DiamondTools","outsidetextfont":{"color":"white","family":"Arial Black","size":13},"text":["737","369","82","72","19"],"textinfo":"text","textposition":"auto","visible":false,"x":[737,369,82,72,19],"y":["1. Session Start (Home\u002fLanding)","2. Product View","3. Add to Cart","4. Begin Checkout","5. Purchase Completed"],"type":"funnel"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"title":{"font":{"color":"white","size":16},"text":"\u003cb\u003ePurchase Funnel:\u003c\u002fb\u003e PowerBrand \u2013 ElectroStore \u2013 Search Website","x":0.03,"xanchor":"left"},"yaxis":{"tickfont":{"size":13,"color":"white","family":"Arial"},"visible":true,"showline":false,"showgrid":false,"ticks":""},"font":{"color":"#f8fafc","size":12},"margin":{"l":220,"r":80,"t":90,"b":40},"updatemenus":[{"active":0,"bgcolor":"#0f172a","bordercolor":"#334155","buttons":[{"args":[{"visible":[true,false,false,false]},{"title.text":"\u003cb\u003ePurchase Funnel:\u003c\u002fb\u003e PowerBrand \u2013 ElectroStore \u2013 Search Website"}],"label":"PowerBrand \u2013 ElectroStore \u2013 ...","method":"update"},{"args":[{"visible":[false,true,false,false]},{"title.text":"\u003cb\u003ePurchase Funnel:\u003c\u002fb\u003e comparison_engine \u002f referral"}],"label":"comparison_engine \u002f referral","method":"update"},{"args":[{"visible":[false,false,true,false]},{"title.text":"\u003cb\u003ePurchase Funnel:\u003c\u002fb\u003e PowerBrand-Shopping"}],"label":"PowerBrand-Shopping","method":"update"},{"args":[{"visible":[false,false,false,true]},{"title.text":"\u003cb\u003ePurchase Funnel:\u003c\u002fb\u003e PMax | DiamondTools"}],"label":"PMax | DiamondTools","method":"update"}],"direction":"down","font":{"color":"white","size":11},"type":"dropdown","x":1,"xanchor":"center","y":1.12,"yanchor":"top"}],"plot_bgcolor":"#1e293b","paper_bgcolor":"#1e293b","height":560},                        {"responsive": true}                    )                };            </script>        </div>
+    </div>
+
+    <!-- 6. INSIGHTS & RECOMMENDATIONS -->
+    
+    <!-- CARD 1: ANALYTICAL FINDINGS -->
+    <div class="card" style="margin-top: 28px;">
+        <div style="margin-bottom: 20px;">
+            <h3 style="margin: 0 0 6px 0; color: #f8fafc; font-size: 1.5rem;">
+                Key Analytical Findings
+            </h3>
+            <!-- INSIGHTS INTRO -->
+            <div style="margin-top: 16px; margin-bottom: 28px; max-width: 950px;">
+            <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; margin: 0;">
+                A notable <strong style="color: #f8fafc;">88.5% of transactions</strong> conclude on Day 0 (the initial visit), confirming an impulse-driven purchase behavior. The primary systemic bottleneck across paid campaigns occurs at checkout initiation: steep attrition results in only <strong style="color: #f8fafc;">23.5%</strong> of checkout sessions converting into completed orders. Consequently, overall end-to-end funnel conversion (CR) ranges between <strong style="color: #f8fafc;">0.4% and 2.5%</strong>.
+            </p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+
+            <!-- FINDING 1 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 20px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+                <div style="margin-bottom: 12px;">
+                    <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 9px; margin-bottom: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid rgba(56, 189, 248, 0.25);">
+                        Comparison Engine, Search, PMax | DiamondTools
+                    </span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 14px 0; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px;">
+                    Core Revenue Drivers & Closing Efficiency
+                </h4>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        Comparison Engine / Referral
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Primary profitability driver (105 711.99 PLN revenue, ROAS 12.31, AOV 1 215.08 PLN). Full attribution parity (100% Match) with strong conversion efficiency (CR 2.27%). Blends fast checkout completion (72.7% Day 0) with a price comparison role (24 deferred transactions).
+                    </p>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        PowerBrand – ElectroStore – Search Website
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Second largest revenue contributor (43 398.90 PLN, ROAS 3.63). Direct conversion characteristics (73.5% Day 0, Match 90.7%). Requires on-site CRO to compress high acquisition costs (CPA 265.86 PLN) and lift conversion rates (CR 1.04%).
+                    </p>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        PMax | DiamondTools
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        High-converting, stable channel (ROAS 3.65, CR 2.98%, low CPA 100.51 PLN). Primed for budget scaling provided average order value (AOV) is systematically raised via cross-selling.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FINDING 2 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 20px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+                <div style="margin-bottom: 12px;">
+                    <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 9px; margin-bottom: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid rgba(56, 189, 248, 0.25);">
+                        PowerBrand-Shopping, Micro-Campaigns
+                    </span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 14px 0; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px;">
+                    Unprofitable Spend & Traffic Inefficiencies
+                </h4>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        PowerBrand-Shopping
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Highest aggregate ad spend (12 921.38 PLN) yielding critical underperformance (ROAS = 1.08, CPA = 208.41 PLN) with a poor 0.45% CR. While capturing 13 783 users (>50% of aggregate traffic), only 0.4% convert end-to-end.
+                    </p>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        Micro-Campaigns (adbox_comparison, DiamondTools discount, aku, cross-network)
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Negligible transaction volume, negative ROI, and steep acquisition costs for cross-network (CPA 296.00 PLN), generating net capital drag.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FINDING 3 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 20px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+                <div style="margin-bottom: 12px;">
+                    <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid rgba(56, 189, 248, 0.25);">
+                        Organic & Consideration Window
+                    </span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 14px 0; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px;">
+                    Assisted Conversions & Consideration Cycle
+                </h4>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        Organic Search (SEO)
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Closes 4 505.83 PLN more under Last-Touch than it initiates at First-Touch, cost-effectively finalizing customer journeys originally sparked by paid campaigns.
+                    </p>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        1-7 Day Consideration Window
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Between 20% and 27% of users from primary channels take up to a week to finalize checkout. Absence of active retargeting exposes comparing prospects to competitor churn.
+                    </p>
+                </div>
+            </div>
+
+            <!-- FINDING 4 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 20px; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;">
+                <div style="margin-bottom: 12px;">
+                    <span style="background: rgba(56, 189, 248, 0.15); color: #38bdf8; font-size: 9px; font-weight: 700; padding: 3px 8px; margin-bottom: 10px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.04em; border: 1px solid rgba(56, 189, 248, 0.25);">
+                        Unpaid Channels & Tracking Gaps
+                    </span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 14px 0; font-size: 13px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px;">
+                    High-Value Baskets & Attribution Leaks
+                </h4>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        Direct & Referral
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        High brand trust and premium basket size (AOV 800.00-1 000.00 PLN, CR up to 5.13%), indicating established B2B and repeat customer segments.
+                    </p>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 10px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        AI Assistant Traffic
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        Highest conversion rate (5.41%) and record ARPU (54.91 PLN/user). Despite early-stage scale (37 users), this represents a high-intent conversion vector for ongoing tracking.
+                    </p>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.65); border: 1px solid #334155; border-radius: 8px; padding: 14px;">
+                    <div style="color: #f8fafc; font-size: 13px; font-weight: 700; margin-bottom: 6px;">
+                        Tracking Leaks & Data Noise
+                    </div>
+                    <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
+                        The '(not set)' segment accounts for ~4% of revenue with an 81.8% CR, requiring UTM audits to restore clean attribution. Shopping Free Listings metrics reflect micro-sample distortion (2 transactions).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARD 2: STRATEGIC RECOMMENDATIONS -->
+    <div class="card" style="margin-top: 24px;">
+        <div style="margin-bottom: 20px;">
+            <h3 style="margin: 0 0 6px 0; color: #f8fafc; font-size: 1.5rem;">
+                Strategic Recommendations
+            </h3>
+            <div style="margin-top: 16px; margin-bottom: 28px; max-width: 950px;">
+                <p style="margin: 0; font-size: 14px; color: #94a3b8;">
+                    Tactical initiatives covering paid media reallocation, on-site conversion optimization, CRM lifecycle workflows, and organic visibility.
+                </p>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">
+
+            <!-- RECOMMENDATION 1 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <span style="font-size: 10px; font-weight: 700; color: #38bdf8; letter-spacing: 0.05em; text-transform: uppercase;">1. Paid Media Budget Allocation</span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 16px 0; font-size: 13px;">Scale Capital Efficiency & Eliminate Waste</h4>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>Fund Comparison Engine Liquidity:</b> Maintain active pre-paid balances and lift CPC caps on high-margin catalog items to prevent delivery interruptions.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>Curb Inefficient Spend:</b> Cut PowerBrand-Shopping ad spend by at least 50% and pause zero-conversion micro-campaigns (adbox_comparison, DiamondTools discount, aku). Reallocate budget toward Comparison Engine and PMax DiamondTools.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
+- <b>PMax DiamondTools Strategy:</b> Scale budget incrementally while introducing catalog bundling and cross-sell modules on product pages to raise AOV.
+
+                </p>
+            </div>
+
+            <!-- RECOMMENDATION 2 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <span style="font-size: 10px; font-weight: 700; color: #38bdf8; letter-spacing: 0.05em; text-transform: uppercase;">2. Store Experience & Checkout CRO</span>
+                </div>
+               <h4 style="color: #f8fafc; margin: 0 0 16px 0; font-size: 13px;">Eliminate Conversion Bottlenecks</h4>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>Frictionless Checkout:</b> Remove mandatory account registration, enable one-click wallets (BLIK, Apple Pay, Google Pay), and display real-time dispatch countdowns to lift checkout completion toward 50%.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
+- <b>Homepage Layout & A/B Testing:</b> Downsize hero banners, implement a top-deal product carousel, and integrate structured technical specification tables and FAQ sections on product detail pages.
+
+                </p>
+            </div>
+
+            <!-- RECOMMENDATION 3 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <span style="font-size: 10px; font-weight: 700; color: #38bdf8; letter-spacing: 0.05em; text-transform: uppercase;">3. Retargeting & Cart Recovery</span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 16px 0; font-size: 13px;">Capture Extended Decision Windows</h4>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>Automated Cart Recovery:</b> Trigger automated email/push notifications for abandoned checkouts alongside time-sensitive incentives (e.g., 60-minute vouchers) to secure immediate purchase completion.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>Direct Customer Retention:</b> Implement tiered B2B pricing models, targeted newsletters, and 'Reorder Now' triggers for returning customers.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
+- <b>Dynamic Remarketing (7-Day Window):</b> Limit retargeting windows to 7 days to eliminate ad spend waste beyond active purchase consideration.
+
+                </p>
+            </div>
+
+            <!-- RECOMMENDATION 4 -->
+            <div style="background: rgba(56, 189, 248, 0.04); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 10px; padding: 18px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                    <span style="font-size: 10px; font-weight: 700; color: #38bdf8; letter-spacing: 0.05em; text-transform: uppercase;">4. SEO, AI Readiness & Data Quality</span>
+                </div>
+                <h4 style="color: #f8fafc; margin: 0 0 16px 0; font-size: 13px;">Zero-Cost Visibility & Tracking Accuracy</h4>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>SEO & Schema.org Rich Snippets:</b> Strengthen organic visibility for PowerBrand and DiamondTools brand keywords and implement Schema markup for search engine and generative AI discovery.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
+- <b>Referral Growth:</b> Secure backlink placements across official manufacturer directories ('Where to Buy / Authorized Dealers') and industry networks.
+
+                </p>
+
+                <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
+- <b>Resolve '(not set)' Traffic:</b> Perform complete UTM tag auditing across active campaigns to eliminate attribution gaps.
+
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
