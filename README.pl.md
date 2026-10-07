@@ -170,7 +170,7 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 | **(direct)** | 1 234 (39) | 38 064,50 | - | - | 3,16% | **Utrzymać** |
 | **(organic)** | 2 630 (26) | 23 214,10 | - | - | 0,99% | **Utrzymać** |
 | **PowerBrand-Shopping** | 13 783 (62) | 12 921,38 | **1,08** | **208,41** | 0,45% | **Ograniczyć budżet** |
-| **PMax | DiamondTools** | 470 (14) | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować** |
+| **PMax DiamondTools** | 470 (14) | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować** |
 | **Not set (not set)** | 135 (11) | 9 845,20 | - | - | 8,15% | **Audyt UTM** |
 | **(ai-assistant)** | 37 (2) | 2 031,80 | - | - | 5,41% | **Monitorować** |
 | **Shopping Free** | 22 (2) | 484,00 | - | - | 8,89% | **Optymalizacja feedu** |
