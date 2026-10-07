@@ -49,7 +49,7 @@ W e-commerce opieranie budżetów wyłącznie na standardowym raporcie Last-Touc
 ```text
 Surowe dane z GA4 i koszty reklam (CSV)
        ↓
-Czyszczenie danych, normalizacja nazw i wydzielenie Ceneo
+Czyszczenie danych, normalizacja nazw i wydzielenie Comparison Engine
        ↓
 Modelowanie atrybucji (First-Touch vs Last-Touch)
        ↓
@@ -69,7 +69,7 @@ Generowanie samodzielnego raportu HTML z wykresami Plotly
 
 ## 3. Dane i Przygotowanie Zbioru
 
-Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklamowych (Ceneo, Google Ads):
+Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklamowych (Comparison Engine, Google Ads):
 * `sales_performance.csv` - transakcje i przychody w modelu Last-Touch.
 * `first_touch_users.csv` - pierwsze źródła wizyt nowych użytkowników.
 * `traffic_and_revenue.csv` - wolumeny użytkowników, transakcji i przychodu.
@@ -83,7 +83,7 @@ Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklam
 
 
 ### 1) Czyszczenie Danych
-* **Wydzielenie Ceneo z ruchu referral:** Ceneo w GA4 wpada domyślnie jako zwykły odsyłacz (`referral`). Ponieważ to kanał płatny za klik (CPC), został odseparowany od darmowych poleceń, aby nie fałszować rentowności.
+* **Wydzielenie Comparison Engine z ruchu referral:** Comparison Engine w GA4 wpada domyślnie jako zwykły odsyłacz (`referral`). Ponieważ to kanał płatny za klik (CPC), został odseparowany od darmowych poleceń, aby nie fałszować rentowności.
 * **Standaryzacja braków i `(not set)`:** Puste wartości i ucięte parametry UTM zunifikowano do postaci `Not set (not set)`.
 * **Usuwanie duplikatów systemowych GA4:** Oczyszczono zbiory kohortowe z wierszy sumarycznych `RESERVED` oraz zdublowanych rekordów z drugiego zakresu dat.
 
@@ -92,23 +92,50 @@ Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklam
 
 
 ### 2) Inżynieria Wskaźników
-* **Delta Atrybucji:** Różnica między przychodem zainicjowanym (First-Touch) a domkniętym (Last-Touch).
-* **Zgodność Modeli (Match %):** Pokazuje, na ile dany kanał domyka sprzedaż w tym samym źródle, w którym ją zaczął.
-* **ROAS & CPA:**
+
+- **Delta Atrybucji:** Różnica między przychodem zainicjowanym (First-Touch) a domkniętym (Last-Touch):
 
 
 <br>
 
-  
+
+$$
+\Delta \text{Przychód} = \text{Przychód}_{\text{FT}} - \text{Przychód}_{\text{LT}}
+$$
+
+
+<br>
+
+
+- **Zgodność Modeli (Match Rate):** Pokazuje, na ile dany kanał domyka sprzedaż w tym samym źródle, w którym ją zaczął:
+
+
+<br>
+
+
+$$
+\text{Match Rate} = \frac{\min(\text{Przychód}_{\text{FT}}, \text{Przychód}_{\text{LT}})}{\max(\text{Przychód}_{\text{FT}}, \text{Przychód}_{\text{LT}})} \times 100
+$$
+
+
+<br>
+
+
+- **Wskaźniki Rentowności Mediów (ROAS & CPA):**
+
+
+<br>
+
+
 $$
 \text{ROAS} = \frac{\text{Przychód}}{\text{Koszt}}, \quad \text{CPA} = \frac{\text{Koszt}}{\text{Liczba Transakcji}}
 $$
 
-  
+
 <br>
 
-  
-* **Wycinek kohortowy:** Przeliczenie skumulowanych transakcji w GA4 na faktyczny, inkrementalny przyrost sprzedaży w dniach: **Day 0** (ten sam dzień), **Days 1-3**, **Days 4-7** i **Powyżej 7 dni**.
+
+- **Wycinek kohortowy:** Przeliczenie skumulowanych transakcji w GA4 na faktyczny, inkrementalny przyrost sprzedaży w dniach: **Day 0 (ten sam dzień)**, **Days 1-3**, **Days 4-7** i **Powyżej 7 dni**.
 
 
 <br>
@@ -138,12 +165,12 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
 | Źródło / Kampania | Ruch (Trans.) | Przychód (PLN) | ROAS | CPA (PLN) | CR % | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **comparison_engine** | 3 831 (87) | 105 711,99 | **12,31** | **98,72** | 2,27% | **Skalować (Top)** |
+| **Comparison Engine** | 3 831 (87) | 105 711,99 | **12,31** | **98,72** | 2,27% | **Skalować (Top)** |
 | **PowerBrand – Search** | 4 338 (45) | 43 398,90 | **3,63** | **265,86** | 1,04% | **Optymalizować** |
 | **(direct)** | 1 234 (39) | 38 064,50 | — | — | 3,16% | **Utrzymać** |
 | **(organic)** | 2 630 (26) | 23 214,10 | — | — | 0,99% | **Utrzymać** |
 | **PowerBrand-Shopping** | 13 783 (62) | 12 921,38 | **1,08** | **208,41** | 0,45% | **Ciąć budżet** |
-| **PMax \| DiamondTools** | 470 (14) | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować** |
+| **PMax | DiamondTools** | 470 (14) | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować** |
 | **Not set (not set)** | 135 (11) | 9 845,20 | — | — | 8,15% | **Audyt UTM** |
 | **(ai-assistant)** | 37 (2) | 2 031,80 | — | — | 5,41% | **Monitorować** |
 | **Shopping Free** | 22 (2) | 484,00 | — | — | 8,89% | **Feed** |
