@@ -52,7 +52,7 @@ In e-commerce operations, allocating ad spend strictly according to standard Las
 ```text
 Raw GA4 Event Logs & Ad Spend CSVs
        ↓
-Data Cleaning, Label Standardization & Ceneo Channel Isolation
+Data Cleaning, Label Standardization & Comparison Engine Channel Isolation
        ↓
 Attribution Modeling (First-Touch vs Last-Touch Delta)
        ↓
@@ -73,7 +73,7 @@ Stand-Alone Dark-Mode HTML Executive Dashboard Generation (Plotly.js)
 
 ## 3. Data & Dataset Preparation
 
-The pipeline ingests and synchronizes 6 source datasets exported from GA4 and advertising platforms (Google Ads, Ceneo):
+The pipeline ingests and synchronizes 6 source datasets exported from GA4 and advertising platforms (Google Ads, Comparison Engine):
 - `sales_performance.csv` – Transaction counts and revenue under the Last-Touch model.
 - `first_touch_users.csv` – User acquisition touchpoints (First-User Campaign / Source-Medium).
 - `traffic_and_revenue.csv` – Aggregated active users, transactions, and gross revenue per source.
@@ -86,7 +86,7 @@ The pipeline ingests and synchronizes 6 source datasets exported from GA4 and ad
 
 
 ### 1) Data Preprocessing & Cleansing
-- **Ceneo Isolation:** In standard GA4 setups, comparison shopping engine traffic from Ceneo defaults to generic `(referral)`. Because Ceneo operates as a paid Cost-Per-Click (CPC) channel, it was algorithmically separated into `ceneo / referral` to prevent distorting unpaid organic referral metrics.
+- **Comparison Engine Isolation:** In standard GA4 setups, comparison shopping engine traffic from Comparison Engine defaults to generic `(referral)`. Because Comparison Engine operates as a paid Cost-Per-Click (CPC) channel, it was algorithmically separated into `comparison_engine / referral` to prevent distorting unpaid organic referral metrics.
 - **Null & Missing Data Hygiene:** Missing entries, tracking blanks, and untagged parameters were unified into `'Not set (not set)'`.
 - **GA4 System Artifact Removal:** Stripped internal summary rows (`RESERVED`) and duplicated records across multiple date ranges (`date_range_0` validation).
 
@@ -169,12 +169,12 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 
 | Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| comparison_engine / referral | 3,831 | 87 | 105,711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
+| Comparison Engine / referral | 3,831 | 87 | 105,711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
 | PowerBrand – ElectroStore – Search Website | 4,338 | 45 | 43,398.90 | **3.63** | **265.86** | 1.04% | Maintain + On-Site |
 | (direct) | 1,234 | 39 | 38,064.50 | - | - | 3.16% | Maintain (Loyal Core) |
 | (organic) | 2,630 | 26 | 23,214.10 | - | - | 0.99% | Maintain (Paid Closer) |
 | PowerBrand-Shopping | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 0.45% | Cut Budget by 50% |
-| PMax \| DiamondTools | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
+| PMax | DiamondTools | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
 | Not set (not set) | 135 | 11 | 9,845.20 | - | - | 8.15% | UTM Tagging Audit |
 | (ai-assistant) | 37 | 2 | 2,031.80 | - | - | 5.41% | Emerging Channel (Track) |
 | Shopping Free Listings | 22 | 2 | 484.00 | - | - | 8.89% | Feed Optimization |
@@ -292,21 +292,22 @@ E-commerce conversion funnel with campaign-level dropdown filtering.
 ```text
 ecommerce-analytics/
 ├── data/
-│   ├── sales_performance.csv             # Last-Touch transaction logs
-│   ├── first_touch_users.csv             # First-Touch acquisition sources
-│   ├── traffic_and_revenue.csv           # Aggregate traffic & revenue metrics
-│   ├── campaign_costs.csv                # Paid media advertising expenditures
-│   ├── funnel_events.csv                 # E-commerce step event data
-│   ├── cohort_analysis_campaigns.csv     # Daily cohort records by campaign
-│   └── cohort_analysis_sources.csv       # Daily cohort records by source
-├── 01_first_vs_last_touch.py             # Script 1: First vs Last Touch modeling
-├── 02_user_performance.py                # Script 2: Efficiency matrix (CR / AOV / ARPU)
-├── 03_traffic_vs_revenue_analysis.py     # Script 3: Leaky funnel & ROAS analytics
-├── 04_cohort_analysis.py                 # Script 4: Time-to-conversion cohort analysis
-├── 05_final_insights_and_recommendations.py # Script 5: Consolidated HTML dashboard generator
-├── requirements.txt                      # Python dependencies
-├── README.md
-└── README.pl.md
+│   ├── sales_performance.csv              # Last-Touch transaction logs
+│   ├── first_touch_users.csv              # First-Touch acquisition sources
+│   ├── traffic_and_revenue.csv            # Aggregate traffic & revenue metrics
+│   ├── campaign_costs.csv                 # Paid media advertising expenditures
+│   ├── funnel_events.csv                  # E-commerce step event data
+│   ├── cohort_analysis_campaigns.csv      # Daily cohort records by campaign
+│   └── cohort_analysis_sources.csv        # Daily cohort records by source
+├── 01_attribution_model.py                # Script 1: First vs Last Touch modeling
+├── 02_campaign_matrix.py                  # Script 2: Efficiency matrix (CR / AOV / ARPU)
+├── 03_funnel_and_roas.py                  # Script 3: Leaky funnel & ROAS analytics
+├── 04_cohort_latency.py                   # Script 4: Time-to-conversion cohort analysis
+├── 05_executive_report.py                 # Script 5: Consolidated HTML dashboard generator
+├── executive_summary_report.html          # Interactive executive dashboard (generated output html)
+├── requirements.txt                       # Python dependencies
+├── README.md                              # English documentation
+└── README.pl.md                           # Polish documentation
 ```
 
 
@@ -320,7 +321,7 @@ ecommerce-analytics/
 <br>
 
 
-1. Clone the repository
+1) Clone the repository
 ```bash
 git clone [https://github.com/laura-szczerbowska/ecommerce-analytics.git]
 cd ecommerce-analytics
@@ -331,7 +332,7 @@ cd ecommerce-analytics
 
 
 
-2. Set up virtual environment & install dependencies
+2) Set up virtual environment & install dependencies
 ```bash
 # Create virtual environment
 python -m venv .venv
@@ -351,10 +352,9 @@ pip install -r requirements.txt
 <br>
 
 
-3. Generate the Executive Dashboard
-```bash
-python 05_executive_report.py
-```
+3) Generate the Executive Dashboard
+
+`python 05_executive_report.py`
 
 The script parses all CSV records, calculates attribution and cohort matrices, outputs executive_summary_report.html, and automatically launches it in your default web browser.
 
