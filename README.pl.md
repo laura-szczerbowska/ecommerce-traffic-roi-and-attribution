@@ -305,11 +305,8 @@ cd ecommerce-analytics
 * Utworzenie środowiska wirtualnego
 python -m venv .venv
 
-* Aktywacja środowiska (Linux/macOS):
-source .venv/bin/activate
-
-* Aktywacja środowiska (Windows PowerShell):
-.\.venv\Scripts\Activate.ps1
+* Aktywacja środowiska (Linux/macOS)/(Windows PowerShell):
+source .venv/bin/activate / .\.venv\Scripts\Activate.ps1
 
 * Instalacja wymaganych pakietów
 ```bash
