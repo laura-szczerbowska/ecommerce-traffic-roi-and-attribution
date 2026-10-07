@@ -89,7 +89,9 @@ The pipeline ingests and synchronizes 6 source datasets exported from GA4 and ad
 <br>
 
 
-  $$\Delta \text{Revenue} = \text{Revenue}_{\text{First-Touch}} - \text{Revenue}_{\text{Last-Touch}}$$
+$$
+\Delta \text{Revenue} = \text{Revenue}_{\text{First-Touch}} - \text{Revenue}_{\text{Last-Touch}}
+$$
 
   
 <br>
@@ -151,30 +153,30 @@ The pipeline ingests and synchronizes 6 source datasets exported from GA4 and ad
 
 Consolidated performance evaluation matrix across all audited traffic channels:
 
-| Source / Campaign | Users | Transactions | Revenue (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | Day 0 Purchases | FT/LT Match | Status / Recommendation |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **ceneo / referral** | 3,831 | 87 | 105,711.99 | **12.31** | **98.72** | 1,215.08 | 2.27% | 72.7% | 100.0% | **Top Performer (Scale Budget)** |
-| **Milwaukee - Search** | 4,338 | 45 | 43,398.90 | **3.63** | **265.86** | 964.42 | 1.04% | 73.5% | 90.7% | **Maintain + On-Site CRO** |
-| **(direct)** | 1,234 | 39 | 38,064.50 | — | — | 976.01 | 3.16% | 84.6% | 96.2% | **Maintain (Loyal Core)** |
-| **(organic)** | 2,630 | 26 | 23,214.10 | — | — | 892.85 | 0.99% | 76.9% | 80.6% | **Maintain (Paid Closer)** |
-| **Milwaukee-Ogrod-Shopping** | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 208.41 | 0.45% | 80.0% | 98.0% | **Ad-Spend Waste (Cut 50%)** |
-| **PMax \| Distar** | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 368.00 | 2.98% | 85.7% | 97.5% | **Scale + Cross-Selling** |
-| **Not set (not set)** | 135 | 11 | 9,845.20 | — | — | 895.02 | 8.15% | 81.8% | 92.1% | **UTM Tagging Audit** |
-| **(ai-assistant)** | 37 | 2 | 2,031.80 | — | — | 1,015.90 | 5.41% | 50.0% | 100.0% | **Emerging Channel (Track)** |
-| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 242.00 | 8.89% | 50.0% | 100.0% | **Merchant Feed Optimization** |
-| **(cross-network)** | 312 | 1 | 296.00 | **0.52** | **296.00** | 296.00 | 0.32% | 100.0% | 100.0% | **Pause / Restructure** |
-| **adbox_ceneo** | 14 | 0 | 0.00 | **0.00** | — | 0.00 | 0.00% | — | — | **Decommission Spend** |
-| **Distar rabat** | 3 | 0 | 0.00 | **0.00** | — | 0.00 | 0.00% | — | — | **Decommission Spend** |
-| **aku** | 3 | 0 | 0.00 | **0.00** | — | 0.00 | 0.00% | — | — | **Decommission Spend** |
+| Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **comparison_engine / referral** | 3,831 | 87 | 105,711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
+| **PowerBrand – ElectroStore – Search Website** | 4,338 | 45 | 43,398.90 | **3.63** | **265.86** | 1.04% | **Maintain + On-Site** |
+| **(direct)** | 1,234 | 39 | 38,064.50 | — | — | 3.16% | **Maintain (Loyal Core)** |
+| **(organic)** | 2,630 | 26 | 23,214.10 | — | — | 0.99% | **Maintain (Paid Closer)** |
+| **PowerBrand-Shopping** | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 0.45% | **Cut Budget by 50%** |
+| **PMax \| DiamondTools** | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | **Scale + Cross-Selling** |
+| **Not set (not set)** | 135 | 11 | 9,845.20 | — | — | 8.15% | **UTM Tagging Audit** |
+| **(ai-assistant)** | 37 | 2 | 2,031.80 | — | — | 5.41% | **Emerging Channel (Track)** |
+| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 8.89% | **Feed Optimization** |
+| **(cross-network)** | 312 | 1 | 296.00 | **0.52** | **296.00** | 0.32% | **Pause / Restructure** |
+| **Zero-conversion paid (3 campaigns)\*** | 20 | 0 | 0.00 | **0.00** | — | 0.00% | **Decommission Spend** |
+
+*\*Includes: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
 
 <br>
 
 
 ### Key Business Takeaways
-1. **Ceneo is the Primary Profit Engine:** Generates 105.7k PLN (31.5% store share), the highest basket size (AOV 1,215 PLN), and an unmatched **ROAS of 12.31**. Comparison-shopper intent is immediate: 72.7% convert on Day 0, while the remaining 27.3% return within 7 days.
-2. **Critical Ad Inefficiency in `Milwaukee-Ogrod`:** Consumed over 50% of aggregate traffic (13.7k users) and the largest media budget (12.9k PLN), barely clearing break-even (**ROAS 1.08**). A CPA of 208 PLN against an AOV of 208 PLN produces net operating losses once COGS and fulfillment are accounted for.
-3. **Synergy Between Paid Search & SEO:** `Milwaukee Search` introduces considerable new-prospect volume (generating 4.4k PLN more in First-Touch than Last-Touch). Conversely, Organic Search closes **4.5k PLN more in Last-Touch**, confirming that users initially acquired via paid ads later finalize orders via organic search at zero marginal cost.
+1. **Comparison Engine is the Primary Profit Engine:** Generates 105.7k PLN (31.5% store share), the highest basket size (AOV 1,215 PLN), and an unmatched **ROAS of 12.31**. Comparison-shopper intent is immediate: 72.7% convert on Day 0, while the remaining 27.3% return within 7 days.
+2. **Critical Ad Inefficiency in `PowerBrand-Shopping`:** Consumed over 50% of aggregate traffic (13.7k users) and the largest media budget (12.9k PLN), barely clearing break-even (**ROAS 1.08**). A CPA of 208 PLN against an AOV of 208 PLN produces net operating losses once COGS and fulfillment are accounted for.
+3. **Synergy Between Paid Search & SEO:** `PowerBrand Search` introduces considerable new-prospect volume (generating 4.4k PLN more in First-Touch than Last-Touch). Conversely, Organic Search closes **4.5k PLN more in Last-Touch**, confirming that users initially acquired via paid ads later finalize orders via organic search at zero marginal cost.
 4. **AI-Assistant Traffic Represents High Intent:** The `(ai-assistant)` referral vector recorded only 37 visits but yielded 2 large orders totaling 2,031 PLN (**CR = 5.41%**, **AOV > 1,000 PLN**), highlighting an emerging channel worth monitoring.
 
 
@@ -182,8 +184,8 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 
 
 ### Reallocation Simulation
-- Slashing ad spend on `Milwaukee-Ogrod` by 50% unlocks **~6,460 PLN**.
-- Reallocating 70% toward Ceneo (raising CPC caps on top-margin inventory) and 30% to PMax Distar boosts composite ad-spend **ROAS from 4.12 to over 6.50** without sacrificing sales volume.
+- Slashing ad spend on `PowerBrand-Shopping` by 50% unlocks **~6,460 PLN**.
+- Reallocating 70% toward Comparison Engine (raising CPC caps on top-margin inventory) and 30% to PMax DiamondTools boosts composite ad-spend **ROAS from 4.12 to over 6.50** without sacrificing sales volume.
 
 
 <br>
@@ -201,7 +203,8 @@ Bubble chart mapping Cost Per Acquisition against Return on Ad Spend. Bubble siz
 <img width="1542" height="727" alt="image" src="https://github.com/user-attachments/assets/0bb39ad2-22eb-48e5-822c-86696cdb2425" />
 
 
-- **Takeaway:** Top-left campaigns (Ceneo) deliver high returns at minimal acquisition costs. Bottom-right campaigns (`Milwaukee-Ogrod`, `cross-network`) generate capital drag and require immediate budget caps.
+- **Takeaway:** Top-left campaigns (Comparison Engine) deliver high returns at minimal acquisition costs. Bottom-right campaigns (`PowerBrand-Shopping`, `cross-network`) generate capital drag and require immediate budget caps.
+
 
 ### 2) Purchase Latency: Time-to-Conversion Cohort Decomposition
 Horizontal stacked distribution tracking days elapsed from user acquisition to order placement.
@@ -213,7 +216,8 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 <img width="1531" height="792" alt="image" src="https://github.com/user-attachments/assets/84d2b75f-4b39-425a-8246-35d977caf723" />
 
 
-- **Takeaway:** **88.5% of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Ceneo and Search). Retargeting campaigns running past 7 days produce diminishing returns.
+- **Takeaway:** **88.5% of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Comparison Engine and Search). Retargeting campaigns running past 7 days produce diminishing returns.
+
 
 ### 3) 5-Stage Purchase Funnel (Drop-off Diagnostics)
 E-commerce conversion funnel with campaign-level dropdown filtering.
@@ -245,28 +249,30 @@ E-commerce conversion funnel with campaign-level dropdown filtering.
 
 ```text
 ecommerce-analytics/
-├── sales_performance.csv             # Last-Touch transaction logs
-├── first_touch_users.csv             # First-Touch acquisition sources
-├── traffic_and_revenue.csv           # Aggregate traffic & revenue metrics
-├── campaign_costs.csv                # Paid media advertising expenditures
-├── funnel_events.csv                 # E-commerce step event data
-├── cohort_analysis_campaigns.csv     # Daily cohort records by campaign
-├── cohort_analysis_sources.csv       # Daily cohort records by source
-├── 01_first_vs_last_touch.py           # Script 1: First vs Last Touch modeling
-├── 02_user_performance.py             # Script 2: Efficiency matrix (CR / AOV / ARPU)
-├── 03_traffic_vs_revenue_analysis.py  # Script 3: Leaky funnel & ROAS analytics
-├── 04_cohort_analysis.py              # Script 4: Time-to-conversion cohort analysis
+├── data/
+│   ├── sales_performance.csv             # Last-Touch transaction logs
+│   ├── first_touch_users.csv             # First-Touch acquisition sources
+│   ├── traffic_and_revenue.csv           # Aggregate traffic & revenue metrics
+│   ├── campaign_costs.csv                # Paid media advertising expenditures
+│   ├── funnel_events.csv                 # E-commerce step event data
+│   ├── cohort_analysis_campaigns.csv     # Daily cohort records by campaign
+│   └── cohort_analysis_sources.csv       # Daily cohort records by source
+├── 01_first_vs_last_touch.py             # Script 1: First vs Last Touch modeling
+├── 02_user_performance.py                # Script 2: Efficiency matrix (CR / AOV / ARPU)
+├── 03_traffic_vs_revenue_analysis.py     # Script 3: Leaky funnel & ROAS analytics
+├── 04_cohort_analysis.py                 # Script 4: Time-to-conversion cohort analysis
 ├── 05_final_insights_and_recommendations.py # Script 5: Consolidated HTML dashboard generator
-├── requirements.txt                  # Python dependencies
-└── README.md
+├── requirements.txt                      # Python dependencies
+├── README.md
 └── README.pl.md
 ```
 
 
+8. Getting Started
+
+
 <br>
 
-
-8. Getting Started
 
 1. Clone the repository
 ```bash
@@ -274,11 +280,22 @@ git clone [https://github.com/laura-szczerbowska/ecommerce-analytics.git](https:
 cd ecommerce-analytics
 ```
 
+
+<br>
+
+
+
 2. Set up virtual environment & install dependencies
 ```bash
 # Create virtual environment
 python -m venv .venv
 ```
+
+
+<br>
+
+
+
 Activate on Linux/macOS:
 source .venv/bin/activate
 
@@ -287,6 +304,9 @@ Activate on Windows (PowerShell):
 
 Install requirements
 pip install -r requirements.txt
+
+
+<br>
 
 
 3. Generate the Executive Dashboard
@@ -301,17 +321,19 @@ The script parses all CSV records, calculates attribution and cohort matrices, o
 
 
 ## 9. Future Roadmap
-* Algorithmic Multi-Touch Attribution: Upgrade heuristic models to probabilistic Markov Chains or cooperative Shapley value attribution.
-* Direct Cloud Integration: Automate data ingestion via Google BigQuery and the GA4 event stream, deprecating manual CSV exports.
-* Real-Time CPA Anomaly Alerts: Implement automated Slack/email notifications triggered when channel acquisition costs spike by >30% week-over-week.
+* **Algorithmic Multi-Touch Attribution**: Upgrade heuristic models to probabilistic Markov Chains or cooperative Shapley value attribution.
+* **Direct Cloud Integration**: Automate data ingestion via Google BigQuery and the GA4 event stream, deprecating manual CSV exports.
+* **Real-Time CPA Anomaly Alerts**: Implement automated Slack/email notifications triggered when channel acquisition costs spike by >30% week-over-week.
 
 
 <br>
 
 
 10. Summary & Executive Recommendations
-* Executing these data-driven initiatives delivers immediate cost containment and bottom-line impact:
-* Instant Cost Reduction: Slashing spend on Milwaukee-Ogrod by 50% and freezing zero-conversion micro-campaigns (adbox_ceneo, aku, Distar rabat) preserves over 7,000 PLN in quarterly ad spend.
-* Maximize Ceneo Liquidity: Ceneo operates as a 12x ROAS engine. Ensure zero budget downtime and lift CPC bids on top-margin catalog items.
-* Checkout Friction Removal Over Traffic Acquisition: Pouring traffic into a funnel with 76.5% checkout abandonment is economically inefficient. Introducing express 1-click wallets (BLIK, Apple Pay, Google Pay) and guest checkout will lift revenue faster than scaling media spend.
-* Cap Retargeting Windows to 7 Days: Restrict dynamic remarketing to a tight 7-day window—prospects not converting within a week exhibit near-zero conversion probability.
+
+    
+Executing these data-driven initiatives delivers immediate cost containment and bottom-line impact:
+* **Instant Cost Reduction**: Slashing spend on Milwaukee-Ogrod by 50% and freezing zero-conversion micro-campaigns (adbox_ceneo, aku, Distar rabat) preserves over 7,000 PLN in quarterly ad spend.
+* **Maximize Ceneo Liquidity**: Ceneo operates as a 12x ROAS engine. Ensure zero budget downtime and lift CPC bids on top-margin catalog items.
+* **Checkout Friction Removal Over Traffic Acquisition**: Pouring traffic into a funnel with 76.5% checkout abandonment is economically inefficient. Introducing express 1-click wallets (BLIK, Apple Pay, Google Pay) and guest checkout will lift revenue faster than scaling media spend.
+* **Cap Retargeting Windows to 7 Days**: Restrict dynamic remarketing to a tight 7-day window—prospects not converting within a week exhibit near-zero conversion probability.
