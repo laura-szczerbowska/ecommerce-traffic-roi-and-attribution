@@ -22,7 +22,21 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 
 
 
-<img width="1897" height="1096" alt="image" src="https://github.com/user-attachments/assets/693745a7-b68a-4e3e-9ef1-ee87858c14b8" />
+
+
+
+
+
+
+
+https://github.com/user-attachments/assets/f4671d1e-e4cb-48a3-89ac-7aa75fa26898
+
+
+
+
+
+
+
 
 
 
