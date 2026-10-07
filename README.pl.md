@@ -87,7 +87,7 @@ Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklam
 
   
 $$
-\text{ROAS} = \frac{\text{Przych\'od}}{\text{Koszt}}, \quad \text{CPA} = \frac{\text{Koszt}}{\text{Liczba Transakcji}}
+\text{ROAS} = \frac{\text{Przychód}}{\text{Koszt}}, \quad \text{CPA} = \frac{\text{Koszt}}{\text{Liczba Transakcji}}
 $$
   
   <br>
@@ -161,6 +161,10 @@ Wykres bąbelkowy zestawiający koszt pozyskania klienta (CPA) z mnożnikiem zwr
 
 - **Wniosek:** Kampanie w lewym górnym rogu (Comparison Engine) przynoszą wysoki zysk niskim kosztem. Kampanie w prawym dolnym rogu (`PowerBrand-Shopping`, `cross-network`) drenują budżet.
 
+
+<br>
+
+
 ### 2) Czas do Zakupu: Analiza Kohortowa Latencji
 Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do zakupu w poszczególnych źródłach.
 
@@ -176,6 +180,10 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 
 
 - **Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1–7 dni (20–27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
+
+
+<br>
+
 
 ### 3) 5-Etapowy Lejek Zakupowy (Gdzie Uciekają Klienci)
 Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
@@ -232,6 +240,10 @@ ecommerce-analytics/
 
 ```
 
+
+<br>
+
+
 ## 8. Jak Uruchomić Projekt
 
 ### 1. Klonowanie repozytorium
@@ -240,20 +252,24 @@ git clone https://github.com/laura-szczerbowska/ecommerce-analytics.git
 cd ecommerce-analytics
 ```
 
+
+
 ### 2. Środowisko wirtualne i instalacja zależności
 
 
-# Utworzenie środowiska wirtualnego
+* Utworzenie środowiska wirtualnego
 python -m venv .venv
 
-# Aktywacja środowiska (Linux/macOS):
+* Aktywacja środowiska (Linux/macOS):
 source .venv/bin/activate
 
-# Aktywacja środowiska (Windows PowerShell):
+* Aktywacja środowiska (Windows PowerShell):
 .\.venv\Scripts\Activate.ps1
 
 # Instalacja wymaganych pakietów
 pip install -r requirements.txt
+
+
 
 ### 3. Generowanie dashboardu zarządczego
 python 05_executive_report.py
