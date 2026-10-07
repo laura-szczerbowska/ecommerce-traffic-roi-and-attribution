@@ -12,6 +12,9 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 > Analiza bazuje na rzeczywistych danych transakcyjnych i logach behawioralnych pochodzących z funkcjonującego sklepu internetowego. Wszystkie wrażliwe dane biznesowe oraz wolumeny przychodowe zostały poddane procedurze anonimizacji i standaryzacji (skalowanie metryk), co pozwoliło na pełne zachowanie realnych zależności, proporcji oraz wzorców konwersji przy zachowaniu poufności.
 
 
+<br>
+
+
 
 <br>
 
@@ -20,6 +23,7 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 <img width="1893" height="1086" alt="image" src="https://github.com/user-attachments/assets/b3b6837a-2de0-4268-b576-70a9f9585c50" />
 
 
+<br>
 
 
 <br>
@@ -118,21 +122,21 @@ $$
 
 Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
-| Źródło / Kampania | Użytkownicy | Transakcje | Przychód (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | Transakcje Day 0 | Zgodność FT/LT | Status / Rekomendacja |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| **comparison_engine / referral** | 3 831 | 87 | 105 711,99 | **12,31** | **98,72** | 1 215,08 | 2,27% | 72,7% | 100,0% | **Top Performer (Skalować)** |
-| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398,90 | **3,63** | **265,86** | 964,42 | 1,04% | 73,5% | 90.7% | **Utrzymać + Optymalizować ** |
-| **(direct)** | 1 234 | 39 | 38 064,50 | — | — | 976,01 | 3,16% | 84,6% | 96,2% | **Utrzymać (Baza powracająca)** |
-| **(organic)** | 2 630 | 26 | 23 214,10 | — | — | 892,85 | 0,99% | 76,9% | 80,6% | **Utrzymać (Domyka paid ads)** |
-| **PowerBrand-Shopping** | 13 783 | 62 | 12 921,38 | **1,08** | **208,41** | 208,41 | 0,45% | 80,0% | 98,0% | **Przepalanie (Ograniczyć budżet)** |
-| **PMax \| DiamondTools** | 470 | 14 | 5 152,00 | **3,65** | **100,51** | 368,00 | 2,98% | 85,7% | 97,5% | **Skalować (Wdrożyć cross-sell)** |
-| **Not set (not set)** | 135 | 11 | 9 845,20 | — | — | 895,02 | 8,15% | 81,8% | 92,1% | **Audyt techniczny tagów UTM** |
-| **(ai-assistant)** | 37 | 2 | 2 031,80 | — | — | 1 015,90 | 5,41% | 50,0% | 100,0% | **Nowy trend (Monitorować)** |
-| **Shopping Free Listings** | 22 | 2 | 484,00 | — | — | 242,00 | 8,89% | 50,0% | 100,0% | **Optymalizować feed produktowy** |
-| **(cross-network)** | 312 | 1 | 296,00 | **0,52** | **296,00** | 296,00 | 0,32% | 100,0% | 100,0% | **Wstrzymać / Zmienić strukturę** |
-| **adbox_comparison** | 14 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Zidentyfikować/Wyłączyć** |
-| **DiamondTools discount** | 3 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Zidentyfikować/Wyłączyć** |
-| **aku** | 3 | 0 | 0,00 | **0,00** | — | 0,00 | 0,00% | — | — | **Zidentyfikować/Wyłączyć** |
+| Źródło / Kampania | Użytkownicy | Trans. | Przychód (PLN) | ROAS | CPA (PLN) | CR % | Status / Rekomendacja |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+| **comparison_engine / referral** | 3 831 | 87 | 105 711,99 | **12,31** | **98,72** | 2,27% | **Skalować (Top Performer)** |
+| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398,90 | **3,63** | **265,86** | 1,04% | **Utrzymać + Optymalizować** |
+| **(direct)** | 1 234 | 39 | 38 064,50 | - | - | 3,16% | **Utrzymać (Baza powracająca)** |
+| **(organic)** | 2 630 | 26 | 23 214,10 | - | - | 0,99% | **Utrzymać (Domyka paid ads)** |
+| **PowerBrand-Shopping** | 13 783 | 62 | 12 921,38 | **1,08** | **208,41** | 0,45% | **Ograniczyć budżet (Przepalanie)** |
+| **PMax \| DiamondTools** | 470 | 14 | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować (Wdrożyć cross-sell)** |
+| **Not set (not set)** | 135 | 11 | 9 845,20 | - | - | 8,15% | **Audyt techniczny tagów UTM** |
+| **(ai-assistant)** | 37 | 2 | 2 031,80 | - | - | 5,41% | **Nowy trend (Monitorować)** |
+| **Shopping Free Listings** | 22 | 2 | 484,00 | - | - | 8,89% | **Optymalizować feed produktowy** |
+| **(cross-network)** | 312 | 1 | 296,00 | **0,52** | **296,00** | 0,32% | **Wstrzymać / Zmienić strukturę** |
+| **Płatne bez konwersji (3 kampanie)\*** | 20 | 0 | 0,00 | **0,00** | - | 0,00% | **Zidentyfikować / Wyłączyć** |
+
+*\*Obejmuje: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
 
 <br>
@@ -172,6 +176,8 @@ Wykres bąbelkowy zestawiający koszt pozyskania klienta (CPA) z mnożnikiem zwr
 <br>
 
 
+<br>
+
 
 - **Wniosek:** Kampanie w lewym górnym rogu (Comparison Engine) przynoszą wysoki zysk niskim kosztem. Kampanie w prawym dolnym rogu (`PowerBrand-Shopping`, `cross-network`) drenują budżet.
 
@@ -192,6 +198,8 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 <br>
 
 
+<br>
+
 
 - **Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
 
@@ -211,6 +219,8 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
 <br>
 
+
+<br>
 
 
 - **Główny problem e-commerce:** Na etapie przejścia z `begin_checkout` do `purchase` odpada aż **76,5% użytkowników** (tylko 23,5% finalizuje zamówienie). Klienci dodają produkty do koszyka i wchodzą w formularz, po czym rezygnują - wskazuje to na brak preferowanych metod płatności, wymóg rejestracji lub niespodziewane koszty dostawy.
@@ -273,7 +283,6 @@ cd ecommerce-analytics
 
 ### 2. Środowisko wirtualne i instalacja zależności
 
-
 * Utworzenie środowiska wirtualnego
 python -m venv .venv
 
@@ -284,8 +293,9 @@ source .venv/bin/activate
 .\.venv\Scripts\Activate.ps1
 
 * Instalacja wymaganych pakietów
+```bash
 pip install -r requirements.txt
-
+```
 
 <br>
 
@@ -293,6 +303,8 @@ pip install -r requirements.txt
 
 ### 3. Generowanie dashboardu zarządczego
 python 05_executive_report.py
+
+
 Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executive_summary_report.html i automatycznie otworzy go w domyślnej przeglądarce.
 
 
@@ -302,9 +314,9 @@ Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executiv
 
 
 ## 9. Kierunki Dalszego Rozwoju
-* **Algorytmiczny model atrybucji**: Przejście z modeli heurystycznych na probabilistyczny model łańcuchów Markowa dla wielokanałowych ścieżek zakupowych.
-* **Integracja z Google BigQuery**: Bezpośrednie pobieranie danych ze strumienia zdarzeń GA4 bez konieczności ręcznego eksportu plików CSV.
-* **Automatyczny alert wahań CPA**: Skrypt powiadamiający zespół (np. na Slacku), gdy koszt pozyskania transakcji (CPA) wzrośnie o ponad 30% tydzień do tygodnia.
+- **Algorytmiczny model atrybucji**: Przejście z modeli heurystycznych na probabilistyczny model łańcuchów Markowa dla wielokanałowych ścieżek zakupowych.
+- **Integracja z Google BigQuery**: Bezpośrednie pobieranie danych ze strumienia zdarzeń GA4 bez konieczności ręcznego eksportu plików CSV.
+- **Automatyczny alert wahań CPA**: Skrypt powiadamiający zespół (np. na Slacku), gdy koszt pozyskania transakcji (CPA) wzrośnie o ponad 30% tydzień do tygodnia.
 
 
 <br>
@@ -312,9 +324,8 @@ Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executiv
 
 ## 10. Podsumowanie i Rekomendacje dla Zarządu
 
-
- Wdrożenie wniosków z analizy pozwala na natychmiastowe oszczędności i wzrost rentowności:
-* **Natychmiastowe cięcie kosztów**: Obcięcie budżetu nierentownej kampanii PowerBrand-Shopping o 50% oraz wyłączenie zerowych kampanii (adbox_comparison, aku, DiamondTools discount) zatrzymuje marnowanie ponad 7 000 PLN kwartalnie.
-* **Doinwestowanie Ceneo**: Ruch z porównywarki generuje 12-krotny zwrot (ROAS 12,31). Należy zabezpieczyć budżet i podnieść stawki na najlepiej konwertujące produkty, aby nie tracić wyświetleń przez wyczerpane saldo.
-* **Naprawa checkoutu priorytetem przed zwiększaniem ruchu**: Sprowadzanie nowego ruchu przy porzucalności kasy na poziomie 76,5% to marnowanie budżetu. Wdrożenie płatności BLIK jednym kliknięciem oraz zakupów bez rejestracji podniesie zyski szybciej niż jakakolwiek nowa kampania reklamowa.
-* **Skrócenie okna remarketingu**: Kampanie remarketingowe powinny skupić się na pierwszych 7 dniach od wizyty - po tym czasie szansa na domknięcie zakupu drastycznie spada.
+Wdrożenie wniosków z analizy pozwala na natychmiastowe oszczędności i wzrost rentowności:
+- **Natychmiastowe cięcie kosztów**: Obcięcie budżetu nierentownej kampanii PowerBrand-Shopping o 50% oraz wyłączenie zerowych kampanii (adbox_comparison, aku, DiamondTools discount) zatrzymuje marnowanie ponad 7 000 PLN kwartalnie.
+- **Doinwestowanie Comparison Engine**: Ruch z porównywarki generuje 12-krotny zwrot (ROAS 12,31). Należy zabezpieczyć budżet i podnieść stawki na najlepiej konwertujące produkty, aby nie tracić wyświetleń przez wyczerpane saldo.
+- **Naprawa checkoutu priorytetem przed zwiększaniem ruchu**: Sprowadzanie nowego ruchu przy porzucalności kasy na poziomie 76,5% to marnowanie budżetu. Wdrożenie płatności BLIK jednym kliknięciem oraz zakupów bez rejestracji podniesie zyski szybciej niż jakakolwiek nowa kampania reklamowa.
+- **Skrócenie okna remarketingu**: Kampanie remarketingowe powinny skupić się na pierwszych 7 dniach od wizyty – po tym czasie szansa na domknięcie zakupu drastycznie spada.
