@@ -299,8 +299,6 @@ cd ecommerce-analytics
 ```
 
 
-<br>
-
 
 #### 2) Środowisko wirtualne i instalacja zależności
 
@@ -317,8 +315,6 @@ source .venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
-
-<br>
 
 
 
