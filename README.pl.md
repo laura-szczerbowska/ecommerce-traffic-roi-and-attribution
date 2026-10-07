@@ -20,7 +20,11 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 
 
 
-<img width="1893" height="1086" alt="image" src="https://github.com/user-attachments/assets/b3b6837a-2de0-4268-b576-70a9f9585c50" />
+
+
+https://github.com/user-attachments/assets/606577fb-fa88-4857-9836-714dbd68e021
+
+
 
 
 <br>
