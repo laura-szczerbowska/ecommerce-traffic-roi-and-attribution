@@ -268,7 +268,11 @@ ecommerce-analytics/
 ```
 
 
-8. Getting Started
+<br>
+
+
+
+## 8. Getting Started
 
 
 <br>
@@ -295,16 +299,13 @@ python -m venv .venv
 <br>
 
 
+- Activate on Linux/macOS: source .venv/bin/activate
+- Activate on Windows (PowerShell): .\.venv\Scripts\Activate.ps1
 
-Activate on Linux/macOS:
-source .venv/bin/activate
-
-Activate on Windows (PowerShell):
-.\.venv\Scripts\Activate.ps1
-
-Install requirements
+Install requirements: 
+```bash
 pip install -r requirements.txt
-
+```
 
 <br>
 
