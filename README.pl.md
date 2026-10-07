@@ -292,7 +292,7 @@ ecommerce-analytics/
 
 ## 8. Jak Uruchomić Projekt
 
-### 1. Klonowanie repozytorium
+### 1) Klonowanie repozytorium
 ```bash
 git clone https://github.com/laura-szczerbowska/ecommerce-analytics.git
 cd ecommerce-analytics
@@ -302,7 +302,7 @@ cd ecommerce-analytics
 <br>
 
 
-### 2. Środowisko wirtualne i instalacja zależności
+### 2) Środowisko wirtualne i instalacja zależności
 
 * Utworzenie środowiska wirtualnego
 python -m venv .venv
@@ -322,7 +322,7 @@ pip install -r requirements.txt
 
 
 
-### 3. Generowanie dashboardu zarządczego
+### 3) Generowanie dashboardu zarządczego
 
 `python 05_executive_report.py`
 
