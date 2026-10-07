@@ -165,17 +165,17 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
 | Źródło / Kampania | Ruch (Trans.) | Przychód (PLN) | ROAS | CPA (PLN) | CR % | Status |
 | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Comparison Engine** | 3 831 (87) | 105 711,99 | **12,31** | **98,72** | 2,27% | **Skalować (Top)** |
+| **Comparison Engine** | 3 831 (87) | 105 711,99 | **12,31** | **98,72** | 2,27% | **Skalować (Top Performer)** |
 | **PowerBrand – Search** | 4 338 (45) | 43 398,90 | **3,63** | **265,86** | 1,04% | **Optymalizować** |
-| **(direct)** | 1 234 (39) | 38 064,50 | — | — | 3,16% | **Utrzymać** |
-| **(organic)** | 2 630 (26) | 23 214,10 | — | — | 0,99% | **Utrzymać** |
-| **PowerBrand-Shopping** | 13 783 (62) | 12 921,38 | **1,08** | **208,41** | 0,45% | **Ciąć budżet** |
+| **(direct)** | 1 234 (39) | 38 064,50 | - | - | 3,16% | **Utrzymać** |
+| **(organic)** | 2 630 (26) | 23 214,10 | - | - | 0,99% | **Utrzymać** |
+| **PowerBrand-Shopping** | 13 783 (62) | 12 921,38 | **1,08** | **208,41** | 0,45% | **Ograniczyć budżet** |
 | **PMax | DiamondTools** | 470 (14) | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować** |
-| **Not set (not set)** | 135 (11) | 9 845,20 | — | — | 8,15% | **Audyt UTM** |
-| **(ai-assistant)** | 37 (2) | 2 031,80 | — | — | 5,41% | **Monitorować** |
-| **Shopping Free** | 22 (2) | 484,00 | — | — | 8,89% | **Feed** |
+| **Not set (not set)** | 135 (11) | 9 845,20 | - | - | 8,15% | **Audyt UTM** |
+| **(ai-assistant)** | 37 (2) | 2 031,80 | - | - | 5,41% | **Monitorować** |
+| **Shopping Free** | 22 (2) | 484,00 | - | - | 8,89% | **Optymalizacja feedu** |
 | **(cross-network)** | 312 (1) | 296,00 | **0,52** | **296,00** | 0,32% | **Wstrzymać** |
-| **Zero transakcji (3 kamp.)\*** | 20 (0) | 0,00 | **0,00** | — | 0,00% | **Wyłączyć** |
+| **Brak transakcji (3 kamp.)*** | 20 (0) | 0,00 | **0,00** | - | 0,00% | **Wyłączyć** |
 
 *\*Obejmuje: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
@@ -295,21 +295,22 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 ```text
 ecommerce-analytics/
 ├── data/
-│   ├── sales_performance.csv             # Transakcje Last-Touch
-│   ├── first_touch_users.csv             # Ruch First-Touch
-│   ├── traffic_and_revenue.csv           # Dane zbiorcze o ruchu
-│   ├── campaign_costs.csv                # Koszty reklamowe
-│   ├── funnel_events.csv                 # Zdarzenia na ścieżce zakupu
-│   ├── cohort_analysis_campaigns.csv     # Kohorty per kampania
-│   └── cohort_analysis_sources.csv       # Kohorty per źródło
-├── 01_attribution_model.py               # Skrypt 1: Porównanie First vs Last Touch
-├── 02_campaign_matrix.py                 # Skrypt 2: Macierz efektywności (CR vs AOV)
-├── 03_funnel_and_roas.py                 # Skrypt 3: Analiza lejka i ROAS
-├── 04_cohort_latency.py                  # Skrypt 4: Analiza czasu konwersji
-├── 05_executive_report.py                # Skrypt 5: Główny generator raportu HTML
-├── requirements.txt                      # Wymagane biblioteki Pythona
-├── README.md                             # Dokumentacja w języku angielskim
-└── README.pl.md                          # Dokumentacja w języku polskim
+│   ├── sales_performance.csv              # Transakcje Last-Touch
+│   ├── first_touch_users.csv              # Ruch First-Touch
+│   ├── traffic_and_revenue.csv            # Dane zbiorcze o ruchu
+│   ├── campaign_costs.csv                 # Koszty reklamowe
+│   ├── funnel_events.csv                  # Zdarzenia na ścieżce zakupu
+│   ├── cohort_analysis_campaigns.csv      # Kohorty per kampania
+│   └── cohort_analysis_sources.csv        # Kohorty per źródło
+├── 01_attribution_model.py                # Skrypt 1: Porównanie First vs Last Touch
+├── 02_campaign_matrix.py                  # Skrypt 2: Macierz efektywności (CR vs AOV)
+├── 03_funnel_and_roas.py                  # Skrypt 3: Analiza lejka i ROAS
+├── 04_cohort_latency.py                   # Skrypt 4: Analiza czasu konwersji
+├── 05_executive_report.py                 # Skrypt 5: Główny generator raportu HTML
+├── executive_summary_report.html          # Interaktywny dashboard zarządczy (wygenerowany raport html)
+├── requirements.txt                       # Wymagane biblioteki Pythona
+├── README.md                              # Dokumentacja w języku angielskim
+└── README.pl.md                           # Dokumentacja w języku polskim
 
 ```
 
