@@ -230,6 +230,8 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 
 <br>
 
+<br>
+
 
 <img width="1531" height="792" alt="image" src="https://github.com/user-attachments/assets/84d2b75f-4b39-425a-8246-35d977caf723" />
 
@@ -237,6 +239,7 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 <br>
 
 
+<br>
 
 - **Takeaway:** **88.5% of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Comparison Engine and Search). Retargeting campaigns running past 7 days produce diminishing returns.
 
@@ -252,6 +255,9 @@ E-commerce conversion funnel with campaign-level dropdown filtering.
 
 
 <img width="1540" height="745" alt="image" src="https://github.com/user-attachments/assets/6083bebf-1c5d-4f20-843a-42107be8b797" />
+
+
+<br>
 
 
 <br>
