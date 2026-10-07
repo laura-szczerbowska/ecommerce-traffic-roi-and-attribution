@@ -224,6 +224,9 @@ Bubble chart mapping Cost Per Acquisition against Return on Ad Spend. Bubble siz
 <br>
 
 
+<br>
+
+
 ### 2) Purchase Latency: Time-to-Conversion Cohort Decomposition
 Horizontal stacked distribution tracking days elapsed from user acquisition to order placement.
 
