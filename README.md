@@ -18,7 +18,10 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 <br>
 
 
+
+
 <img width="1897" height="1096" alt="image" src="https://github.com/user-attachments/assets/693745a7-b68a-4e3e-9ef1-ee87858c14b8" />
+
 
 
 
@@ -307,7 +310,6 @@ python -m venv .venv
 
 
 <br>
-
 
 - Activate on Linux/macOS: source .venv/bin/activate
 - Activate on Windows (PowerShell): .\.venv\Scripts\Activate.ps1
