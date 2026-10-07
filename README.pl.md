@@ -159,16 +159,13 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
 ### Kluczowe Wnioski Biznesowe
 
-1. **Comparison Engine to filar rentowności sklepu:** 105,7k PLN przychodu, wysoki koszyk (1 215 PLN) i znakomity ROAS 12,31. Ruch z porównywarki wie, po co przychodzi – 72,7% kupuje od razu, a reszta traktuje sklep jako bazę odniesienia i wraca w ciągu tygodnia.
+1) **Comparison Engine to filar rentowności sklepu:** 105,7k PLN przychodu, wysoki koszyk (1 215 PLN) i znakomity ROAS 12,31. Ruch z porównywarki wie, po co przychodzi – 72,7% kupuje od razu, a reszta traktuje sklep jako bazę odniesienia i wraca w ciągu tygodnia.
+  
+2) **Dramatyczna nieefektywność `PowerBrand-Shopping`:** Kampania ściągnęła ponad połowę całego ruchu sklepu (13,7k wizyt) i zjadła rekordowy budżet (12,9k PLN), dając ledwo próg rentowności (ROAS 1,08). CPA na poziomie 208 PLN przy koszyku 208 PLN oznacza realną stratę po odliczeniu kosztu towaru i logistyki.
 
-   
-​2. **Dramatyczna nieefektywność `PowerBrand-Shopping`:** Kampania ściągnęła ponad połowę całego ruchu sklepu (13,7k wizyt) i zjadła rekordowy budżet (12,9k PLN), dając ledwo próg rentowności (ROAS 1,08). CPA na poziomie 208 PLN przy koszyku 208 PLN oznacza realną stratę po odliczeniu kosztu towaru i logistyki.
+3) **Synergia Paid Search z SEO:** Płatna kampania `PowerBrand – ElectroStore – Search Website` inicjuje duży ruch u nowych klientów (o 4,4k PLN więcej w First-Touch niż w Last-Touch). Z kolei Organic Search domyka o 4,5k PLN więcej w Last-Touch. Wniosek: użytkownicy widzą reklamę płatną, szukają opinii, a potem wpisują nazwę sklepu w Google i kupują organicznie.
 
-
-3. **Synergia Paid Search z SEO:** Płatna kampania `PowerBrand – ElectroStore – Search Website` inicjuje duży ruch u nowych klientów (o 4,4k PLN więcej w First-Touch niż w Last-Touch). Z kolei Organic Search domyka o 4,5k PLN więcej w Last-Touch. Wniosek: użytkownicy widzą reklamę płatną, szukają opinii, a potem wpisują nazwę sklepu w Google i kupują organicznie.
-
-   
-5. **Wysoki potencjał ruchu z asystentów AI:** Źródło `(ai-assistant)` miało tylko 37 wizyt, ale wygenerowało 2 zakupy na łączną kwotę ponad 2 000 PLN (CR = 5,41%, AOV > 1 000 PLN). To bardzo obiecujący kanał wczesnego etapu.
+4) **Wysoki potencjał ruchu z asystentów AI:** Źródło `(ai-assistant)` miało tylko 37 wizyt, ale wygenerowało 2 zakupy na łączną kwotę ponad 2 000 PLN (CR = 5,41%, AOV > 1 000 PLN). To bardzo obiecujący kanał wczesnego etapu.
 
 
 <br>
@@ -203,7 +200,7 @@ Wykres bąbelkowy zestawiający koszt pozyskania klienta (CPA) z mnożnikiem zwr
 <br>
 
 
-- **Wniosek:** Kampanie w lewym górnym rogu (Comparison Engine) przynoszą wysoki zysk niskim kosztem. Kampanie w prawym dolnym rogu (`PowerBrand-Shopping`, `cross-network`) drenują budżet.
+**Wniosek:** Kampanie w lewym górnym rogu (Comparison Engine) przynoszą wysoki zysk niskim kosztem. Kampanie w prawym dolnym rogu (`PowerBrand-Shopping`, `cross-network`) drenują budżet.
 
 
 <br>
@@ -225,7 +222,7 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 <br>
 
 
-- **Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
+**Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
 
 
 <br>
@@ -247,7 +244,7 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 <br>
 
 
-- **Główny problem e-commerce:** Na etapie przejścia z `begin_checkout` do `purchase` odpada aż **76,5% użytkowników** (tylko 23,5% finalizuje zamówienie). Klienci dodają produkty do koszyka i wchodzą w formularz, po czym rezygnują - wskazuje to na brak preferowanych metod płatności, wymóg rejestracji lub niespodziewane koszty dostawy.
+**Główny problem e-commerce:** Na etapie przejścia z `begin_checkout` do `purchase` odpada aż **76,5% użytkowników** (tylko 23,5% finalizuje zamówienie). Klienci dodają produkty do koszyka i wchodzą w formularz, po czym rezygnują - wskazuje to na brak preferowanych metod płatności, wymóg rejestracji lub niespodziewane koszty dostawy.
 
 
 
@@ -326,9 +323,10 @@ pip install -r requirements.txt
 
 
 ### 3. Generowanie dashboardu zarządczego
+
+```bash
 python 05_executive_report.py
-
-
+```
 Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executive_summary_report.html i automatycznie otworzy go w domyślnej przeglądarce.
 
 
