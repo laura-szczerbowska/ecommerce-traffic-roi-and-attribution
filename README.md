@@ -4,12 +4,15 @@
 
 # Multichannel Campaign Performance & Attribution Modeling in E-Commerce
 
+
 An end-to-end analytics engine evaluating paid and organic marketing performance for an e-commerce platform (hardware & power tools sector) over the period **08.05–05.08.2026**. The project was built to address a critical business dilemma: **how to stop ad-spend waste caused by misleading Last-Click attribution and identify where potential customers actually drop off along the purchase journey**.
 
 The project combines raw GA4 event-log preprocessing, media efficiency calculations (ROAS, CPA, AOV), purchase latency cohort modeling, and an automated Python script generating an interactive executive HTML dashboard.
 
 > **Data Notice:**  
 > This analysis is grounded in real transaction records and behavioral logs extracted from an operational e-commerce store. All sensitive commercial metrics and monetary totals were anonymized and standardized (feature-scaled), fully preserving authentic behavioral patterns, conversion dynamics, and cross-channel relationships.
+
+
 
 
 <br>
@@ -20,6 +23,7 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 
 
 <br>
+
 
 
 ## 1. Business Problem
@@ -157,15 +161,15 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
 | **comparison_engine / referral** | 3,831 | 87 | 105,711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
 | **PowerBrand – ElectroStore – Search Website** | 4,338 | 45 | 43,398.90 | **3.63** | **265.86** | 1.04% | **Maintain + On-Site** |
-| **(direct)** | 1,234 | 39 | 38,064.50 | — | — | 3.16% | **Maintain (Loyal Core)** |
-| **(organic)** | 2,630 | 26 | 23,214.10 | — | — | 0.99% | **Maintain (Paid Closer)** |
+| **(direct)** | 1,234 | 39 | 38,064.50 | - | - | 3.16% | **Maintain (Loyal Core)** |
+| **(organic)** | 2,630 | 26 | 23,214.10 | - | - | 0.99% | **Maintain (Paid Closer)** |
 | **PowerBrand-Shopping** | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 0.45% | **Cut Budget by 50%** |
 | **PMax \| DiamondTools** | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | **Scale + Cross-Selling** |
-| **Not set (not set)** | 135 | 11 | 9,845.20 | — | — | 8.15% | **UTM Tagging Audit** |
-| **(ai-assistant)** | 37 | 2 | 2,031.80 | — | — | 5.41% | **Emerging Channel (Track)** |
-| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 8.89% | **Feed Optimization** |
+| **Not set (not set)** | 135 | 11 | 9,845.20 | - | - | 8.15% | **UTM Tagging Audit** |
+| **(ai-assistant)** | 37 | 2 | 2,031.80 | - | - | 5.41% | **Emerging Channel (Track)** |
+| **Shopping Free Listings** | 22 | 2 | 484.00 | - | - | 8.89% | **Feed Optimization** |
 | **(cross-network)** | 312 | 1 | 296.00 | **0.52** | **296.00** | 0.32% | **Pause / Restructure** |
-| **Zero-conversion paid (3 campaigns)\*** | 20 | 0 | 0.00 | **0.00** | — | 0.00% | **Decommission Spend** |
+| **Zero-conversion paid (3 campaigns)\*** | 20 | 0 | 0.00 | **0.00** | - | 0.00% | **Decommission Spend** |
 
 *\*Includes: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
@@ -206,6 +210,9 @@ Bubble chart mapping Cost Per Acquisition against Return on Ad Spend. Bubble siz
 - **Takeaway:** Top-left campaigns (Comparison Engine) deliver high returns at minimal acquisition costs. Bottom-right campaigns (`PowerBrand-Shopping`, `cross-network`) generate capital drag and require immediate budget caps.
 
 
+<br>
+
+
 ### 2) Purchase Latency: Time-to-Conversion Cohort Decomposition
 Horizontal stacked distribution tracking days elapsed from user acquisition to order placement.
 
@@ -217,6 +224,9 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 
 
 - **Takeaway:** **88.5% of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Comparison Engine and Search). Retargeting campaigns running past 7 days produce diminishing returns.
+
+
+<br>
 
 
 ### 3) 5-Stage Purchase Funnel (Drop-off Diagnostics)
@@ -330,7 +340,7 @@ The script parses all CSV records, calculates attribution and cohort matrices, o
 <br>
 
 
-10. Summary & Executive Recommendations
+## 10. Summary & Executive Recommendations
 
     
 Executing these data-driven initiatives delivers immediate cost containment and bottom-line impact:
