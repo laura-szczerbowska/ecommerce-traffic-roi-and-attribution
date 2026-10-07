@@ -174,7 +174,7 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 | (direct) | 1,234 | 39 | 38,064.50 | - | - | 3.16% | Maintain (Loyal Core) |
 | (organic) | 2,630 | 26 | 23,214.10 | - | - | 0.99% | Maintain (Paid Closer) |
 | PowerBrand-Shopping | 13,783 | 62 | 12,921.38 | **1.08** | **208.41** | 0.45% | Cut Budget by 50% |
-| PMax | DiamondTools | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
+| PMax DiamondTools | 470 | 14 | 5,152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
 | Not set (not set) | 135 | 11 | 9,845.20 | - | - | 8.15% | UTM Tagging Audit |
 | (ai-assistant) | 37 | 2 | 2,031.80 | - | - | 5.41% | Emerging Channel (Track) |
 | Shopping Free Listings | 22 | 2 | 484.00 | - | - | 8.89% | Feed Optimization |
