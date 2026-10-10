@@ -5,7 +5,7 @@
 # Multichannel Campaign Performance & Attribution Modeling in E-Commerce
 
 
-An end-to-end analytics engine evaluating paid and organic marketing performance for an e-commerce platform (hardware & power tools sector) over the period **08.05-05.08.2026**. The project was built to address a critical business dilemma: **how to stop ad-spend waste caused by misleading Last-Click attribution and identify where potential customers actually drop off along the purchase journey**.
+An end-to-end analytics engine evaluating paid and organic marketing performance for an e-commerce platform (hardware & power tools sector) over the period **08.05–05.08.2026**. It solves a concrete business problem: showing how to allocate budget more effectively without relying solely on Last Touch, and pinpointing the exact stages where customers drop off in the purchasing process.
 
 The project combines raw GA4 event-log preprocessing, media efficiency calculations (ROAS, CPA, AOV), purchase latency cohort modeling, and an automated Python script generating an interactive executive HTML dashboard.
 
@@ -377,7 +377,6 @@ The script parses all CSV records, calculates attribution and cohort matrices, o
 
 
 ## 9. Future Roadmap
-- **Algorithmic Multi-Touch Attribution**: Upgrade heuristic models to probabilistic Markov Chains or cooperative Shapley value attribution.
 - **Direct Cloud Integration**: Automate data ingestion via Google BigQuery and the GA4 event stream, deprecating manual CSV exports.
 - **Real-Time CPA Anomaly Alerts**: Implement automated Slack/email notifications triggered when channel acquisition costs spike by >30% week-over-week.
 
