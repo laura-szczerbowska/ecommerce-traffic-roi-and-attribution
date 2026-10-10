@@ -22,7 +22,7 @@ def assign_campaign_and_source(row, col_source, col_campaign):
     source_medium = str(row.get(col_source, '')).strip().lower()
     campaign = str(row.get(col_campaign, '')).strip()
 
-    if any(k in source_medium for k in ['comparison_engine', 'ceneo']) or any(k in campaign.lower() for k in ['comparison_engine', 'ceneo']):
+    if any(k in source_medium for k in ['comparison_engine']) or any(k in campaign.lower() for k in ['comparison_engine']):
         return 'comparison_engine / referral'
 
     elif campaign in ['(not set)', '', 'nan']:
