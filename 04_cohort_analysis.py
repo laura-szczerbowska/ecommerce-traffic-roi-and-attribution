@@ -79,9 +79,9 @@ df_campaigns = load_and_preprocess_cohort_data('data/cohort_analysis_campaigns.c
 df_sources = load_and_preprocess_cohort_data('data/cohort_analysis_sources.csv')
 
 # Isolate Comparison Engine traffic
-mask_ceneo = df_sources['Source_Campaign'].str.lower().isin(['comparison_engine', 'comparison_engine / referral', 'ceneo', 'ceneo.pl'])
-df_ceneo = df_sources[mask_ceneo].groupby('Day', as_index=False)['New_Transactions'].sum()
-df_ceneo['Source_Campaign'] = 'comparison_engine / referral'
+mask_comparison_engine = df_sources['Source_Campaign'].str.lower().isin(['comparison_engine', 'comparison_engine / referral'])
+df_comparison_engine = df_sources[mask_comparison_engine].groupby('Day', as_index=False)['New_Transactions'].sum()
+df_comparison_engine['Source_Campaign'] = 'comparison_engine / referral'
 
 # Separate and subtract Comparison Engine from generic (referral)
 df_ref = df_campaigns[df_campaigns['Source_Campaign'] == '(referral)'].copy()
@@ -89,14 +89,14 @@ df_non_ref = df_campaigns[df_campaigns['Source_Campaign'] != '(referral)'].copy(
 
 df_merged = pd.merge(
     df_ref,
-    df_ceneo[['Day', 'New_Transactions']],
+    df_comparison_engine[['Day', 'New_Transactions']],
     on='Day',
     how='left',
-    suffixes=('', '_ceneo')
+    suffixes=('', '_comparison_engine')
 )
-df_merged['New_Transactions_ceneo'] = df_merged['New_Transactions_ceneo'].fillna(0)
+df_merged['New_Transactions_comparison_engine'] = df_merged['New_Transactions_comparison_engine'].fillna(0)
 df_merged['New_Transactions'] = (
-    df_merged['New_Transactions'] - df_merged['New_Transactions_ceneo']
+    df_merged['New_Transactions'] - df_merged['New_Transactions_comparison_engine']
 ).clip(lower=0)
 df_ref_clean = df_merged[['Source_Campaign', 'Day', 'New_Transactions']].copy()
 
@@ -104,7 +104,7 @@ df_ref_clean = df_merged[['Source_Campaign', 'Day', 'New_Transactions']].copy()
 df_final = pd.concat([
     df_non_ref[['Source_Campaign', 'Day', 'New_Transactions']],
     df_ref_clean,
-    df_ceneo[['Source_Campaign', 'Day', 'New_Transactions']]
+    df_comparison_engine[['Source_Campaign', 'Day', 'New_Transactions']]
 ], ignore_index=True)
 
 df_final['Channel_Type'] = df_final['Source_Campaign'].apply(
@@ -229,10 +229,7 @@ fig.update_layout(
     height=600,
     margin=dict(l=20, r=40, t=60, b=80),
     template='plotly_white'
-
 )
-
-
 
 fig.show()
 
