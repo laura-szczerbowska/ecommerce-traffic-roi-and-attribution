@@ -44,12 +44,12 @@ def assign_time_bucket(day):
 
 
 # Files
-last_touch = 'sales_performance.csv'
-first_touch = 'first_touch_users.csv'
-data = 'traffic_and_revenue.csv'
-costs = 'campaign_costs.csv'
-cohort_camp = 'cohort_analysis_campaigns.csv'
-cohort_sour = 'cohort_analysis_sources.csv'
+last_touch = 'data/sales_performance.csv'
+first_touch = 'data/first_touch_users.csv'
+data = 'data/traffic_and_revenue.csv'
+costs = 'data/campaign_costs.csv'
+cohort_camp = 'data/cohort_analysis_campaigns.csv'
+cohort_sour = 'data/cohort_analysis_sources.csv'
 
 # Input datasets
 df_lt = pd.read_csv(last_touch, encoding='utf-8-sig', on_bad_lines='skip', comment='#')
