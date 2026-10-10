@@ -24,7 +24,7 @@ def assign_campaign_and_source(row, col_source, col_campaign):
     source_medium = str(row.get(col_source, '')).strip().lower()
     campaign = str(row.get(col_campaign, '')).strip()
 
-    if any(k in source_medium for k in ['comparison_engine', 'ceneo']) or any(k in campaign.lower() for k in ['comparison_engine', 'ceneo']):
+    if 'comparison_engine' in source_medium or 'comparison_engine' in campaign.lower():
         return 'comparison_engine / referral'
     elif campaign in ['(not set)', '', 'nan']:
         return 'Not set (not set)'
@@ -143,18 +143,18 @@ def load_cohorts(file_path):
 k_campaigns = load_cohorts(cohort_camp)
 k_sources = load_cohorts(cohort_sour)
 
-mask_c = k_sources['Source_Campaign'].str.lower().isin(['comparison_engine', 'comparison_engine / referral', 'ceneo', 'ceneo.pl'])
-k_ceneo = k_sources[mask_c].groupby('Day', as_index=False)['New_Transactions'].sum()
-k_ceneo['Source_Campaign'] = 'comparison_engine / referral'
+mask_c = k_sources['Source_Campaign'].str.lower().isin(['comparison_engine', 'comparison_engine / referral'])
+k_comparison_engine = k_sources[mask_c].groupby('Day', as_index=False)['New_Transactions'].sum()
+k_comparison_engine['Source_Campaign'] = 'comparison_engine / referral'
 
 k_ref = k_campaigns[k_campaigns['Source_Campaign'] == '(referral)'].copy()
 k_non_ref = k_campaigns[k_campaigns['Source_Campaign'] != '(referral)'].copy()
 
 # Pre-aggregation before merge to prevent duplicate records
 k_ref_agg = k_ref.groupby(['Source_Campaign', 'Day'], as_index=False)['New_Transactions'].sum()
-k_ceneo_agg = k_ceneo.groupby('Day', as_index=False)['New_Transactions'].sum()
+k_comparison_engine_agg = k_comparison_engine.groupby('Day', as_index=False)['New_Transactions'].sum()
 
-k_merged = pd.merge(k_ref_agg, k_ceneo_agg[['Day', 'New_Transactions']], on='Day', how='left', suffixes=('', '_c'))
+k_merged = pd.merge(k_ref_agg, k_comparison_engine_agg[['Day', 'New_Transactions']], on='Day', how='left', suffixes=('', '_c'))
 k_merged['New_Transactions_c'] = k_merged['New_Transactions_c'].fillna(0)
 k_merged['New_Transactions'] = (k_merged['New_Transactions'] - k_merged['New_Transactions_c']).clip(lower=0)
 k_ref_clean = k_merged[['Source_Campaign', 'Day', 'New_Transactions']].copy()
@@ -162,7 +162,7 @@ k_ref_clean = k_merged[['Source_Campaign', 'Day', 'New_Transactions']].copy()
 k_final = pd.concat([
     k_non_ref[['Source_Campaign', 'Day', 'New_Transactions']],
     k_ref_clean,
-    k_ceneo[['Source_Campaign', 'Day', 'New_Transactions']]
+    k_comparison_engine[['Source_Campaign', 'Day', 'New_Transactions']]
 ], ignore_index=True)
 
 k_final['Channel_Type'] = k_final['Source_Campaign'].apply(
@@ -203,7 +203,7 @@ attribution_summary = attribution_summary.fillna({'ft_lt_%': 0.0, '% Transaction
 
 
 def assign_recommendation(row):
-    if 'comparison_engine / referral' in str(row['Source_Campaign']).lower() or 'ceneo / referral' in str(row['Source_Campaign']).lower():
+    if 'comparison_engine / referral' in str(row['Source_Campaign']).lower():
         return 'Top Performer'
     if row['Channel_Type'] == 'organic / free':
         return 'Maintain'
