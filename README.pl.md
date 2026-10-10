@@ -4,12 +4,12 @@
 
 # Wielokanałowa Analiza Efektywności Kampanii i Modeli Atrybucji w E-Commerce
 
-Moduł analityczny badający efektywność kampanii płatnych i bezpłatnych w sklepie internetowym w okresie **08.05-05.08.2026**. Projekt powstał, aby rozwiązać realny problem biznesowy: **jak nie przepalać budżetu reklamowego, opierając się na mylącym modelu Last-Click oraz gdzie w procesie zakupowym faktycznie uciekają klienci**.
+Moduł analityczny badający efektywność kampanii płatnych i źródeł bezpłatnych w sklepie internetowym w okresie **08.05-05.08.2026**. Rozwiązuje on konkretny problem: pokazuje, jak skuteczniej wydawać budżet bez opierania się wyłącznie na 'Last Touch' oraz w których momentach procesu klienci rezygnują z zakupu.”
 
 Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentowności (ROAS, CPA, AOV), analizę kohortową opóźnienia decyzji zakupowej oraz gotowy skrypt generujący interaktywny dashboard zarządczy w HTML.
 
 > **Uwaga dotycząca danych:**  
-> Analiza bazuje na rzeczywistych danych transakcyjnych i logach behawioralnych pochodzących z funkcjonującego sklepu internetowego. Wszystkie wrażliwe dane biznesowe oraz wolumeny przychodowe zostały poddane procedurze anonimizacji i standaryzacji (skalowanie metryk), co pozwoliło na pełne zachowanie realnych zależności, proporcji oraz wzorców konwersji przy zachowaniu poufności.
+> Analiza bazuje na rzeczywistych danych transakcyjnych i logach behawioralnych pochodzących z funkcjonującego sklepu internetowego. Wszystkie wrażliwe dane biznesowe oraz wolumeny przychodowe zostały poddane procedurze anonimizacji i standaryzacji, co pozwoliło na pełne zachowanie realnych zależności, proporcji oraz wzorców konwersji przy zachowaniu poufności.
 
 
 <br>
@@ -36,7 +36,7 @@ https://github.com/user-attachments/assets/606577fb-fa88-4857-9836-714dbd68e021
 ## 1. Problem Biznesowy
 
 W e-commerce opieranie budżetów wyłącznie na standardowym raporcie Last-Touch z Google Analytics prowadzi do trzech kosztownych błędów:
-1. **Błędna ocena kampanii wizerunkowych i prospectingowych:** Kampanie sprowadzające nowych klientów są wyłączane, bo „nie domykają sprzedaży bezpośrednio”, a ruch organiczny i bezpośredni zbiera darmowe laury za zamówienia, których sam nie zainicjował.
+1. **Błędna ocena kampanii wizerunkowych i prospectingowych:** Kampanie sprowadzające nowych klientów są wyłączane, ponieważ „nie domykają sprzedaży bezpośrednio”, a ruch organiczny i bezpośredni zbiera darmowe laury za zamówienia, których sam nie zainicjował.
 2. **Niewidoczne przepalanie budżetu:** Kampanie generujące ogromny ruch wyglądają dobrze w raportach zasięgowych, ale po nałożeniu kosztów okazują się nierentowne (wysoki CPA, niski koszyk).
 3. **Brak wiedzy o tempie zakupu:** Bez analizy kohortowej marketingu nie wiadomo, czy remarketing ma trwać 3 dni, 7 dni czy miesiąc.
 
@@ -51,9 +51,9 @@ W e-commerce opieranie budżetów wyłącznie na standardowym raporcie Last-Touc
 ## 2. Przepływ Danych (Workflow)
 
 ```text
-Surowe dane z GA4 i koszty reklam (CSV)
+Surowe dane z GA4 i koszty kampanii
        ↓
-Czyszczenie danych, normalizacja nazw i wydzielenie Comparison Engine
+Czyszczenie danych, normalizacja nazw i wydzielenie Comparison Engine z ogólnego 'refferal'
        ↓
 Modelowanie atrybucji (First-Touch vs Last-Touch)
        ↓
@@ -73,7 +73,7 @@ Generowanie samodzielnego raportu HTML z wykresami Plotly
 
 ## 3. Dane i Przygotowanie Zbioru
 
-Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz systemów reklamowych (Comparison Engine, Google Ads):
+Pipeline integruje 6 plików z danymi eksportowanymi z GA4 oraz koszty płatnych kampanii:
 * `sales_performance.csv` - transakcje i przychody w modelu Last-Touch.
 * `first_touch_users.csv` - pierwsze źródła wizyt nowych użytkowników.
 * `traffic_and_revenue.csv` - wolumeny użytkowników, transakcji i przychodu.
@@ -190,19 +190,19 @@ Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
 ### Kluczowe Wnioski Biznesowe
 
-1) **Comparison Engine to filar rentowności sklepu:** 105,7k PLN przychodu, wysoki koszyk (1 215 PLN) i znakomity ROAS 12,31. Ruch z porównywarki wie, po co przychodzi – 72,7% kupuje od razu, a reszta traktuje sklep jako bazę odniesienia i wraca w ciągu tygodnia.
+1) **Comparison Engine to filar rentowności sklepu:** 105,7k PLN przychodu, wysoki koszyk (1215 PLN) i najwyższy ROAS 12,31. Ruch z porównywarki przychodzi z określoną intencją - 72,7% użytkowników dokonuje zakupu od razu, a pozostała część traktuje sklep jako bazę odniesienia i wraca w ciągu tygodnia.
   
-2) **Dramatyczna nieefektywność `PowerBrand-Shopping`:** Kampania ściągnęła ponad połowę całego ruchu sklepu (13,7k wizyt) i zjadła rekordowy budżet (12,9k PLN), dając ledwo próg rentowności (ROAS 1,08). CPA na poziomie 208 PLN przy koszyku 208 PLN oznacza realną stratę po odliczeniu kosztu towaru i logistyki.
+2) **Dramatyczna nieefektywność `PowerBrand-Shopping`:** Kampania ściągnęła ponad połowę całego ruchu sklepu (13,7k wizyt) i pochłonęła rekordowy budżet (12,9k PLN), dając ledwo próg rentowności (ROAS 1,08). CPA na poziomie 208 PLN przy koszyku 208 PLN oznacza realną stratę po odliczeniu kosztu towaru i logistyki.
 
-3) **Synergia Paid Search z SEO:** Płatna kampania `PowerBrand – ElectroStore – Search Website` inicjuje duży ruch u nowych klientów (o 4,4k PLN więcej w First-Touch niż w Last-Touch). Z kolei Organic Search domyka o 4,5k PLN więcej w Last-Touch. Wniosek: użytkownicy widzą reklamę płatną, szukają opinii, a potem wpisują nazwę sklepu w Google i kupują organicznie.
+3) **Synergia Paid Search z SEO:** Płatna kampania `PowerBrand – ElectroStore – Search Website` inicjuje duży ruch u nowych klientów (o 4,4k PLN więcej w First-Touch niż w Last-Touch). Z kolei Organic Search domyka o 4,5k PLN więcej w Last-Touch. Można więć stwierdzić, że użytkownicy widzą reklamę płatną, szukają opinii, a potem wpisują nazwę sklepu w Google i kupują organicznie.
 
-4) **Wysoki potencjał ruchu z asystentów AI:** Źródło `(ai-assistant)` miało tylko 37 wizyt, ale wygenerowało 2 zakupy na łączną kwotę ponad 2 000 PLN (CR = 5,41%, AOV > 1 000 PLN). To bardzo obiecujący kanał wczesnego etapu.
+4) **Wysoki potencjał ruchu z asystentów AI:** Źródło `(ai-assistant)` pomimo tego, że miało tylko 37 wizyt, wygenerowało 2 zakupy na łączną kwotę ponad 2 000 PLN (CR = 5,41%, AOV > 1 000 PLN). To bardzo obiecujący kanał wczesnego etapu.
 
 
 <br>
 
 
-### Symulacja Reallokacji Budżetu
+### Symulacja Realokacji Budżetu
 
 - Obcięcie budżetu `PowerBrand-Shopping` o 50% uwalnia ok. **6 460 PLN**.
 
@@ -253,7 +253,7 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 <br>
 
 
-**Wniosek:** **88,5% klientów kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Remarketing dłuższy niż 7 dni nie ma uzasadnienia ekonomicznego.
+**Wniosek:** **88,5% klientów sklepu internetowego kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Nie ma sensu prowadzić remarketingu dłużej niż 7 dni.
 
 
 <br>
@@ -287,7 +287,7 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 
 - **Język i biblioteki bazowe:** Python 3.10+, Pandas, NumPy
 - **Wizualizacja danych:** Plotly Express, Plotly Graph Objects
-- **Frontend raportu:** Samodzielny szablon HTML5/CSS3 (Dark Mode, Flexbox, CSS Grid) zintegrowany z silnikiem Plotly.js - otwiera się lokalnie w przeglądarce bez konieczności stawiania serwera.
+- **Frontend raportu:** Samodzielny szablon HTML5/CSS3 zintegrowany z silnikiem Plotly.js - otwiera się lokalnie w przeglądarce bez konieczności stawiania serwera.
 
 
 <br>
@@ -360,7 +360,6 @@ Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executiv
 
 
 ## 9. Kierunki Dalszego Rozwoju
-- **Algorytmiczny model atrybucji**: Przejście z modeli heurystycznych na probabilistyczny model łańcuchów Markowa dla wielokanałowych ścieżek zakupowych.
 - **Integracja z Google BigQuery**: Bezpośrednie pobieranie danych ze strumienia zdarzeń GA4 bez konieczności ręcznego eksportu plików CSV.
 - **Automatyczny alert wahań CPA**: Skrypt powiadamiający zespół (np. na Slacku), gdy koszt pozyskania transakcji (CPA) wzrośnie o ponad 30% tydzień do tygodnia.
 
@@ -371,7 +370,7 @@ Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executiv
 ## 10. Podsumowanie i Rekomendacje dla Zarządu
 
 Wdrożenie wniosków z analizy pozwala na natychmiastowe oszczędności i wzrost rentowności:
-- **Natychmiastowe cięcie kosztów**: Obcięcie budżetu nierentownej kampanii PowerBrand-Shopping o 50% oraz wyłączenie zerowych kampanii (adbox_comparison, aku, DiamondTools discount) zatrzymuje marnowanie ponad 7 000 PLN kwartalnie.
+- **Natychmiastowe cięcie kosztów**: Obcięcie budżetu nierentownej kampanii PowerBrand-Shopping o 50% oraz wyłączenie 'zerowych' kampanii (adbox_comparison, aku, DiamondTools discount) zatrzymuje stratę ponad 7 000 PLN kwartalnie.
 - **Doinwestowanie Comparison Engine**: Ruch z porównywarki generuje 12-krotny zwrot (ROAS 12,31). Należy zabezpieczyć budżet i podnieść stawki na najlepiej konwertujące produkty, aby nie tracić wyświetleń przez wyczerpane saldo.
 - **Naprawa checkoutu priorytetem przed zwiększaniem ruchu**: Sprowadzanie nowego ruchu przy porzucalności kasy na poziomie 76,5% to marnowanie budżetu. Wdrożenie płatności BLIK jednym kliknięciem oraz zakupów bez rejestracji podniesie zyski szybciej niż jakakolwiek nowa kampania reklamowa.
 - **Skrócenie okna remarketingu**: Kampanie remarketingowe powinny skupić się na pierwszych 7 dniach od wizyty – po tym czasie szansa na domknięcie zakupu drastycznie spada.
