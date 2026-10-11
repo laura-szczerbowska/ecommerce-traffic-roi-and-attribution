@@ -31,8 +31,11 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 
 
 
-<video src="https://github.com/user-attachments/assets/ca49327c-92b5-4ca2-8fa0-bc6011c18a1a" controls autoplay loop muted width="100%">
-</video>
+
+
+https://github.com/user-attachments/assets/11a109e2-09c3-4475-854d-0858891bae03
+
+
 
 
 
