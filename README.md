@@ -5,9 +5,9 @@
 # Multichannel Campaign Performance & Attribution Modeling in E-Commerce
 
 
-An end-to-end analytics engine evaluating paid and organic marketing performance for an e-commerce platform (hardware & power tools sector) over the period **08.05-05.08.2026**. It solves a concrete business problem: showing how to allocate budget more effectively without relying solely on Last Touch, and pinpointing the exact stages where customers drop off in the purchasing process.
+An analytical module evaluating the performance of paid campaigns and organic traffic sources in an e-commerce store between **08.05 and 05.08.2026**. It addresses a critical business challenge: demonstrating how to allocate ad spend more effectively without relying solely on the Last-Touch model, while pinpointing exactly where users drop off along the purchase journey.
 
-The project combines raw GA4 event-log preprocessing, media efficiency calculations (ROAS, CPA, AOV), purchase latency cohort modeling, and an automated Python script generating an interactive executive HTML dashboard.
+The project combines raw GA4 log preprocessing, profitability metrics calculation (ROAS, CPA, AOV), purchase latency cohort analysis, and a standalone script generating an interactive executive HTML dashboard. Dedicated scripts (`01`–`04`) execute focused analyses with bespoke visualisations and findings, which are subsequently consolidated in script `05` to deliver a cohesive executive summary report.
 
 > **Data Notice:**  
 > This analysis is grounded in real transaction records and behavioral logs extracted from an operational e-commerce store. All sensitive commercial metrics and monetary totals were anonymized and standardized (feature-scaled), fully preserving authentic behavioral patterns, conversion dynamics, and cross-channel relationships.
@@ -97,6 +97,24 @@ Stand-Alone Dark-Mode HTML Executive Dashboard Generation (Plotly.js)
 
 
 <br>
+
+
+### Analytical Modules & Script Scope
+
+1. **First vs Last Touch Attribution (`01_first_vs_last_touch.py`):**
+   * Demonstrates the assisting role of Paid Search campaigns (PowerBrand) and the closing role of organic SEO traffic (+4.5k PLN under the Last-Touch model).
+2. **Traffic Quality Matrix (`02_user_performance.py`):**
+   * Segments sources into 4 performance tiers based on CR (2.0%) and AOV (500 PLN) thresholds. Identifies AI Assistant traffic as the highest-converting channel (CR = 5.41%).
+3. **Cost Efficiency & Funnel Diagnostics (`03_traffic_vs_revenue_analysis.py`):**
+   * Computes unit economics: Cost Per Acquisition (CPA) and Return on Ad Spend (ROAS). Pinpoints the primary checkout bottleneck (a 76.5% drop-off between checkout initiation and purchase).
+4. **Purchase Latency Cohort Analysis (`04_cohort_analysis.py`):**
+   * Evaluates the time-to-conversion window — ~75–88% of purchases conclude on Day 0, with customer consideration fully closing within 7 days.
+5. **Executive Dashboard (`05_final_insights_and_recommendations.py`):**
+   * Consolidates all metrics into an interactive HTML dashboard featuring KPI summary cards, an actionable recommendation matrix, and cohesive Plotly visualizations.
+
+
+<br>
+
 
 
 ## 3. Data & Dataset Preparation
@@ -195,21 +213,28 @@ $$\text{ROAS} = \frac{\text{Revenue}}{\text{Cost}}, \quad \text{CPA} = \frac{\te
 
 Consolidated performance evaluation matrix across all audited traffic channels:
 
-| Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Comparison Engine / referral** | 3 831 | 87 | 105 711.99 | 12.31 | 98.72 | 2.27% | **Protect & Fund** |
-| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398.90 | 3.63 | 265.86 | 1.04% | **Maintain & Optimize** |
-| **(direct)** | 1 234 | 39 | 38 064.50 | — | — | 3.16% | **Leverage & Retain** |
-| **(organic)** | 2 630 | 26 | 23 214.10 | — | — | 0.99% | **Leverage & Retain** |
-| **PowerBrand-Shopping** | 13 783 | 62 | 12 921.38 | 1.08 | 208.41 | 0.45% | **Audit & Restructure** |
-| **PMax DiamondTools** | 470 | 14 | 5 152.00 | 3.65 | 100.51 | 2.98% | **Maintain & Optimize** |
-| **Not set (not set)** | 135 | 11 | 9 845.20 | — | — | 8.15% | **Audit & Restructure** |
-| **(ai-assistant)** | 37 | 2 | 2 031.80 | — | — | 5.41% | **Leverage & Retain** |
-| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 8.89% | **Leverage & Retain** |
-| **(cross-network)** | 312 | 1 | 296.00 | 0.52 | 296.00 | 0.32% | **Audit & Restructure** |
-| **Zero-conversion paid (3 campaigns)** | 20 | 0 | 0.00 | 0.00 | — | 0.00% | **Pause / Cut Spend** |
+<div style="overflow-x: auto; white-space: nowrap;">
+
+| Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | % Immediate (D0) | First/Last Match | Recommendation |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **comparison_engine / referral** | 3 841 | 87 | 105&nbsp;711.99 | 12.31 | 98.72 | 1&nbsp;215.08 | 2.27% | 72.7% | 100.0% | **Protect & Fund** |
+| **PowerBrand – ElectroStore – Search Website** | 4 343 | 45 | 43&nbsp;398.90 | 3.63 | 265.86 | 964.42 | 1.04% | 73.5% | 90.7% | **Maintain & Optimize** |
+| **(direct)** | 824 | 26 | 15&nbsp;644.72 | — | — | 601.72 | 3.16% | 84.6% | 98.1% | **Leverage & Retain** |
+| **(organic)** | 1 619 | 16 | 13&nbsp;940.86 | — | — | 871.30 | 0.99% | 76.9% | 67.7% | **Leverage & Retain** |
+| **PowerBrand-Shopping** | 13 783 | 62 | 13&nbsp;928.87 | 1.08 | 208.41 | 224.66 | 0.45% | 80.0% | 89.5% | **Audit & Restructure** |
+| **PMax \| DiamondTools** | 638 | 19 | 6&nbsp;963.90 | 3.65 | 100.51 | 366.52 | 2.98% | 81.0% | 94.5% | **Maintain & Optimize** |
+| **(referral)** | 510 | 5 | 4&nbsp;137.48 | — | — | 827.50 | 0.98% | 0.0% | 87.3% | **Leverage & Retain** |
+| **(ai-assistant)** | 39 | 2 | 2&nbsp;031.56 | — | — | 1&nbsp;015.78 | 5.13% | 50.0% | 100.0% | **Leverage & Retain** |
+| **Not set (not set)** | 123 | 6 | 1&nbsp;607.22 | — | — | 267.87 | 4.88% | 81.8% | 52.6% | **Leverage & Retain** |
+| **Shopping Free Listings** | 59 | 2 | 767.13 | — | — | 383.56 | 3.39% | 50.0% | 79.0% | **Leverage & Retain** |
+| **(cross-network)** | 204 | 2 | 671.80 | 1.13 | 296.25 | 335.90 | 0.98% | 100.0% | 47.5% | **Audit & Restructure** |
+| **Zero-conversion paid (3 campaigns)\*** | 36 | 0 | 0.00 | 0.00 | — | 0.00 | 0.00% | 0.0% | 0.0% | **Pause / Cut Spend** |
 
 *\*Includes: `adbox_comparison`, `DiamondTools discount`, `aku`.*
+
+</div>
+
+
 
 
 <br>
@@ -323,20 +348,19 @@ E-commerce conversion funnel with campaign-level dropdown filtering.
 ```text
 ecommerce-analytics/
 ├── data/
-│   ├── sales_performance.csv              # Last-Touch transaction logs
-│   ├── first_touch_users.csv              # First-Touch acquisition sources
-│   ├── traffic_and_revenue.csv            # Aggregate traffic & revenue metrics
-│   ├── campaign_costs.csv                 # Paid media advertising expenditures
-│   ├── funnel_events.csv                  # E-commerce step event data
-│   ├── cohort_analysis_campaigns.csv      # Daily cohort records by campaign
-│   └── cohort_analysis_sources.csv        # Daily cohort records by source
-├── 01_attribution_model.py                # Script 1: First vs Last Touch modeling
-├── 02_campaign_matrix.py                  # Script 2: Efficiency matrix (CR / AOV / ARPU)
-├── 03_funnel_and_roas.py                  # Script 3: Leaky funnel & ROAS analytics
-├── 04_cohort_latency.py                   # Script 4: Time-to-conversion cohort analysis
-├── 05_executive_report.py                 # Script 5: Consolidated HTML dashboard generator
-├── executive_summary_report.html          # Interactive executive dashboard (generated output html)
-├── requirements.txt                       # Python dependencies
+│   ├── sales_performance.csv              # Last-Touch transactions and revenue
+│   ├── first_touch_users.csv              # First-Touch user acquisition sources
+│   ├── traffic_and_revenue.csv            # Traffic and revenue per campaign
+│   ├── campaign_costs.csv                 # Advertising spend for paid campaigns
+│   ├── funnel_events.csv                  # Purchase journey events (funnel stages)
+│   └── cohort_analysis_campaigns.csv      # GA4 cohort logs (retention & purchases over time)
+├── 01_first_vs_last_touch.py              # Script 1: Attribution model comparison (First vs Last Touch)
+├── 02_user_performance.py                 # Script 2: Source segmentation matrix (CR vs AOV vs ARPU)
+├── 03_traffic_vs_revenue_analysis.py      # Script 3: Traffic scale, ROAS, CPA, and conversion funnel analysis
+├── 04_cohort_analysis.py                  # Script 4: Purchase latency cohort analysis (time-to-conversion)
+├── 05_final_insights_and_recommendations.py # Script 5: Metric consolidation & HTML executive dashboard generator
+├── executive_summary_report.html          # Standalone, interactive executive dashboard
+├── requirements.txt                       # Required Python dependencies
 ├── README.md                              # English documentation
 └── README.pl.md                           # Polish documentation
 ```
@@ -372,8 +396,15 @@ python -m venv .venv
 
 <br>
 
-- Activate on Linux/macOS: source .venv/bin/activate
-- Activate on Windows (PowerShell): .\.venv\Scripts\Activate.ps1
+- Activate on Linux/macOS:
+```bash
+ source .venv/bin/activate
+```
+
+- Activate on Windows (PowerShell):
+```bash
+.\.venv\Scripts\Activate.ps1
+```
 
 Install requirements: 
 ```bash
@@ -385,7 +416,9 @@ pip install -r requirements.txt
 
 3) Generate the Executive Dashboard
 
-`python 05_executive_report.py`
+```bash
+python 05_executive_report.py
+```
 
 The script parses all CSV records, calculates attribution and cohort matrices, outputs executive_summary_report.html, and automatically launches it in your default web browser.
 
