@@ -25,6 +25,9 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 Krótka prezentacja działania interaktywnego raportu zarządczego (filtry, lejek, kohorty i rekomendacje biznesowe)
 
 
+<br>
+
+
 
 
 https://github.com/user-attachments/assets/7549c1da-bbde-4963-a660-0bac8d8346fd
