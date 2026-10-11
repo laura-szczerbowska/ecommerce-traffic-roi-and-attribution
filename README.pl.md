@@ -4,9 +4,11 @@
 
 # Wielokanałowa Analiza Efektywności Kampanii i Modeli Atrybucji w E-Commerce
 
-Moduł analityczny badający efektywność kampanii płatnych i źródeł bezpłatnych w sklepie internetowym w okresie **08.05-05.08.2026**. Rozwiązuje on konkretny problem: pokazuje, jak skuteczniej wydawać budżet bez opierania się wyłącznie na 'Last Touch' oraz w których momentach procesu klienci rezygnują z zakupu.”
+Moduł analityczny badający efektywność kampanii płatnych i źródeł bezpłatnych w sklepie internetowym w okresie **08.05-05.08.2026**. Rozwiązuje on konkretny problem: pokazuje, jak skuteczniej alokować budżet bez opierania się wyłącznie na modelu Last-Touch oraz w których momentach procesu klienci rezygnują z zakupu.
 
-Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentowności (ROAS, CPA, AOV), analizę kohortową opóźnienia decyzji zakupowej oraz gotowy skrypt generujący interaktywny dashboard zarządczy w HTML.
+Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentowności (ROAS, CPA, AOV), analizę kohortową opóźnienia decyzji zakupowej oraz gotowy skrypt generujący interaktywny dashboard zarządczy w HTML. W poszczególnych skryptach (`01`-`04`) przeprowadzono odrębne analizy z dedykowanymi wizualizacjami i wnioskami, które następnie zagregowano w pliku `05`, tworząc spójny raport podsumowujący.
+
+
 
 > **Uwaga dotycząca danych:**  
 > Analiza bazuje na rzeczywistych danych transakcyjnych i logach behawioralnych pochodzących z funkcjonującego sklepu internetowego. Wszystkie wrażliwe dane biznesowe oraz wolumeny przychodowe zostały poddane procedurze anonimizacji i standaryzacji, co pozwoliło na pełne zachowanie realnych zależności, proporcji oraz wzorców konwersji przy zachowaniu poufności.
@@ -18,8 +20,9 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 
 <br>
 
+## Wideo demonstracyjne
 
-
+Krótka prezentacja działania interaktywnego raportu zarządczego (filtry, lejek, kohorty i rekomendacje biznesowe)
 
 
 
@@ -72,7 +75,27 @@ Segmentacja kampanii i rekomendacje budżetowe
 Generowanie samodzielnego raportu HTML z wykresami Plotly
 ```
 
+
 <br>
+
+
+### Moduły Analityczne i Wnioski Cząstkowe
+
+1. **Atrybucja First vs Last Touch (`01_first_vs_last_touch.py`):**
+   * Wykazanie asystującej roli kampanii Paid Search (PowerBrand) oraz domykającej roli ruchu organicznego SEO (+4.5k PLN w modelu Last-Touch).
+2. **Macierz Jakości Ruchu (`02_user_performance.py`):**
+   * Podział źródeł na 4 segmenty jakościowe w oparciu o progi CR (2.0%) i AOV (500 PLN). Identyfikacja ruchu AI Assistant jako kanału o najwyższym CR (5.41%).
+3. **Efektywność Kosztowa i Lejek (`03_traffic_vs_revenue_analysis.py`):**
+   * Wyliczenie jednostkowych kosztów pozyskania (CPA) i zwrotu (ROAS). Diagnoza wąskiego gardła checkoutu (odpadanie 76,5% użytkowników między koszykiem a zakupem).
+4. **Analiza Latencji Zakupowej (`04_cohort_analysis.py`):**
+   * Pomiar czasu decyzji zakupowej — ~75-88% transakcji finalizowanych jest w Day 0, a okno decyzyjne zamyka się w 7 dniach.
+5. **Dashboard Zarządczy (`05_final_insights_and_recommendations.py`):**
+   * Zagregowanie wszystkich ustaleń w interaktywny raport HTML z kartami KPI, tabelą decyzyjną i wizualizacjami Plotly.
+
+
+
+<br>
+
 
 
 ## 3. Dane i Przygotowanie Zbioru
@@ -171,19 +194,20 @@ $$
 
 Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
-| Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Comparison Engine / referral** | 3 831 | 87 | 105 711.99 | 12.31 | 98.72 | 2.27% | **Protect & Fund** |
-| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398.90 | 3.63 | 265.86 | 1.04% | **Maintain & Optimize** |
-| **(direct)** | 1 234 | 39 | 38 064.50 | — | — | 3.16% | **Leverage & Retain** |
-| **(organic)** | 2 630 | 26 | 23 214.10 | — | — | 0.99% | **Leverage & Retain** |
-| **PowerBrand-Shopping** | 13 783 | 62 | 12 921.38 | 1.08 | 208.41 | 0.45% | **Audit & Restructure** |
-| **PMax DiamondTools** | 470 | 14 | 5 152.00 | 3.65 | 100.51 | 2.98% | **Maintain & Optimize** |
-| **Not set (not set)** | 135 | 11 | 9 845.20 | — | — | 8.15% | **Audit & Restructure** |
-| **(ai-assistant)** | 37 | 2 | 2 031.80 | — | — | 5.41% | **Leverage & Retain** |
-| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 8.89% | **Leverage & Retain** |
-| **(cross-network)** | 312 | 1 | 296.00 | 0.52 | 296.00 | 0.32% | **Audit & Restructure** |
-| **Zero-conversion paid (3 campaigns)** | 20 | 0 | 0.00 | 0.00 | — | 0.00% | **Pause / Cut Spend** |
+| Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | % Immediate (D0) | First/Last Match | Recommendation |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **comparison_engine / referral** | 3 841 | 87 | 105 711.99 | 12.31 | 98.72 | 1 215.08 | 2.27% | 72.7% | 100.0% | **Protect & Fund** |
+| **PowerBrand – ElectroStore – Search Website** | 4 343 | 45 | 43 398.90 | 3.63 | 265.86 | 964.42 | 1.04% | 73.5% | 90.7% | **Maintain & Optimize** |
+| **(direct)** | 824 | 26 | 15 644.72 | — | — | 601.72 | 3.16% | 84.6% | 98.1% | **Leverage & Retain** |
+| **(organic)** | 1 619 | 16 | 13 940.86 | — | — | 871.30 | 0.99% | 76.9% | 67.7% | **Leverage & Retain** |
+| **PowerBrand-Shopping** | 13 783 | 62 | 13 928.87 | 1.08 | 208.41 | 224.66 | 0.45% | 80.0% | 89.5% | **Audit & Restructure** |
+| **PMax \| DiamondTools** | 638 | 19 | 6 963.90 | 3.65 | 100.51 | 366.52 | 2.98% | 81.0% | 94.5% | **Maintain & Optimize** |
+| **(referral)** | 510 | 5 | 4 137.48 | — | — | 827.50 | 0.98% | 0.0% | 87.3% | **Leverage & Retain** |
+| **(ai-assistant)** | 39 | 2 | 2 031.56 | — | — | 1 015.78 | 5.13% | 50.0% | 100.0% | **Leverage & Retain** |
+| **Not set (not set)** | 123 | 6 | 1 607.22 | — | — | 267.87 | 4.88% | 81.8% | 52.6% | **Leverage & Retain** |
+| **Shopping Free Listings** | 59 | 2 | 767.13 | — | — | 383.56 | 3.39% | 50.0% | 79.0% | **Leverage & Retain** |
+| **(cross-network)** | 204 | 2 | 671.80 | 1.13 | 296.25 | 335.90 | 0.98% | 100.0% | 47.5% | **Audit & Restructure** |
+| **Zero-conversion paid (3 campaigns)\*** | 36 | 0 | 0.00 | 0.00 | — | 0.00 | 0.00% | 0.0% | 0.0% | **Pause / Cut Spend** |
 
 *\*Obejmuje: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
@@ -259,7 +283,7 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 <br>
 
 
-**Wniosek:** **88,5% klientów sklepu internetowego kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Nie ma sensu prowadzić remarketingu dłużej niż 7 dni.
+**Wniosek:** **~75%% klientów sklepu internetowego kupuje tego samego dnia (Day 0)**. Użytkownicy rozważający zakup dłużej potrzebują maksymalnie 1-7 dni (20-27% transakcji na Comparison Engine i Searchu). Nie ma sensu prowadzić remarketingu dłużej niż 7 dni.
 
 
 <br>
@@ -306,19 +330,18 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 ```text
 ecommerce-analytics/
 ├── data/
-│   ├── sales_performance.csv              # Transakcje Last-Touch
-│   ├── first_touch_users.csv              # Ruch First-Touch
-│   ├── traffic_and_revenue.csv            # Dane zbiorcze o ruchu
-│   ├── campaign_costs.csv                 # Koszty reklamowe
-│   ├── funnel_events.csv                  # Zdarzenia na ścieżce zakupu
-│   ├── cohort_analysis_campaigns.csv      # Kohorty per kampania
-│   └── cohort_analysis_sources.csv        # Kohorty per źródło
-├── 01_attribution_model.py                # Skrypt 1: Porównanie First vs Last Touch
-├── 02_campaign_matrix.py                  # Skrypt 2: Macierz efektywności (CR vs AOV)
-├── 03_funnel_and_roas.py                  # Skrypt 3: Analiza lejka i ROAS
-├── 04_cohort_latency.py                   # Skrypt 4: Analiza czasu konwersji
-├── 05_executive_report.py                 # Skrypt 5: Główny generator raportu HTML
-├── executive_summary_report.html          # Interaktywny dashboard zarządczy (wygenerowany raport html)
+│   ├── sales_performance.csv              # Transakcje i przychody Last-Touch
+│   ├── first_touch_users.csv              # Źródła pozyskania nowych użytkowników (First-Touch)
+│   ├── traffic_and_revenue.csv            # Ruch i przychód per kampania
+│   ├── campaign_costs.csv                 # Koszty reklamowe kampanii płatnych
+│   ├── funnel_events.csv                  # Zdarzenia na ścieżce zakupu (etapy lejka)
+│   └── cohort_analysis_campaigns.csv      # Logi kohortowe GA4 (retencja i zakupy w czasie)
+├── 01_first_vs_last_touch.py              # Skrypt 1: Porównanie modeli atrybucji (First vs Last Touch)
+├── 02_user_performance.py                 # Skrypt 2: Macierz segmentacji źródeł (CR vs AOV vs ARPU)
+├── 03_traffic_vs_revenue_analysis.py      # Skrypt 3: Analiza skali ruchu, ROAS, CPA oraz lejka konwersji
+├── 04_cohort_analysis.py                  # Skrypt 4: Analiza kohortowa opóźnienia zakupu (latencja dniowa)
+├── 05_final_insights_and_recommendations.py # Skrypt 5: Integracja metryk i generator raportu HTML
+├── executive_summary_report.html          # Samodzielny, interaktywny dashboard zarządczy
 ├── requirements.txt                       # Wymagane biblioteki Pythona
 ├── README.md                              # Dokumentacja w języku angielskim
 └── README.pl.md                           # Dokumentacja w języku polskim
