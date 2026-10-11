@@ -7,7 +7,7 @@
 
 An analytical module evaluating the performance of paid campaigns and organic traffic sources in an e-commerce store between **08.05 and 05.08.2026**. It addresses a critical business challenge: demonstrating how to allocate ad spend more effectively without relying solely on the Last-Touch model, while pinpointing exactly where users drop off along the purchase journey.
 
-The project combines raw GA4 log preprocessing, profitability metrics calculation (ROAS, CPA, AOV), purchase latency cohort analysis, and a standalone script generating an interactive executive HTML dashboard. Dedicated scripts (`01`–`04`) execute focused analyses with bespoke visualisations and findings, which are subsequently consolidated in script `05` to deliver a cohesive executive summary report.
+The project combines raw GA4 log preprocessing, profitability metrics calculation (ROAS, CPA, AOV), purchase latency cohort analysis, and a standalone script generating an interactive executive HTML dashboard. Dedicated scripts (01-04) execute focused analyses with bespoke visualisations and findings, which are subsequently consolidated in script 05 to deliver a cohesive executive summary report.
 
 > **Data Notice:**  
 > This analysis is grounded in real transaction records and behavioral logs extracted from an operational e-commerce store. All sensitive commercial metrics and monetary totals were anonymized and standardized (feature-scaled), fully preserving authentic behavioral patterns, conversion dynamics, and cross-channel relationships.
