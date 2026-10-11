@@ -21,9 +21,9 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 
 
 
-## 📊 Executive Dashboard Preview
+## Executive Dashboard Preview
 
-Krótka prezentacja działania interaktywnego raportu zarządczego (filtry, lejek, kohorty i rekomendacje biznesowe)
+A quick walkthrough of the interactive executive dashboard, covering filters, the conversion funnel, cohort analysis, and strategic business recommendations.
 
 
 
@@ -279,7 +279,7 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 
 <br>
 
-- **Takeaway:** **88.5% of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Comparison Engine and Search). Retargeting campaigns running past 7 days produce diminishing returns.
+- **Takeaway:** **~75%** of store-wide transactions close on Day 0**. Users requiring consideration finalize checkout within a 1–7 day window (20–27% of volume in Comparison Engine and Search). Retargeting campaigns running past 7 days produce diminishing returns.
 
 
 <br>
