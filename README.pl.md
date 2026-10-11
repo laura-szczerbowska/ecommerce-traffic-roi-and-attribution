@@ -373,10 +373,14 @@ cd ecommerce-analytics
 #### 2) Środowisko wirtualne i instalacja zależności
 
 * Utworzenie środowiska wirtualnego
+```bash
 python -m venv .venv
+```
 
 * Aktywacja środowiska (Linux/macOS)/(Windows PowerShell):
+```bash
 source .venv/bin/activate / .\.venv\Scripts\Activate.ps1
+```
 
 * Instalacja wymaganych pakietów
 ```bash
