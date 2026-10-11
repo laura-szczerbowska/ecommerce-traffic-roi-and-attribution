@@ -22,7 +22,11 @@ Projekt łączy czyszczenie surowych logów GA4, kalkulację wskaźników rentow
 
 
 
-https://github.com/user-attachments/assets/606577fb-fa88-4857-9836-714dbd68e021
+
+
+https://github.com/user-attachments/assets/7549c1da-bbde-4963-a660-0bac8d8346fd
+
+
 
 
 
@@ -167,19 +171,19 @@ $$
 
 Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
-| Źródło / Kampania | Ruch (Trans.) | Przychód (PLN) | ROAS | CPA (PLN) | CR % | Status |
-| :--- | :---: | :---: | :---: | :---: | :---: | :--- |
-| **Comparison Engine** | 3 831 (87) | 105 711,99 | **12,31** | **98,72** | 2,27% | **Skalować (Top Performer)** |
-| **PowerBrand – Search** | 4 338 (45) | 43 398,90 | **3,63** | **265,86** | 1,04% | **Optymalizować** |
-| **(direct)** | 1 234 (39) | 38 064,50 | - | - | 3,16% | **Utrzymać** |
-| **(organic)** | 2 630 (26) | 23 214,10 | - | - | 0,99% | **Utrzymać** |
-| **PowerBrand-Shopping** | 13 783 (62) | 12 921,38 | **1,08** | **208,41** | 0,45% | **Ograniczyć budżet** |
-| **PMax DiamondTools** | 470 (14) | 5 152,00 | **3,65** | **100,51** | 2,98% | **Skalować** |
-| **Not set (not set)** | 135 (11) | 9 845,20 | - | - | 8,15% | **Audyt UTM** |
-| **(ai-assistant)** | 37 (2) | 2 031,80 | - | - | 5,41% | **Monitorować** |
-| **Shopping Free** | 22 (2) | 484,00 | - | - | 8,89% | **Optymalizacja feedu** |
-| **(cross-network)** | 312 (1) | 296,00 | **0,52** | **296,00** | 0,32% | **Wstrzymać** |
-| **Brak transakcji (3 kamp.)*** | 20 (0) | 0,00 | **0,00** | - | 0,00% | **Wyłączyć** |
+| Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Comparison Engine / referral** | 3 831 | 87 | 105 711.99 | 12.31 | 98.72 | 2.27% | **Protect & Fund** |
+| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398.90 | 3.63 | 265.86 | 1.04% | **Maintain & Optimize** |
+| **(direct)** | 1 234 | 39 | 38 064.50 | — | — | 3.16% | **Leverage & Retain** |
+| **(organic)** | 2 630 | 26 | 23 214.10 | — | — | 0.99% | **Leverage & Retain** |
+| **PowerBrand-Shopping** | 13 783 | 62 | 12 921.38 | 1.08 | 208.41 | 0.45% | **Audit & Restructure** |
+| **PMax DiamondTools** | 470 | 14 | 5 152.00 | 3.65 | 100.51 | 2.98% | **Maintain & Optimize** |
+| **Not set (not set)** | 135 | 11 | 9 845.20 | — | — | 8.15% | **Audit & Restructure** |
+| **(ai-assistant)** | 37 | 2 | 2 031.80 | — | — | 5.41% | **Leverage & Retain** |
+| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 8.89% | **Leverage & Retain** |
+| **(cross-network)** | 312 | 1 | 296.00 | 0.52 | 296.00 | 0.32% | **Audit & Restructure** |
+| **Zero-conversion paid (3 campaigns)** | 20 | 0 | 0.00 | 0.00 | — | 0.00% | **Pause / Cut Spend** |
 
 *\*Obejmuje: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
@@ -222,7 +226,8 @@ Wykres bąbelkowy zestawiający koszt pozyskania klienta (CPA) z mnożnikiem zwr
 <br>
 
 
-<img width="1532" height="738" alt="image" src="https://github.com/user-attachments/assets/48548fc6-9c57-489d-9091-be4882a18d75" />
+<img width="1535" height="737" alt="image" src="https://github.com/user-attachments/assets/3e9926dc-3a98-4134-a1c0-7929f57dfec6" />
+
 
 
 <br>
@@ -244,7 +249,8 @@ Poziomy wykres skumulowany pokazujący, ile dni upływa od pierwszej wizyty do z
 <br>
 
 
-<img width="1527" height="781" alt="image" src="https://github.com/user-attachments/assets/387172bc-ff4d-44b9-a37b-09c434c8bd83" />
+<img width="1517" height="853" alt="image" src="https://github.com/user-attachments/assets/61eb1e1e-7865-4922-ab90-fa89d6a1221c" />
+
 
 
 <br>
@@ -266,7 +272,8 @@ Wykres lejkowy zdarzeń e-commerce z interaktywnym przełącznikiem kampanii.
 <br>
 
 
-<img width="1512" height="710" alt="image" src="https://github.com/user-attachments/assets/cceb5903-4c72-47d7-9d0a-1a71c7eea78a" />
+<img width="1485" height="706" alt="image" src="https://github.com/user-attachments/assets/04f9121b-9d34-4d7e-8fcb-c48377723063" />
+
 
 
 <br>
