@@ -27,7 +27,7 @@ A quick walkthrough of the interactive executive dashboard, covering filters, th
 
 
 
-
+<br>
 
 
 
@@ -108,7 +108,7 @@ Stand-Alone Dark-Mode HTML Executive Dashboard Generation (Plotly.js)
 3. **Cost Efficiency & Funnel Diagnostics (`03_traffic_vs_revenue_analysis.py`):**
    * Computes unit economics: Cost Per Acquisition (CPA) and Return on Ad Spend (ROAS). Pinpoints the primary checkout bottleneck (a 76.5% drop-off between checkout initiation and purchase).
 4. **Purchase Latency Cohort Analysis (`04_cohort_analysis.py`):**
-   * Evaluates the time-to-conversion window — ~75–88% of purchases conclude on Day 0, with customer consideration fully closing within 7 days.
+   * Evaluates the time-to-conversion window - ~75–88% of purchases conclude on Day 0, with customer consideration fully closing within 7 days.
 5. **Executive Dashboard (`05_final_insights_and_recommendations.py`):**
    * Consolidates all metrics into an interactive HTML dashboard featuring KPI summary cards, an actionable recommendation matrix, and cohesive Plotly visualizations.
 
