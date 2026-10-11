@@ -219,16 +219,16 @@ Consolidated performance evaluation matrix across all audited traffic channels:
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **comparison_engine / referral** | 3 841 | 87 | 105&nbsp;711.99 | 12.31 | 98.72 | 1&nbsp;215.08 | 2.27% | 72.7% | 100.0% | **Protect & Fund** |
 | **PowerBrand – ElectroStore – Search Website** | 4 343 | 45 | 43&nbsp;398.90 | 3.63 | 265.86 | 964.42 | 1.04% | 73.5% | 90.7% | **Maintain & Optimize** |
-| **(direct)** | 824 | 26 | 15&nbsp;644.72 | — | — | 601.72 | 3.16% | 84.6% | 98.1% | **Leverage & Retain** |
-| **(organic)** | 1 619 | 16 | 13&nbsp;940.86 | — | — | 871.30 | 0.99% | 76.9% | 67.7% | **Leverage & Retain** |
+| **(direct)** | 824 | 26 | 15&nbsp;644.72 | - | - | 601.72 | 3.16% | 84.6% | 98.1% | **Leverage & Retain** |
+| **(organic)** | 1 619 | 16 | 13&nbsp;940.86 | - | - | 871.30 | 0.99% | 76.9% | 67.7% | **Leverage & Retain** |
 | **PowerBrand-Shopping** | 13 783 | 62 | 13&nbsp;928.87 | 1.08 | 208.41 | 224.66 | 0.45% | 80.0% | 89.5% | **Audit & Restructure** |
 | **PMax \| DiamondTools** | 638 | 19 | 6&nbsp;963.90 | 3.65 | 100.51 | 366.52 | 2.98% | 81.0% | 94.5% | **Maintain & Optimize** |
-| **(referral)** | 510 | 5 | 4&nbsp;137.48 | — | — | 827.50 | 0.98% | 0.0% | 87.3% | **Leverage & Retain** |
-| **(ai-assistant)** | 39 | 2 | 2&nbsp;031.56 | — | — | 1&nbsp;015.78 | 5.13% | 50.0% | 100.0% | **Leverage & Retain** |
-| **Not set (not set)** | 123 | 6 | 1&nbsp;607.22 | — | — | 267.87 | 4.88% | 81.8% | 52.6% | **Leverage & Retain** |
-| **Shopping Free Listings** | 59 | 2 | 767.13 | — | — | 383.56 | 3.39% | 50.0% | 79.0% | **Leverage & Retain** |
+| **(referral)** | 510 | 5 | 4&nbsp;137.48 | - | - | 827.50 | 0.98% | 0.0% | 87.3% | **Leverage & Retain** |
+| **(ai-assistant)** | 39 | 2 | 2&nbsp;031.56 | - | - | 1&nbsp;015.78 | 5.13% | 50.0% | 100.0% | **Leverage & Retain** |
+| **Not set (not set)** | 123 | 6 | 1&nbsp;607.22 | - | - | 267.87 | 4.88% | 81.8% | 52.6% | **Leverage & Retain** |
+| **Shopping Free Listings** | 59 | 2 | 767.13 | - | - | 383.56 | 3.39% | 50.0% | 79.0% | **Leverage & Retain** |
 | **(cross-network)** | 204 | 2 | 671.80 | 1.13 | 296.25 | 335.90 | 0.98% | 100.0% | 47.5% | **Audit & Restructure** |
-| **Zero-conversion paid (3 campaigns)\*** | 36 | 0 | 0.00 | 0.00 | — | 0.00 | 0.00% | 0.0% | 0.0% | **Pause / Cut Spend** |
+| **Zero-conversion paid (3 campaigns)\*** | 36 | 0 | 0.00 | 0.00 | - | 0.00 | 0.00% | 0.0% | 0.0% | **Pause / Cut Spend** |
 
 *\*Includes: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
