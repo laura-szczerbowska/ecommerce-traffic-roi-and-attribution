@@ -214,6 +214,8 @@ $$\text{ROAS} = \frac{\text{Revenue}}{\text{Cost}}, \quad \text{CPA} = \frac{\te
 Consolidated performance evaluation matrix across all audited traffic channels:
 
 
+<br>
+
 
 <div style="overflow-x: auto; white-space: nowrap;">
 
