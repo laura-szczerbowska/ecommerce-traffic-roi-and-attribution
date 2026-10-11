@@ -213,6 +213,8 @@ $$\text{ROAS} = \frac{\text{Revenue}}{\text{Cost}}, \quad \text{CPA} = \frac{\te
 
 Consolidated performance evaluation matrix across all audited traffic channels:
 
+
+
 <div style="overflow-x: auto; white-space: nowrap;">
 
 | Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | % Immediate (D0) | First/Last Match | Recommendation |
