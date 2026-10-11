@@ -115,62 +115,54 @@ summary['CR_%'] = np.where(summary['Users'] > 0, ((summary['Transactions'] / sum
 
 
 # Cohort processing
-def load_cohorts(file_path):
+def load_and_preprocess_cohort_data(file_path):
     df = pd.read_csv(file_path, encoding='utf-8-sig', comment='#', dtype=str, on_bad_lines='skip')
     df.columns = df.columns.str.strip()
+
     if df.shape[1] >= 7:
-        df = df.iloc[:, :7].copy()
-        df.columns = ['Day_raw', 'Date', 'Source_Campaign', 'Row_Type', 'Users', 'Transactions_raw', 'Rate']
+        df = df.iloc[:, :7]
+        df.columns = [
+            'Day_raw', 'Date', 'Source_Campaign', 'Row_Type',
+            'Users', 'Transactions_raw', 'Rate'
+        ]
         df = df[df['Row_Type'].astype(str).str.strip() == 'date_range_0'].copy()
     else:
-        df = df.iloc[:, :6].copy()
-        df.columns = ['Day_raw', 'Date', 'Source_Campaign', 'Users', 'Transactions_raw', 'Rate']
+        df = df.iloc[:, :6]
+        df.columns = [
+            'Day_raw', 'Date', 'Source_Campaign',
+            'Users', 'Transactions_raw', 'Rate'
+        ]
 
-    df = df[(~df['Source_Campaign'].astype(str).str.contains('RESERVED', case=False, na=False)) &
-            (~df['Date'].astype(str).str.contains('RESERVED', case=False, na=False))].copy()
+    # Usunięcie wierszy podsumowujących z GA4
+    df = df[
+        (~df['Source_Campaign'].astype(str).str.contains('RESERVED', case=False, na=False)) &
+        (~df['Date'].astype(str).str.contains('RESERVED', case=False, na=False))
+    ].copy()
 
-    df['Source_Campaign'] = df['Source_Campaign'].astype(str).str.strip().replace({'(not set)': 'Not set (not set)'})
+    df['Source_Campaign'] = df['Source_Campaign'].astype(str).str.strip().replace({
+        '(not set)': 'Not set (not set)'
+    })
     df['Day'] = pd.to_numeric(df['Day_raw'], errors='coerce').fillna(0).astype(int)
     df['Transactions'] = pd.to_numeric(df['Transactions_raw'], errors='coerce').fillna(0).astype(int)
 
+    # Obliczenie przyrostowych transakcji per kohorta (Date)
     df = df.sort_values(by=['Source_Campaign', 'Date', 'Day']).reset_index(drop=True)
     df['New_Transactions'] = df.groupby(['Source_Campaign', 'Date'])['Transactions'].diff()
     df.loc[df['Day'] == 0, 'New_Transactions'] = df.loc[df['Day'] == 0, 'Transactions']
     df['New_Transactions'] = df['New_Transactions'].fillna(df['Transactions']).clip(lower=0)
+
     return df.groupby(['Source_Campaign', 'Day'], as_index=False)['New_Transactions'].sum()
 
 
-k_campaigns = load_cohorts(cohort_camp)
-k_sources = load_cohorts(cohort_sour)
+# Wczytujemy bezpośrednio plik kampanii (z naprawionymi danymi N=88 i N=2)
+df_final = load_and_preprocess_cohort_data(cohort_camp)
 
-mask_c = k_sources['Source_Campaign'].str.lower().isin(['comparison_engine', 'comparison_engine / referral'])
-k_comparison_engine = k_sources[mask_c].groupby('Day', as_index=False)['New_Transactions'].sum()
-k_comparison_engine['Source_Campaign'] = 'comparison_engine / referral'
-
-k_ref = k_campaigns[k_campaigns['Source_Campaign'] == '(referral)'].copy()
-k_non_ref = k_campaigns[k_campaigns['Source_Campaign'] != '(referral)'].copy()
-
-# Pre-aggregation before merge to prevent duplicate records
-k_ref_agg = k_ref.groupby(['Source_Campaign', 'Day'], as_index=False)['New_Transactions'].sum()
-k_comparison_engine_agg = k_comparison_engine.groupby('Day', as_index=False)['New_Transactions'].sum()
-
-k_merged = pd.merge(k_ref_agg, k_comparison_engine_agg[['Day', 'New_Transactions']], on='Day', how='left', suffixes=('', '_c'))
-k_merged['New_Transactions_c'] = k_merged['New_Transactions_c'].fillna(0)
-k_merged['New_Transactions'] = (k_merged['New_Transactions'] - k_merged['New_Transactions_c']).clip(lower=0)
-k_ref_clean = k_merged[['Source_Campaign', 'Day', 'New_Transactions']].copy()
-
-k_final = pd.concat([
-    k_non_ref[['Source_Campaign', 'Day', 'New_Transactions']],
-    k_ref_clean,
-    k_comparison_engine[['Source_Campaign', 'Day', 'New_Transactions']]
-], ignore_index=True)
-
-k_final['Channel_Type'] = k_final['Source_Campaign'].apply(
+df_final['Channel_Type'] = df_final['Source_Campaign'].apply(
     lambda x: 'organic / free' if x in free_sources else 'paid campaign'
 )
-k_final['Time_Bucket'] = k_final['Day'].apply(assign_time_bucket)
+df_final['Time_Bucket'] = df_final['Day'].apply(assign_time_bucket)
 
-time_buckets = [
+time_buckets_ordered = [
     'Day 0 (Immediate)',
     'Days 1-3 (Short Consideration)',
     'Days 4-7 (One Week)',
@@ -178,20 +170,30 @@ time_buckets = [
 ]
 
 campaign_table = pd.pivot_table(
-    k_final,
+    df_final,
     values='New_Transactions',
     index=['Source_Campaign', 'Channel_Type'],
     columns='Time_Bucket',
     aggfunc='sum',
     fill_value=0
-).reindex(columns=time_buckets, fill_value=0)
+).reindex(columns=time_buckets_ordered, fill_value=0)
 
 campaign_table['Total_Transactions'] = campaign_table.sum(axis=1)
+
 campaign_table['% Purchases Day 0'] = np.where(
     campaign_table['Total_Transactions'] > 0,
     (campaign_table['Day 0 (Immediate)'] / campaign_table['Total_Transactions']) * 100,
-    0.0
+    np.nan
 ).round(1)
+
+campaign_table = campaign_table.sort_values(by='Total_Transactions', ascending=False)
+
+total_store_transactions = campaign_table['Total_Transactions'].sum()
+campaign_table['Store_Sales_Share_%'] = np.where(
+    total_store_transactions > 0,
+    (campaign_table['Total_Transactions'] / total_store_transactions) * 100,
+    0
+).round(2)
 
 df_cohort_summary = campaign_table.reset_index()[['Source_Campaign', '% Purchases Day 0']].copy()
 df_cohort_summary.rename(columns={'% Purchases Day 0': '% Transactions Day 0'}, inplace=True)
@@ -203,16 +205,24 @@ attribution_summary = attribution_summary.fillna({'ft_lt_%': 0.0, '% Transaction
 
 
 def assign_recommendation(row):
+    # Comparison channel: secure budget & liquidity
     if 'comparison_engine / referral' in str(row['Source_Campaign']).lower():
-        return 'Top Performer'
+        return 'Protect & Fund'
+
+    # Free / organic sources
     if row['Channel_Type'] == 'organic / free':
-        return 'Maintain'
+        return 'Leverage & Retain'
+
+    # Paid effective campaigns
     if row['ROAS'] >= 5.0:
-        return 'Scale'
+        return 'Scale Budget'
     elif row['ROAS'] >= 2.0:
-        return 'Maintain'
+        return 'Maintain & Optimize'
+    elif row['Revenue'] > 0:
+        return 'Audit & Restructure'
     else:
-        return 'Audit / Optimize'
+        # Zero-conversion campaigns (adbox, aku, discount)
+        return 'Pause / Cut Spend'
 
 
 attribution_summary['Recommendation'] = attribution_summary.apply(assign_recommendation, axis=1)
@@ -272,7 +282,7 @@ display_table.columns = [
 
 # Visualizations
 
-# 1. ROAS vs CPA (Bubble Chart)
+# 1. ROAS vs CPA (Bubble Chart) - Power BI style
 df_paid = summary[summary['Cost'] > 0].copy()
 
 
@@ -289,6 +299,8 @@ df_paid['Label'] = df_paid['Source_Campaign']
 df_paid['Revenue_Formatted'] = df_paid['Revenue'].apply(lambda x: f"{x:,.2f}".replace(',', ' ') + " PLN")
 df_paid['CPA_Formatted'] = df_paid['CPA'].apply(lambda x: f"{x:,.2f}".replace(',', ' ') + " PLN")
 
+bubble_palette = ['#1c2e56', '#254473', '#428bca', '#6ba4d9', '#52718e']
+
 fig_bubble = px.scatter(
     df_paid,
     x='CPA',
@@ -303,21 +315,23 @@ fig_bubble = px.scatter(
         'ROAS': 'ROAS - Return on Ad Spend',
         'Source_Campaign': 'Campaign',
     },
+    color_discrete_sequence=bubble_palette,
+    custom_data=['Source_Campaign', 'CPA_Formatted', 'Revenue_Formatted'],
     template='plotly_dark',
 )
 
 fig_bubble.update_traces(
     mode='markers+text',
+    opacity=1.0,
     textposition=df_paid['Text_Position'],
-    textfont=dict(size=11, color='#CCCCCC', family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"),
-    hoverlabel=dict(bgcolor='#222222', bordercolor='#444444', font=dict(color='white')),
+    textfont=dict(size=11, color='#94a3b8', family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"),
+    hoverlabel=dict(bgcolor='#1e293b', bordercolor='#475569', font=dict(color='#ffffff', size=13)),
     hovertemplate=(
-        "<b>%{customdata[0]}</b><br>"
-        "CPA: %{customdata[1]}<br>"
-        "ROAS: %{y:.2f}<br>"
-        "Revenue: %{customdata[2]}<extra></extra>"
-    ),
-    customdata=df_paid[['Source_Campaign', 'CPA_Formatted', 'Revenue_Formatted']].values
+        "<span style='color: #ffffff;'><b>%{customdata[0]}</b></span><br>"
+        "<span style='color: #ffffff;'>CPA: %{customdata[1]}</span><br>"
+        "<span style='color: #ffffff;'>ROAS: %{y:.2f}</span><br>"
+        "<span style='color: #ffffff;'>Revenue: %{customdata[2]}</span><extra></extra>"
+    )
 )
 
 fig_bubble.update_layout(
@@ -340,20 +354,21 @@ df_plot = df_plot.sort_values(by='Total_Transactions', ascending=True)
 
 df_plot['Total_Transactions_Str'] = df_plot['Total_Transactions'].apply(lambda x: f"{x:,.0f}".replace(',', ' '))
 df_plot['Source_N'] = (
-        df_plot['Source_Campaign'] + ' (N=' + df_plot['Total_Transactions_Str'] + ')          '
+    df_plot['Source_Campaign'] + ' (N=' + df_plot['Total_Transactions_Str'] + ')'
 )
 
-df_plot = df_plot.melt(
+df_long = df_plot.melt(
     id_vars=['Source_N', 'Source_Campaign', 'Channel_Type', 'Total_Transactions', 'Total_Transactions_Str'],
-    value_vars=time_buckets,
+    value_vars=time_buckets_ordered,
     var_name='Time_Bucket',
     value_name='Transaction_Count'
 )
-df_plot['Share_%'] = (df_plot['Transaction_Count'] / df_plot['Total_Transactions']) * 100
-df_plot['Transaction_Count_Str'] = df_plot['Transaction_Count'].apply(lambda x: f"{x:,.0f}".replace(',', ' '))
+
+df_long['Share_%'] = (df_long['Transaction_Count'] / df_long['Total_Transactions']) * 100
+df_long['Transaction_Count_Str'] = df_long['Transaction_Count'].apply(lambda x: f"{x:,.0f}".replace(',', ' '))
 
 fig_bar_cohort = px.bar(
-    df_plot,
+    df_long,
     x='Share_%',
     y='Source_N',
     color='Time_Bucket',
@@ -364,22 +379,22 @@ fig_bar_cohort = px.bar(
         'Source_N': 'Source / Campaign (Sample N)',
         'Time_Bucket': 'Time to Purchase'
     },
-    color_discrete_sequence=['#38bdf8', '#fbbf24', '#34d399', '#f87171'],
+    color_discrete_sequence=['#428bca', '#6ba4d9', '#52718e', '#1c2e56'],
     custom_data=['Source_Campaign', 'Channel_Type', 'Transaction_Count_Str', 'Total_Transactions_Str'],
     template='plotly_dark'
 )
-
 fig_bar_cohort.update_traces(
+    marker_line_width=0,
     hoverlabel=dict(
         bgcolor='#1e293b',
         bordercolor='#475569',
-        font=dict(color='#ffffff')
+        font=dict(color='#ffffff', size=13)
     ),
     hovertemplate=(
-            "<b>%{customdata[0]}</b> (%{customdata[1]})<br>" +
-            "Interval: <b>%{fullData.name}</b><br>" +
-            "Share: <b>%{x:.1f}%</b><br>" +
-            "Transactions in interval: <b>%{customdata[2]}</b> of %{customdata[3]}<extra></extra>"
+        "<span style='color: #ffffff;'><b>%{customdata[0]}</b> (%{customdata[1]})</span><br>" +
+        "<span style='color: #ffffff;'>Interval: <b>%{fullData.name}</b></span><br>" +
+        "<span style='color: #ffffff;'>Share: <b>%{x:.1f}%</b></span><br>" +
+        "<span style='color: #ffffff;'>Transactions in interval: <b>%{customdata[2]}</b> of %{customdata[3]}</span><extra></extra>"
     )
 )
 
@@ -392,7 +407,10 @@ fig_bar_cohort.update_layout(
         color='#f8fafc'
     ),
     xaxis=dict(range=[0, 100], ticksuffix='%', showgrid=True, gridcolor='#334155'),
-    yaxis=dict(title=''),
+    yaxis=dict(
+        title='',
+        ticksuffix='   '
+    ),
     legend=dict(
         orientation='h',
         yanchor='bottom',
@@ -401,8 +419,8 @@ fig_bar_cohort.update_layout(
         x=0.5,
         title=''
     ),
-    hoverlabel=dict(bgcolor='#222222', bordercolor='#444444', font_size=12),
-    height=600,
+    hoverlabel=dict(bgcolor='#1e293b', bordercolor='#475569', font_size=13, font_color='#ffffff'),
+    height=650,
     margin=dict(l=20, r=40, t=60, b=80),
 )
 
@@ -450,7 +468,7 @@ df_agg = (
 )
 
 stage_order = list(event_mapping.values())
-palette = ['#38bdf8', '#818cf8', '#fbbf24', '#f87171', '#34d399']
+palette = ['#1c2e56', '#254473', '#428bca', '#6ba4d9', '#52718e']
 
 fig_funnel = go.Figure()
 
@@ -547,7 +565,7 @@ insights_section = """
             <!-- INSIGHTS INTRO -->
             <div style="margin-top: 16px; margin-bottom: 28px; max-width: 950px;">
             <p style="color: #94a3b8; font-size: 13px; line-height: 1.6; margin: 0;">
-                A notable <strong style="color: #f8fafc;">88.5% of transactions</strong> conclude on Day 0 (the initial visit), confirming an impulse-driven purchase behavior. The primary systemic bottleneck across paid campaigns occurs at checkout initiation: steep attrition results in only <strong style="color: #f8fafc;">23.5%</strong> of checkout sessions converting into completed orders. Consequently, overall end-to-end funnel conversion (CR) ranges between <strong style="color: #f8fafc;">0.4% and 2.5%</strong>.
+                A notable <strong style="color: #f8fafc;">~75% of transactions</strong> conclude on Day 0 (the initial visit), confirming an impulse-driven purchase behavior. The primary systemic bottleneck across paid campaigns occurs at checkout initiation: steep attrition results in only <strong style="color: #f8fafc;">18%-27%</strong> of checkout sessions converting into completed orders. Consequently, overall end-to-end funnel conversion (CR) ranges between <strong style="color: #f8fafc;">0.4% and 2.5%</strong>.
             </p>
         </div>
 
@@ -587,7 +605,7 @@ insights_section = """
                         PMax | DiamondTools
                     </div>
                     <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
-                        High-converting, stable channel (ROAS 3.65, CR 2.98%, low CPA 100.51 PLN). Primed for budget scaling provided average order value (AOV) is systematically raised via cross-selling.
+                        High-converting, stable channel (ROAS 3.65, CR 2.98%, low CPA 100.51 PLN)[cite: 4]. Strong candidate for selective scaling, provided average order value (AOV) is systematically raised via cross-selling.
                     </p>
                 </div>
             </div>
@@ -668,7 +686,7 @@ insights_section = """
                         Direct & Referral
                     </div>
                     <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
-                        High brand trust and premium basket size (AOV 800.00-1 000.00 PLN, CR up to 5.13%), indicating established B2B and repeat customer segments.
+                        High brand trust and premium basket size (AOV 600.00-830.00 PLN, CR up to 5.13%), indicating established B2B and repeat customer segments.
                     </p>
                 </div>
 
@@ -677,7 +695,7 @@ insights_section = """
                         AI Assistant Traffic
                     </div>
                     <p style="color: #94a3b8; font-size: 12px; line-height: 1.55; margin: 0;">
-                        Highest conversion rate (5.41%) and record ARPU (54.91 PLN/user). Despite early-stage scale (37 users), this represents a high-intent conversion vector for ongoing tracking.
+                        Highest conversion rate (5.41%) and record ARPU (54.91 PLN/user). Despite early-stage scale (39 users), this represents a high-intent conversion vector for ongoing tracking.
                     </p>
                 </div>
 
@@ -718,15 +736,21 @@ insights_section = """
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>Fund Comparison Engine Liquidity:</b> Maintain active pre-paid balances and lift CPC caps on high-margin catalog items to prevent delivery interruptions.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>Curb Inefficient Spend:</b> Cut PowerBrand-Shopping ad spend by at least 50% and pause zero-conversion micro-campaigns (adbox_comparison, DiamondTools discount, aku). Reallocate budget toward Comparison Engine and PMax DiamondTools.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
 - <b>PMax DiamondTools Strategy:</b> Scale budget incrementally while introducing catalog bundling and cross-sell modules on product pages to raise AOV.
+
+
 
                 </p>
             </div>
@@ -741,10 +765,14 @@ insights_section = """
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>Frictionless Checkout:</b> Remove mandatory account registration, enable one-click wallets (BLIK, Apple Pay, Google Pay), and display real-time dispatch countdowns to lift checkout completion toward 50%.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
 - <b>Homepage Layout & A/B Testing:</b> Downsize hero banners, implement a top-deal product carousel, and integrate structured technical specification tables and FAQ sections on product detail pages.
+
+
 
                 </p>
             </div>
@@ -759,15 +787,21 @@ insights_section = """
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>Automated Cart Recovery:</b> Trigger automated email/push notifications for abandoned checkouts alongside time-sensitive incentives (e.g., 60-minute vouchers) to secure immediate purchase completion.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>Direct Customer Retention:</b> Implement tiered B2B pricing models, targeted newsletters, and 'Reorder Now' triggers for returning customers.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
 - <b>Dynamic Remarketing (7-Day Window):</b> Limit retargeting windows to 7 days to eliminate ad spend waste beyond active purchase consideration.
+
+
 
                 </p>
             </div>
@@ -782,15 +816,21 @@ insights_section = """
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>SEO & Schema.org Rich Snippets:</b> Strengthen organic visibility for PowerBrand and DiamondTools brand keywords and implement Schema markup for search engine and generative AI discovery.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0 0 14px 0;">
 - <b>Referral Growth:</b> Secure backlink placements across official manufacturer directories ('Where to Buy / Authorized Dealers') and industry networks.
 
+
+
                 </p>
 
                 <p style="color: #cbd5e1; font-size: 12px; line-height: 1.55; margin: 0;">
 - <b>Resolve '(not set)' Traffic:</b> Perform complete UTM tag auditing across active campaigns to eliminate attribution gaps.
+
+
 
                 </p>
             </div>
@@ -803,16 +843,14 @@ insights_section = """
 # HTML Report Generation
 
 def style_recommendations(val):
-    if 'Top Performer' in val:
-        return f'<span style="background: rgba(52, 211, 153, 0.2); color: #34d399; padding: 4px 8px; border-radius: 4px; font-weight: 700;">{val}</span>'
-    elif 'Scale' in val:
-        return f'<span style="background: rgba(56, 189, 248, 0.2); color: #38bdf8; padding: 4px 8px; border-radius: 4px; font-weight: 700;">{val}</span>'
+    if 'Protect' in val or 'Scale' in val:
+        return f'<span style="background: rgba(66, 139, 202, 0.22); color: #428bca; padding: 4px 8px; border-radius: 4px; font-weight: 700; border: 1px solid rgba(66, 139, 202, 0.35);">{val}</span>'
+    elif 'Leverage' in val:
+        return f'<span style="background: rgba(107, 164, 217, 0.18); color: #6ba4d9; padding: 4px 8px; border-radius: 4px; font-weight: 600;">{val}</span>'
     elif 'Maintain' in val:
-        return f'<span style="background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 4px 8px; border-radius: 4px;">{val}</span>'
+        return f'<span style="background: rgba(82, 113, 142, 0.2); color: #8da9c4; padding: 4px 8px; border-radius: 4px; font-weight: 500;">{val}</span>'
     else:
-        return f'<span style="background: rgba(239, 68, 68, 0.2); color: #ef4444; padding: 4px 8px; border-radius: 4px;">{val}</span>'
-
-
+        return f'<span style="background: rgba(224, 108, 117, 0.18); color: #e06c75; padding: 4px 8px; border-radius: 4px; font-weight: 600;">{val}</span>'
 table_html_ready = display_table.copy()
 table_html_ready['Recommendation'] = table_html_ready['Recommendation'].apply(style_recommendations)
 table_html = table_html_ready.to_html(index=False, escape=False, classes='tabela-executive')
@@ -867,9 +905,9 @@ final_html = f"""<!DOCTYPE html>
             background-color: #334155;
         }}
         .tabela-executive tr:first-child {{
-            background-color: rgba(52, 211, 153, 0.08);
-            font-weight: bold;
-        }}
+        background-color: rgba(66, 139, 202, 0.12);
+        font-weight: bold;
+}}
     </style>
 </head>
 <body>
@@ -894,23 +932,26 @@ final_html = f"""<!DOCTYPE html>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-bottom: 32px;">
 
-      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
-        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Revenue</div>
-        <div style="font-size: 24px; font-weight: 700; color: #f8fafc; margin-top: 6px;">105 711.99 PLN</div>
-        <div style="font-size: 12px; color: #34d399; margin-top: 6px; font-weight: 500;">31.5% store share • 87 transactions</div>
-      </div>
-
-      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
-        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">ROAS</div>
-        <div style="font-size: 24px; font-weight: 700; color: #34d399; margin-top: 6px;">ROAS 12.31</div>
-        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">Profit leader • Lowest CPA (98.72 PLN)</div>
-      </div>
-
-      <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
-        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Average Order Value (AOV)</div>
-        <div style="font-size: 24px; font-weight: 700; color: #34d399; margin-top: 6px;">1 215.08 PLN</div>
-        <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">33.10 PLN ARPU • CR 2.27%</div>
-      </div>
+          <!-- REVENUE -->
+    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+      <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Revenue</div>
+      <div style="font-size: 24px; font-weight: 700; color: #f8fafc; margin-top: 6px;">105 711.99 PLN</div>
+      <div style="font-size: 12px; color: #6ba4d9; margin-top: 6px; font-weight: 500;">31.5% store share • 87 transactions</div>
+    </div>
+    
+    <!-- ROAS -->
+    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+      <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">ROAS</div>
+      <div style="font-size: 24px; font-weight: 700; color: #6ba4d9; margin-top: 6px;">ROAS 12.31</div>
+      <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">Profit leader • Lowest CPA (98.72 PLN)</div>
+    </div>
+    
+    <!-- AOV -->
+    <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
+      <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Average Order Value (AOV)</div>
+      <div style="font-size: 24px; font-weight: 700; color: #6ba4d9; margin-top: 6px;">1 215.08 PLN</div>
+      <div style="font-size: 12px; color: #94a3b8; margin-top: 6px;">33.10 PLN ARPU • CR 2.27%</div>
+    </div>
 
       <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 20px;">
         <div style="font-size: 11px; font-weight: 700; color: #94a3b8; letter-spacing: 0.05em; text-transform: uppercase;">Purchase Latency & Path</div>
