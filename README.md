@@ -21,6 +21,9 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 
 
 
+## 📊 Executive Dashboard Preview
+
+Krótka prezentacja działania interaktywnego raportu zarządczego (filtry, lejek, kohorty i rekomendacje biznesowe)
 
 
 
@@ -33,7 +36,10 @@ The project combines raw GA4 event-log preprocessing, media efficiency calculati
 
 
 
-https://github.com/user-attachments/assets/11a109e2-09c3-4475-854d-0858891bae03
+
+https://github.com/user-attachments/assets/0bba1208-afd2-4955-9d4d-816013570960
+
+
 
 
 
@@ -190,18 +196,18 @@ $$\text{ROAS} = \frac{\text{Revenue}}{\text{Cost}}, \quad \text{CPA} = \frac{\te
 Consolidated performance evaluation matrix across all audited traffic channels:
 
 | Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | CR % | Recommendation |
-| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
-| Comparison Engine / referral | 3831 | 87 | 105 711.99 | **12.31** | **98.72** | 2.27% | **Scale Budget (Top Performer)** |
-| PowerBrand – ElectroStore – Search Website | 4 338 | 45 | 43 398.90 | **3.63** | **265.86** | 1.04% | Maintain + On-Site |
-| (direct) | 1234 | 39 | 38 064.50 | - | - | 3.16% | Maintain (Loyal Core) |
-| (organic) | 2630 | 26 | 23 214.10 | - | - | 0.99% | Maintain (Paid Closer) |
-| PowerBrand-Shopping | 13 783 | 62 | 12 921.38 | **1.08** | **208.41** | 0.45% | Cut Budget by 50% |
-| PMax DiamondTools | 470 | 14 | 5 152.00 | **3.65** | **100.51** | 2.98% | Scale + Cross-Selling |
-| Not set (not set) | 135 | 11 | 9 845.20 | - | - | 8.15% | UTM Tagging Audit |
-| (ai-assistant) | 37 | 2 | 2 031.80 | - | - | 5.41% | Emerging Channel (Track) |
-| Shopping Free Listings | 22 | 2 | 484.00 | - | - | 8.89% | Feed Optimization |
-| (cross-network)| 312 | 1 | 296.00 | **0.52** | **296.00** | 0.32% | Pause / Restructure|
-| Zero-conversion paid (3 campaigns)| 20 | 0 | 0.00 | **0.00** | - | 0.00% | Decommission Spend |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **Comparison Engine / referral** | 3 831 | 87 | 105 711.99 | 12.31 | 98.72 | 2.27% | **Protect & Fund** |
+| **PowerBrand – ElectroStore – Search Website** | 4 338 | 45 | 43 398.90 | 3.63 | 265.86 | 1.04% | **Maintain & Optimize** |
+| **(direct)** | 1 234 | 39 | 38 064.50 | — | — | 3.16% | **Leverage & Retain** |
+| **(organic)** | 2 630 | 26 | 23 214.10 | — | — | 0.99% | **Leverage & Retain** |
+| **PowerBrand-Shopping** | 13 783 | 62 | 12 921.38 | 1.08 | 208.41 | 0.45% | **Audit & Restructure** |
+| **PMax DiamondTools** | 470 | 14 | 5 152.00 | 3.65 | 100.51 | 2.98% | **Maintain & Optimize** |
+| **Not set (not set)** | 135 | 11 | 9 845.20 | — | — | 8.15% | **Audit & Restructure** |
+| **(ai-assistant)** | 37 | 2 | 2 031.80 | — | — | 5.41% | **Leverage & Retain** |
+| **Shopping Free Listings** | 22 | 2 | 484.00 | — | — | 8.89% | **Leverage & Retain** |
+| **(cross-network)** | 312 | 1 | 296.00 | 0.52 | 296.00 | 0.32% | **Audit & Restructure** |
+| **Zero-conversion paid (3 campaigns)** | 20 | 0 | 0.00 | 0.00 | — | 0.00% | **Pause / Cut Spend** |
 
 *\*Includes: `adbox_comparison`, `DiamondTools discount`, `aku`.*
 
@@ -236,7 +242,8 @@ Bubble chart mapping Cost Per Acquisition against Return on Ad Spend. Bubble siz
 <br>
 
 
-<img width="1542" height="727" alt="image" src="https://github.com/user-attachments/assets/0bb39ad2-22eb-48e5-822c-86696cdb2425" />
+<img width="1512" height="712" alt="image" src="https://github.com/user-attachments/assets/60478b30-e445-490d-a9eb-1ad0ea03e178" />
+
 
 
 <br>
@@ -263,7 +270,8 @@ Horizontal stacked distribution tracking days elapsed from user acquisition to o
 <br>
 
 
-<img width="1531" height="792" alt="image" src="https://github.com/user-attachments/assets/84d2b75f-4b39-425a-8246-35d977caf723" />
+<img width="1542" height="847" alt="image" src="https://github.com/user-attachments/assets/b582754e-e67c-4f81-974a-7508079a1db4" />
+
 
 
 <br>
@@ -284,7 +292,8 @@ E-commerce conversion funnel with campaign-level dropdown filtering.
 <br>
 
 
-<img width="1540" height="745" alt="image" src="https://github.com/user-attachments/assets/6083bebf-1c5d-4f20-843a-42107be8b797" />
+<img width="1521" height="717" alt="image" src="https://github.com/user-attachments/assets/8c548772-73df-45c7-88eb-13ca32ad735f" />
+
 
 
 <br>
