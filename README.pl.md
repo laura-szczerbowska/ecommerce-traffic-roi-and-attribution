@@ -197,6 +197,10 @@ $$
 
 Zbiorcze zestawienie efektywności wszystkich analizowanych źródeł ruchu:
 
+
+<br>
+
+
 <div style="overflow-x: auto; white-space: nowrap;">
 
 | Source / Campaign | Users | Trans. | Revenue (PLN) | ROAS | CPA (PLN) | AOV (PLN) | CR % | % Immediate (D0) | First/Last Match | Recommendation |
@@ -391,7 +395,9 @@ pip install -r requirements.txt
 
 #### 3) Generowanie dashboardu zarządczego
 
-`python 05_executive_report.py`
+```bash
+python 05_executive_report.py
+```
 
 Skrypt przetworzy pliki CSV, obliczy wskaźniki, wygeneruje gotowy plik executive_summary_report.html i automatycznie otworzy go w domyślnej przeglądarce.
 
