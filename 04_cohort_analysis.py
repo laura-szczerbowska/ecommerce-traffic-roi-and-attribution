@@ -1,9 +1,12 @@
 import numpy as np
 import pandas as pd
+import plotly.express as px
 
+# Set display options for wide table visualization in terminal
 pd.set_option('display.max_columns', None)
 pd.set_option('display.width', 1000)
 
+# Define unpaid/organic traffic sources for channel classification
 free_sources = [
     '(direct)',
     '(organic)',
@@ -11,11 +14,12 @@ free_sources = [
     'Shopping Free Listings',
     '(ai-assistant)',
     '(not set)',
-    'Not set (not set)'
+    'Not set (not set)',
+    'Brak nazwy (not set)'
 ]
 
-
 def assign_time_bucket(day):
+    """Categorize conversion latency into standardized consideration buckets."""
     if day == 0:
         return 'Day 0 (Immediate)'
     elif 1 <= day <= 3:
@@ -25,96 +29,67 @@ def assign_time_bucket(day):
     else:
         return 'Over 7 Days'
 
-
 def load_and_preprocess_cohort_data(file_path):
+    """Load GA4 cohort export, clean reserved rows, and calculate incremental daily transactions."""
     df = pd.read_csv(file_path, encoding='utf-8-sig', comment='#', dtype=str, on_bad_lines='skip')
     df.columns = df.columns.str.strip()
 
-    # Jeśli plik ma kolumnę z indeksem lub 8 kolumn, bierzemy pierwsze 7 właściwych
+    # Standardize column schema depending on whether Row_Type is present
     if df.shape[1] >= 7:
         df = df.iloc[:, :7]
         df.columns = [
-            'Day_raw',
-            'Date',
-            'Source_Campaign',
-            'Row_Type',
-            'Users',
-            'Transactions_raw',
-            'Rate'
+            'Day_raw', 'Date', 'Source_Campaign', 'Row_Type',
+            'Users', 'Transactions_raw', 'Rate'
         ]
+        # Keep only the active date range rows and exclude aggregated totals
         df = df[df['Row_Type'].astype(str).str.strip() == 'date_range_0'].copy()
     else:
         df = df.iloc[:, :6]
         df.columns = [
-            'Day_raw',
-            'Date',
-            'Source_Campaign',
-            'Users',
-            'Transactions_raw',
-            'Rate'
+            'Day_raw', 'Date', 'Source_Campaign',
+            'Users', 'Transactions_raw', 'Rate'
         ]
 
-    # Drop reserved/system summary rows
+    # Drop GA4 system-generated summary and reserved rows
     df = df[
         (~df['Source_Campaign'].astype(str).str.contains('RESERVED', case=False, na=False)) &
         (~df['Date'].astype(str).str.contains('RESERVED', case=False, na=False))
     ].copy()
 
-    # Type casting and cleanup
-    df['Source_Campaign'] = df['Source_Campaign'].astype(str).str.strip().replace({'(not set)': 'Not set (not set)'})
+    # Normalize missing source labels and cast data types
+    df['Source_Campaign'] = df['Source_Campaign'].astype(str).str.strip().replace({
+        '(not set)': 'Not set (not set)'
+    })
     df['Day'] = pd.to_numeric(df['Day_raw'], errors='coerce').fillna(0).astype(int)
     df['Transactions'] = pd.to_numeric(df['Transactions_raw'], errors='coerce').fillna(0).astype(int)
 
-    # Calculate incremental new transactions per individual daily cohort
+    # Sort sequentially to calculate incremental new transactions per cohort day
     df = df.sort_values(by=['Source_Campaign', 'Date', 'Day']).reset_index(drop=True)
     df['New_Transactions'] = df.groupby(['Source_Campaign', 'Date'])['Transactions'].diff()
     df.loc[df['Day'] == 0, 'New_Transactions'] = df.loc[df['Day'] == 0, 'Transactions']
     df['New_Transactions'] = df['New_Transactions'].fillna(df['Transactions']).clip(lower=0)
 
-    df_agg = df.groupby(['Source_Campaign', 'Day'], as_index=False)['New_Transactions'].sum()
-    return df_agg
+    # Aggregate incremental transactions by source/campaign and latency day
+    return df.groupby(['Source_Campaign', 'Day'], as_index=False)['New_Transactions'].sum()
 
+# Load cleaned campaign cohort dataset
+df_final = load_and_preprocess_cohort_data('data/cohort_analysis_campaigns.csv')
 
-df_campaigns = load_and_preprocess_cohort_data('data/cohort_analysis_campaigns.csv')
-df_sources = load_and_preprocess_cohort_data('data/cohort_analysis_sources.csv')
-
-# Isolate Comparison Engine traffic
-mask_comparison_engine = df_sources['Source_Campaign'].str.lower().isin(['comparison_engine', 'comparison_engine / referral'])
-df_comparison_engine = df_sources[mask_comparison_engine].groupby('Day', as_index=False)['New_Transactions'].sum()
-df_comparison_engine['Source_Campaign'] = 'comparison_engine / referral'
-
-# Separate and subtract Comparison Engine from generic (referral)
-df_ref = df_campaigns[df_campaigns['Source_Campaign'] == '(referral)'].copy()
-df_non_ref = df_campaigns[df_campaigns['Source_Campaign'] != '(referral)'].copy()
-
-df_merged = pd.merge(
-    df_ref,
-    df_comparison_engine[['Day', 'New_Transactions']],
-    on='Day',
-    how='left',
-    suffixes=('', '_comparison_engine')
-)
-df_merged['New_Transactions_comparison_engine'] = df_merged['New_Transactions_comparison_engine'].fillna(0)
-df_merged['New_Transactions'] = (
-    df_merged['New_Transactions'] - df_merged['New_Transactions_comparison_engine']
-).clip(lower=0)
-df_ref_clean = df_merged[['Source_Campaign', 'Day', 'New_Transactions']].copy()
-
-# Reconstruct unified dataset
-df_final = pd.concat([
-    df_non_ref[['Source_Campaign', 'Day', 'New_Transactions']],
-    df_ref_clean,
-    df_comparison_engine[['Source_Campaign', 'Day', 'New_Transactions']]
-], ignore_index=True)
-
+# Assign channel classifications and time-to-conversion buckets
 df_final['Channel_Type'] = df_final['Source_Campaign'].apply(
     lambda x: 'organic / free' if x in free_sources else 'paid campaign'
 )
-
-# Assign time buckets
 df_final['Time_Bucket'] = df_final['Day'].apply(assign_time_bucket)
 
-# Pivot table: conversions across latency buckets
+# Define column ordering for the pivot table
+time_buckets_ordered = [
+    'Day 0 (Immediate)',
+    'Days 1-3 (Short Consideration)',
+    'Days 4-7 (One Week)',
+    'Over 7 Days'
+]
+
+# Pivot table: aggregate conversion volumes across latency intervals
 campaign_table = pd.pivot_table(
     df_final,
     values='New_Transactions',
@@ -122,17 +97,9 @@ campaign_table = pd.pivot_table(
     columns='Time_Bucket',
     aggfunc='sum',
     fill_value=0
-)
+).reindex(columns=time_buckets_ordered, fill_value=0)
 
-time_buckets_ordered = [
-    'Day 0 (Immediate)',
-    'Days 1-3 (Short Consideration)',
-    'Days 4-7 (One Week)',
-    'Over 7 Days'
-]
-campaign_table = campaign_table.reindex(columns=time_buckets_ordered, fill_value=0)
-
-# Calculate core metrics
+# Compute total conversions and immediate purchase share
 campaign_table['Total_Transactions'] = campaign_table.sum(axis=1)
 
 campaign_table['% Purchases Day 0'] = np.where(
@@ -141,8 +108,10 @@ campaign_table['% Purchases Day 0'] = np.where(
     np.nan
 ).round(1)
 
+# Sort campaigns by aggregate volume descending
 campaign_table = campaign_table.sort_values(by='Total_Transactions', ascending=False)
 
+# Calculate overall contribution share to store-wide sales
 total_store_transactions = campaign_table['Total_Transactions'].sum()
 campaign_table['Store_Sales_Share_%'] = np.where(
     total_store_transactions > 0,
@@ -152,37 +121,28 @@ campaign_table['Store_Sales_Share_%'] = np.where(
 
 print(campaign_table)
 
-# VISUALIZATION
 
-import plotly.express as px
 
-time_buckets = [
-    'Day 0 (Immediate)',
-    'Days 1-3 (Short Consideration)',
-    'Days 4-7 (One Week)',
-    'Over 7 Days'
-]
+# VISUALIZATION (Plotly Stacked Horizontal Bar Chart)
 
-# Reshape and prepare data for plotting
+# Filter active converting campaigns and sort ascending for horizontal bar display
 df_plot = campaign_table[campaign_table['Total_Transactions'] > 0].reset_index()
-
-# Sort ascending so the largest volume drivers appear at the top of the horizontal bar chart
 df_plot = df_plot.sort_values(by='Total_Transactions', ascending=True)
 
-# Y-axis label displaying sample size N
+# Generate Y-axis label displaying sample size N
 df_plot['Source_N'] = (
     df_plot['Source_Campaign'] + ' (N=' + df_plot['Total_Transactions'].astype(int).astype(str) + ')'
 )
 
-# Convert to long format for Plotly Express
+# Reshape data into long format for Plotly Express
 df_long = df_plot.melt(
     id_vars=['Source_N', 'Source_Campaign', 'Channel_Type', 'Total_Transactions'],
-    value_vars=time_buckets,
+    value_vars=time_buckets_ordered,
     var_name='Time_Bucket',
     value_name='Transaction_Count'
 )
 
-# Calculate percentage share within each individual source
+# Calculate percentage share within each individual channel
 df_long['Share_%'] = (df_long['Transaction_Count'] / df_long['Total_Transactions']) * 100
 
 # Build horizontal stacked bar chart
@@ -202,7 +162,7 @@ fig = px.bar(
     custom_data=['Source_Campaign', 'Channel_Type', 'Transaction_Count', 'Total_Transactions']
 )
 
-# Hover tooltip formatting
+# Configure custom hover tooltip
 fig.update_traces(
     hovertemplate=(
         "<b>%{customdata[0]}</b> (%{customdata[1]})<br>" +
@@ -212,7 +172,7 @@ fig.update_traces(
     )
 )
 
-# Layout styling
+# Layout styling and legend positioning
 fig.update_layout(
     barmode='stack',
     xaxis=dict(range=[0, 100], ticksuffix='%', showgrid=True, gridcolor='rgba(200,200,200,0.3)'),
@@ -232,6 +192,7 @@ fig.update_layout(
 )
 
 fig.show()
+
 
 # FINDINGS AND RECOMMENDATIONS
 
